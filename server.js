@@ -8,7 +8,7 @@ var io = require('socket.io')(server);
 server.listen(8080, "127.0.0.1");
 
 var PRODUCTS_FILE = path.join(__dirname, 'products.json');
-var products = [];
+var productsHelper = [];
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -34,7 +34,9 @@ var listProducts = function(callback) {
       console.error(err);
       process.exit(1);
     }
-    callback(JSON.parse(data));
+    var temp = JSON.parse(data);
+    productsHelper = temp;
+    callback(temp);
     //res.json(JSON.parse(data));
   });
 };
@@ -48,6 +50,7 @@ var addProduct = function(newProduct, callback) {
     var products = JSON.parse(data);
     newProduct.id = Date.now();
     products.push(newProduct);
+    productsHelper = products;
     fs.writeFile(PRODUCTS_FILE, JSON.stringify(products, null, 2), function(err) {
       if (err) {
         console.error(err);
@@ -56,6 +59,13 @@ var addProduct = function(newProduct, callback) {
       callback();
     });
   });
+}
+
+var getProduct = function(id) {
+  for (var i in productsHelper) {
+    if (productsHelper[i].id == id) return productsHelper[i];
+  }
+  return undefined;
 }
 
 app.get('/api/products', function(req, res) {
@@ -84,11 +94,15 @@ io.on('connection', function(socket) {
   });
 
   socket.on('processProduct', function(id) {
-    io.emit('processingProduct', id);
+    var p = getProduct(id);
 
-    setTimeout(function() {
-      io.emit('productProcessed', id);
-    }, 1000)
+    if (p) {
+      io.emit('processingProduct', p);
+
+      setTimeout(function() {
+        io.emit('productProcessed', p);
+      }, p.time)
+    }
   });
 
   socket.on('disconnect', function() {
