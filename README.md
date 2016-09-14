@@ -1,2 +1,0 @@
-# ADS
-Work from colege
