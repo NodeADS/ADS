@@ -33950,9 +33950,9 @@
 
 	var _ServerBox2 = _interopRequireDefault(_ServerBox);
 
-	var _ProductBox = __webpack_require__(221);
+	var _SolicitationBox = __webpack_require__(221);
 
-	var _ProductBox2 = _interopRequireDefault(_ProductBox);
+	var _SolicitationBox2 = _interopRequireDefault(_SolicitationBox);
 
 	var _reactMaterialize = __webpack_require__(179);
 
@@ -33982,7 +33982,7 @@
 	        _react2.default.createElement(
 	          _reactMaterialize.Col,
 	          { s: 4 },
-	          _react2.default.createElement(_ProductBox2.default, { socket: this.props.socket })
+	          _react2.default.createElement(_SolicitationBox2.default, { socket: this.props.socket })
 	        ),
 	        _react2.default.createElement(
 	          _reactMaterialize.Col,
@@ -34086,7 +34086,8 @@
 	    _this.state = {
 	      status: 'Aguardando...',
 	      name: '',
-	      statusBar: 0
+	      statusBar: 0,
+	      started: false
 	    };
 
 	    _this.props.socket.on('processingProduct', function (data) {
@@ -34111,12 +34112,23 @@
 	        statusBar: 100
 	      });
 	    });
+
+	    _this.onClick = _this.onClick.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(ServerStatus, [{
+	    key: 'onClick',
+	    value: function onClick(e) {
+	      console.log(e);
+	      this.setState({
+	        started: !this.state.started
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      //        <Input name='on' type='switch' value='1' onChange={this.onChange} />
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -34124,6 +34136,11 @@
 	          'h1',
 	          null,
 	          'Servidor'
+	        ),
+	        _react2.default.createElement(
+	          _reactMaterialize.Button,
+	          { onClick: this.onClick, disabled: this.state.started },
+	          'Iniciar'
 	        ),
 	        this.state.status,
 	        _react2.default.createElement(
@@ -38212,13 +38229,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CreateProduct = __webpack_require__(222);
+	var _CreateSolicitation = __webpack_require__(222);
 
-	var _CreateProduct2 = _interopRequireDefault(_CreateProduct);
+	var _CreateSolicitation2 = _interopRequireDefault(_CreateSolicitation);
 
-	var _ProductList = __webpack_require__(223);
+	var _SolicitationList = __webpack_require__(223);
 
-	var _ProductList2 = _interopRequireDefault(_ProductList);
+	var _SolicitationList2 = _interopRequireDefault(_SolicitationList);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38228,31 +38245,31 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ProductBox = function (_React$Component) {
-	  _inherits(ProductBox, _React$Component);
+	var SolicitationBox = function (_React$Component) {
+	  _inherits(SolicitationBox, _React$Component);
 
-	  function ProductBox(props) {
-	    _classCallCheck(this, ProductBox);
+	  function SolicitationBox(props) {
+	    _classCallCheck(this, SolicitationBox);
 
-	    return _possibleConstructorReturn(this, (ProductBox.__proto__ || Object.getPrototypeOf(ProductBox)).call(this, props));
+	    return _possibleConstructorReturn(this, (SolicitationBox.__proto__ || Object.getPrototypeOf(SolicitationBox)).call(this, props));
 	  }
 
-	  _createClass(ProductBox, [{
+	  _createClass(SolicitationBox, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_CreateProduct2.default, { socket: this.props.socket }),
-	        _react2.default.createElement(_ProductList2.default, { socket: this.props.socket })
+	        _react2.default.createElement(_CreateSolicitation2.default, { socket: this.props.socket }),
+	        _react2.default.createElement(_SolicitationList2.default, { socket: this.props.socket })
 	      );
 	    }
 	  }]);
 
-	  return ProductBox;
+	  return SolicitationBox;
 	}(_react2.default.Component);
 
-	exports.default = ProductBox;
+	exports.default = SolicitationBox;
 
 /***/ },
 /* 222 */
@@ -38280,16 +38297,16 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var CreateProduct = function (_React$Component) {
-	  _inherits(CreateProduct, _React$Component);
+	var CreateSolicitation = function (_React$Component) {
+	  _inherits(CreateSolicitation, _React$Component);
 
-	  function CreateProduct(props) {
-	    _classCallCheck(this, CreateProduct);
+	  function CreateSolicitation(props) {
+	    _classCallCheck(this, CreateSolicitation);
 
-	    var _this = _possibleConstructorReturn(this, (CreateProduct.__proto__ || Object.getPrototypeOf(CreateProduct)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (CreateSolicitation.__proto__ || Object.getPrototypeOf(CreateSolicitation)).call(this, props));
 
 	    _this.state = {
-	      name: 'Produto 1',
+	      name: 'Solicitação 1',
 	      time: 10000
 	    };
 
@@ -38299,7 +38316,7 @@
 	    return _this;
 	  }
 
-	  _createClass(CreateProduct, [{
+	  _createClass(CreateSolicitation, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {}
 	  }, {
@@ -38318,13 +38335,13 @@
 	      e.preventDefault();
 
 	      if (!this.state.name.length) {
-	        alert('Digite um nome para o produto');
+	        alert('Digite um nome para a solicitação');
 	        return;
 	      } else if (this.state.time <= 0) {
-	        alert('Digite o tempo de processamento do produto');
+	        alert('Digite o tempo de processamento da solicitação');
 	        return;
 	      }
-	      this.props.socket.emit('addProduct', {
+	      this.props.socket.emit('addSolicitation', {
 	        name: this.state.name,
 	        time: this.state.time
 	      });
@@ -38341,7 +38358,7 @@
 	          _react2.default.createElement(_reactMaterialize.Input, { s: 12, label: 'Nome',
 	            value: this.state.name,
 	            onChange: this.handleChangeName }),
-	          _react2.default.createElement(_reactMaterialize.Input, { s: 12, label: 'Tempo de processamento (ms)',
+	          _react2.default.createElement(_reactMaterialize.Input, { s: 12, label: 'Tempo de processamento (m)',
 	            value: this.state.time,
 	            onChange: this.handleChangeTime })
 	        ),
@@ -38354,10 +38371,10 @@
 	    }
 	  }]);
 
-	  return CreateProduct;
+	  return CreateSolicitation;
 	}(_react2.default.Component);
 
-	exports.default = CreateProduct;
+	exports.default = CreateSolicitation;
 
 /***/ },
 /* 223 */
@@ -38377,9 +38394,9 @@
 
 	var _reactMaterialize = __webpack_require__(179);
 
-	var _ProductItem = __webpack_require__(224);
+	var _SolicitationItem = __webpack_require__(224);
 
-	var _ProductItem2 = _interopRequireDefault(_ProductItem);
+	var _SolicitationItem2 = _interopRequireDefault(_SolicitationItem);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38389,45 +38406,45 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ProductList = function (_React$Component) {
-	  _inherits(ProductList, _React$Component);
+	var SolicitationList = function (_React$Component) {
+	  _inherits(SolicitationList, _React$Component);
 
-	  function ProductList(props) {
-	    _classCallCheck(this, ProductList);
+	  function SolicitationList(props) {
+	    _classCallCheck(this, SolicitationList);
 
-	    var _this = _possibleConstructorReturn(this, (ProductList.__proto__ || Object.getPrototypeOf(ProductList)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SolicitationList.__proto__ || Object.getPrototypeOf(SolicitationList)).call(this, props));
 
 	    _this.state = {
 	      products: []
 	    };
 
 	    var self = _this;
-	    _this.props.socket.emit('products');
-	    _this.props.socket.on('products', function (data) {
+	    _this.props.socket.emit('solicitations');
+	    _this.props.socket.on('solicitations', function (data) {
 	      self.setState({ products: data });
 	    });
 	    return _this;
 	  }
 
-	  _createClass(ProductList, [{
+	  _createClass(SolicitationList, [{
 	    key: 'render',
 	    value: function render() {
 	      var self = this;
 	      var productNodes = this.state.products.map(function (product) {
-	        return _react2.default.createElement(_ProductItem2.default, { key: product.id, product: product, socket: self.props.socket });
+	        return _react2.default.createElement(_SolicitationItem2.default, { key: product.id, product: product, socket: self.props.socket });
 	      });
 	      return _react2.default.createElement(
 	        _reactMaterialize.Collection,
-	        { header: 'Produtos' },
+	        { header: 'Solicitações' },
 	        productNodes
 	      );
 	    }
 	  }]);
 
-	  return ProductList;
+	  return SolicitationList;
 	}(_react2.default.Component);
 
-	exports.default = ProductList;
+	exports.default = SolicitationList;
 
 /***/ },
 /* 224 */
@@ -38455,22 +38472,22 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ProductItem = function (_React$Component) {
-	  _inherits(ProductItem, _React$Component);
+	var SolicitationItem = function (_React$Component) {
+	  _inherits(SolicitationItem, _React$Component);
 
-	  function ProductItem(props) {
-	    _classCallCheck(this, ProductItem);
+	  function SolicitationItem(props) {
+	    _classCallCheck(this, SolicitationItem);
 
-	    var _this = _possibleConstructorReturn(this, (ProductItem.__proto__ || Object.getPrototypeOf(ProductItem)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SolicitationItem.__proto__ || Object.getPrototypeOf(SolicitationItem)).call(this, props));
 
-	    _this.processProduct = _this.processProduct.bind(_this);
+	    _this.processSolicitation = _this.processSolicitation.bind(_this);
 	    return _this;
 	  }
 
-	  _createClass(ProductItem, [{
-	    key: 'processProduct',
-	    value: function processProduct(id) {
-	      this.props.socket.emit('processProduct', this.props.product.id);
+	  _createClass(SolicitationItem, [{
+	    key: 'processSolicitation',
+	    value: function processSolicitation(id) {
+	      this.props.socket.emit('processSolicitation', this.props.product.id);
 	    }
 	  }, {
 	    key: 'render',
@@ -38481,17 +38498,17 @@
 	        this.props.product.name,
 	        _react2.default.createElement(
 	          _reactMaterialize.Button,
-	          { waves: 'light', onClick: this.processProduct },
+	          { waves: 'light', onClick: this.processSolicitation },
 	          'Processar'
 	        )
 	      );
 	    }
 	  }]);
 
-	  return ProductItem;
+	  return SolicitationItem;
 	}(_react2.default.Component);
 
-	exports.default = ProductItem;
+	exports.default = SolicitationItem;
 
 /***/ },
 /* 225 */

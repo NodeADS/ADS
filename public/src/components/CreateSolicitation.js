@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Row, Input } from 'react-materialize';
 
-class CreateProduct extends React.Component {
+class CreateSolicitation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'Produto 1',
+      name: 'Solicitação 1',
       time: 10000
     };
 
@@ -30,13 +30,13 @@ class CreateProduct extends React.Component {
     e.preventDefault();
 
     if (!this.state.name.length) {
-      alert('Digite um nome para o produto');
+      alert('Digite um nome para a solicitação');
       return;
     } else if (this.state.time <= 0) {
-      alert('Digite o tempo de processamento do produto');
+      alert('Digite o tempo de processamento da solicitação');
       return;
     }
-    this.props.socket.emit('addProduct', {
+    this.props.socket.emit('addSolicitation', {
       name: this.state.name,
       time: this.state.time
     });
@@ -50,7 +50,7 @@ class CreateProduct extends React.Component {
           <Input s={12} label="Nome"
             value={this.state.name}
             onChange={this.handleChangeName} />
-          <Input s={12} label="Tempo de processamento (ms)"
+          <Input s={12} label="Tempo de processamento (m)"
             value={this.state.time}
             onChange={this.handleChangeTime}/>
         </Row>
@@ -60,4 +60,4 @@ class CreateProduct extends React.Component {
   }
 }
 
-export default CreateProduct;
+export default CreateSolicitation;

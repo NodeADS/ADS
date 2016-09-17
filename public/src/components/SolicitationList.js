@@ -1,8 +1,8 @@
 import React from 'react';
 import { Collection } from 'react-materialize';
-import ProductItem from './ProductItem';
+import SolicitationItem from './SolicitationItem';
 
-class ProductList extends React.Component {
+class SolicitationList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,8 +10,8 @@ class ProductList extends React.Component {
     };
 
     var self = this;
-    this.props.socket.emit('products');
-    this.props.socket.on('products', function(data){
+    this.props.socket.emit('solicitations');
+    this.props.socket.on('solicitations', function(data){
       self.setState({products: data});
     });
   }
@@ -20,15 +20,15 @@ class ProductList extends React.Component {
     var self = this;
     var productNodes = this.state.products.map(function(product) {
       return (
-        <ProductItem key={product.id} product={product} socket={self.props.socket} />
+        <SolicitationItem key={product.id} product={product} socket={self.props.socket} />
       );
     });
     return (
-      <Collection header='Produtos'>
+      <Collection header='Solicitações'>
         {productNodes}
       </Collection>
     );
   }
 }
 
-export default ProductList;
+export default SolicitationList;
