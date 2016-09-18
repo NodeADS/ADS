@@ -11,10 +11,10 @@ class Socket {
     this.solicitation = solicitation;
     this.process = new Process(io, {
       start: () => {
-
+        this.io.emit('startServer');
       },
       stop: () => {
-
+        this.io.emit('stopServer');
       },
       receivedItem: (item) => {
         this.io.emit('receivedItem', item);
@@ -42,12 +42,40 @@ class Socket {
       socket.emit('processing', this.process.isProcessing());
 
       socket.on('start', () => {
-        this.io.emit('startServer');
+        this.process.start();
         self.startProcessing();
+      });
+
+      socket.on('stop', () => {
+        this.process.stop();
+      });
+
+      socket.on('serverStatus', () => {
+        socket.emit('serverStatus', {
+          on: this.process.isStarted(),
+          processing: this.process.isProcessing(),
+          processingItem: this.process.getProcessingItem()
+        });
+      });
+
+      socket.on('solicitationsQueue', () => {
+        socket.emit('solicitationsQueue', self.process.getQueue());
+      });
+
+      socket.on('solicitationsProcesseds', () => {
+        socket.emit('solicitationsProcesseds', self.process.getProcesseds());
+      });
+
+      socket.on('solicitationsProcessing', () => {
+        socket.emit('solicitationsProcessing', self.process.getProcessingItem());
       });
 
       socket.on('solicitations', () => {
         socket.emit('solicitations', self.solicitation.get());
+      });
+
+      socket.on('totalSolicitations', () => {
+        socket.emit('totalSolicitations', self.process.getTotal());
       });
 
       socket.on('disconnect', () => {
@@ -59,6 +87,8 @@ class Socket {
   startProcessing() {
     var itens = this.solicitation.get();
     var arrivalSum = 0;
+
+    this.process.reset();
 
     itens.map((item) => {
       arrivalSum += item.arrival;

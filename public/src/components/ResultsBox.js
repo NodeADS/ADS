@@ -1,5 +1,7 @@
 import React from 'react';
-import { Row, Col } from 'react-materialize';
+import { Collection, CollectionItem, Row, Col } from 'react-materialize';
+import ResultServer from './ResultServer';
+import ResultSolicitation from './ResultSolicitation';
 
 class ResultsBox extends React.Component {
   constructor(props) {
@@ -8,7 +10,18 @@ class ResultsBox extends React.Component {
 
   render() {
     return (
-      <span>Resultados</span>
+      <Collection header='Resultados'>
+        <CollectionItem>
+          <Row>
+            <Col s={6}>
+              <ResultSolicitation socket={this.props.socket} />
+            </Col>
+            <Col s={6}>
+              <ResultServer socket={this.props.socket} />
+            </Col>
+          </Row>
+        </CollectionItem>
+      </Collection>
     );
   }
 }

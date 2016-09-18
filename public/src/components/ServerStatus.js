@@ -4,13 +4,48 @@ import { Collection, CollectionItem, ProgressBar } from 'react-materialize';
 class ServerStatus extends React.Component {
   constructor(props) {
     super(props);
-    let interval;
     this.state = {
       status: 'Parado',
       collor: 'red-text',
       showProgress: false,
       progress: 0
     };
+  }
+
+  componentDidMount() {
+    this.interval = undefined;
+
+    this.props.socket.emit('serverStatus');
+    this.props.socket.on('serverStatus', (data) => {
+      let status = 'Parado'
+        , collor = 'red-text'
+        , showProgress = false;
+
+      if (data.on) {
+        status = 'Aguardando solicitação';
+        collor = 'green-text';
+        if (data.processingItem) {
+          let intervalTime = 100
+             , initDate = new Date(data.processingItem.startDate)
+             , delay = data.processingItem.delay * 1000;
+
+          status = `Processando ${data.processingItem.name}`;
+          showProgress = true;
+
+          this.interval = setInterval(() => {
+            let completed = new Date() - initDate;
+            this.setState({ progress: (completed / delay) * 100 });
+          }, intervalTime);
+
+        }
+      }
+
+      this.setState({
+        status: status,
+        collor: collor,
+        showProgress: showProgress
+      });
+    });
 
     this.props.socket.on('startServer', (data) => {
       this.setState({
@@ -39,7 +74,7 @@ class ServerStatus extends React.Component {
         showProgress: true
       });
 
-      interval = setInterval(() => {
+      this.interval = setInterval(() => {
         progress += sum;
         this.setState({ progress: progress });
       }, intervalTime);
@@ -51,9 +86,13 @@ class ServerStatus extends React.Component {
         collor: 'green-text',
         showProgress: true
       });
-      clearInterval(interval);
+      clearInterval(this.interval);
     });
 
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {

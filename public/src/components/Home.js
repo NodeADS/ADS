@@ -1,9 +1,9 @@
-import 'materialize-css'
+import 'materialize-css';
 import React from 'react';
-import ServerBox from './ServerBox.js'
-import SolicitationBox from './SolicitationBox.js'
-import ParametersBox from './ParametersBox.js'
-import ResultsBox from './ResultsBox.js'
+import ServerBox from './ServerBox';
+import SolicitationBox from './SolicitationBox';
+import ParametersBox from './ParametersBox';
+import ResultsBox from './ResultsBox';
 import { Row, Col } from 'react-materialize';
 
 class Home extends React.Component {

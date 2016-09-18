@@ -12,14 +12,14 @@ class ParametersBox extends React.Component {
     };
 
     this.props.socket.on('processing', (running) => {
-      console.log(running);
       this.setState({running: running});
     });
 
     this.serversChange = this.serversChange.bind(this);
     this.ruleChange = this.ruleChange.bind(this);
     this.outlierChange = this.outlierChange.bind(this);
-    this.onClick = this.onClick.bind(this);
+    this.onStart = this.onStart.bind(this);
+    this.onStop = this.onStop.bind(this);
   }
 
   serversChange() {
@@ -34,12 +34,20 @@ class ParametersBox extends React.Component {
     this.setState({outlier: event.target.value});
   }
 
-  onClick() {
+  onStart() {
     if (this.state.running) return;
     this.setState({
       running: true
     });
     this.props.socket.emit('start');
+  }
+
+  onStop() {
+    if (!this.state.running) return;
+    this.setState({
+      running: false
+    });
+    this.props.socket.emit('stop');
   }
 
   render() {
@@ -48,7 +56,8 @@ class ParametersBox extends React.Component {
         <Input s={6} label="Nº servidores" value={this.state.servers} onChange={this.serversChange} />
         <Input s={6} label="Regra atendimento" value={this.state.rule} onChange={this.ruleChange} />
         <Input s={12} label="Tipo de outlier" value={this.state.outlier} onChange={this.outlierChange} />
-        <Button onClick={this.onClick} disabled={this.state.running} >Iniciar</Button>
+        <Button onClick={this.onStart} disabled={this.state.running} >Iniciar</Button>
+        <Button onClick={this.onStop} disabled={!this.state.running} >Parar</Button>
       </Row>
     );
   }
