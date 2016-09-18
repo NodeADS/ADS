@@ -9,8 +9,7 @@ class ServerStatus extends React.Component {
     this.state = {
       status: 'Parado.',
       name: '',
-      statusBar: 0,
-      started: false
+      statusBar: 0
     };
 
     this.props.socket.on('processingProduct', function(data) {
@@ -35,23 +34,12 @@ class ServerStatus extends React.Component {
         statusBar: 100
       });
     });
-
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick(e) {
-    if (this.state.started) return;
-    this.setState({
-      started: this.state.started
-    });
   }
 
   render() {
-    //        <Input name='on' type='switch' value='1' onChange={this.onChange} />
     return (
       <div>
         <h1>Servidor</h1>
-        <Button onClick={this.onClick} disabled={this.state.started} >Iniciar processo</Button>
         {this.state.status}
         <div>
             {this.state.name}

@@ -33954,6 +33954,14 @@
 
 	var _SolicitationBox2 = _interopRequireDefault(_SolicitationBox);
 
+	var _ParametersBox = __webpack_require__(223);
+
+	var _ParametersBox2 = _interopRequireDefault(_ParametersBox);
+
+	var _ResultsBox = __webpack_require__(224);
+
+	var _ResultsBox2 = _interopRequireDefault(_ResultsBox);
+
 	var _reactMaterialize = __webpack_require__(179);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -33977,17 +33985,36 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        _reactMaterialize.Row,
+	        'div',
 	        null,
 	        _react2.default.createElement(
-	          _reactMaterialize.Col,
-	          { s: 4 },
-	          _react2.default.createElement(_SolicitationBox2.default, { socket: this.props.socket })
+	          _reactMaterialize.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactMaterialize.Col,
+	            { s: 6 },
+	            _react2.default.createElement(_ParametersBox2.default, null)
+	          )
 	        ),
+	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(
-	          _reactMaterialize.Col,
-	          { s: 8 },
-	          _react2.default.createElement(_ServerBox2.default, { socket: this.props.socket })
+	          _reactMaterialize.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactMaterialize.Col,
+	            { s: 4 },
+	            _react2.default.createElement(_SolicitationBox2.default, { socket: this.props.socket })
+	          ),
+	          _react2.default.createElement(
+	            _reactMaterialize.Col,
+	            { s: 4 },
+	            _react2.default.createElement(_ServerBox2.default, { socket: this.props.socket })
+	          ),
+	          _react2.default.createElement(
+	            _reactMaterialize.Col,
+	            { s: 4 },
+	            _react2.default.createElement(_ResultsBox2.default, { socket: this.props.socket })
+	          )
 	        )
 	      );
 	    }
@@ -34084,10 +34111,9 @@
 	    var self = _this,
 	        interval;
 	    _this.state = {
-	      status: 'Aguardando...',
+	      status: 'Parado.',
 	      name: '',
-	      statusBar: 0,
-	      started: false
+	      statusBar: 0
 	    };
 
 	    _this.props.socket.on('processingProduct', function (data) {
@@ -34112,23 +34138,12 @@
 	        statusBar: 100
 	      });
 	    });
-
-	    _this.onClick = _this.onClick.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(ServerStatus, [{
-	    key: 'onClick',
-	    value: function onClick(e) {
-	      console.log(e);
-	      this.setState({
-	        started: !this.state.started
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      //        <Input name='on' type='switch' value='1' onChange={this.onChange} />
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -34136,11 +34151,6 @@
 	          'h1',
 	          null,
 	          'Servidor'
-	        ),
-	        _react2.default.createElement(
-	          _reactMaterialize.Button,
-	          { onClick: this.onClick, disabled: this.state.started },
-	          'Iniciar'
 	        ),
 	        this.state.status,
 	        _react2.default.createElement(
@@ -38229,13 +38239,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CreateSolicitation = __webpack_require__(222);
+	var _SolicitationsQueue = __webpack_require__(222);
 
-	var _CreateSolicitation2 = _interopRequireDefault(_CreateSolicitation);
-
-	var _SolicitationList = __webpack_require__(223);
-
-	var _SolicitationList2 = _interopRequireDefault(_SolicitationList);
+	var _SolicitationsQueue2 = _interopRequireDefault(_SolicitationsQueue);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38260,8 +38266,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_CreateSolicitation2.default, { socket: this.props.socket }),
-	        _react2.default.createElement(_SolicitationList2.default, { socket: this.props.socket })
+	        _react2.default.createElement(_SolicitationsQueue2.default, null)
 	      );
 	    }
 	  }]);
@@ -38297,84 +38302,30 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var CreateSolicitation = function (_React$Component) {
-	  _inherits(CreateSolicitation, _React$Component);
+	var SolicitationsQueue = function (_React$Component) {
+	  _inherits(SolicitationsQueue, _React$Component);
 
-	  function CreateSolicitation(props) {
-	    _classCallCheck(this, CreateSolicitation);
+	  function SolicitationsQueue(props) {
+	    _classCallCheck(this, SolicitationsQueue);
 
-	    var _this = _possibleConstructorReturn(this, (CreateSolicitation.__proto__ || Object.getPrototypeOf(CreateSolicitation)).call(this, props));
-
-	    _this.state = {
-	      name: 'Solicitação 1',
-	      time: 10000
-	    };
-
-	    _this.onSubmit = _this.onSubmit.bind(_this);
-	    _this.handleChangeName = _this.handleChangeName.bind(_this);
-	    _this.handleChangeTime = _this.handleChangeTime.bind(_this);
-	    return _this;
+	    return _possibleConstructorReturn(this, (SolicitationsQueue.__proto__ || Object.getPrototypeOf(SolicitationsQueue)).call(this, props));
 	  }
 
-	  _createClass(CreateSolicitation, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
-	  }, {
-	    key: 'handleChangeName',
-	    value: function handleChangeName(event) {
-	      this.setState({ name: event.target.value.substr(0, 25) });
-	    }
-	  }, {
-	    key: 'handleChangeTime',
-	    value: function handleChangeTime(event) {
-	      this.setState({ time: event.target.value });
-	    }
-	  }, {
-	    key: 'onSubmit',
-	    value: function onSubmit(e) {
-	      e.preventDefault();
-
-	      if (!this.state.name.length) {
-	        alert('Digite um nome para a solicitação');
-	        return;
-	      } else if (this.state.time <= 0) {
-	        alert('Digite o tempo de processamento da solicitação');
-	        return;
-	      }
-	      this.props.socket.emit('addSolicitation', {
-	        name: this.state.name,
-	        time: this.state.time
-	      });
-	    }
-	  }, {
+	  _createClass(SolicitationsQueue, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'form',
-	        { onSubmit: this.onSubmit },
-	        _react2.default.createElement(
-	          _reactMaterialize.Row,
-	          null,
-	          _react2.default.createElement(_reactMaterialize.Input, { s: 12, label: 'Nome',
-	            value: this.state.name,
-	            onChange: this.handleChangeName }),
-	          _react2.default.createElement(_reactMaterialize.Input, { s: 12, label: 'Tempo de processamento (m)',
-	            value: this.state.time,
-	            onChange: this.handleChangeTime })
-	        ),
-	        _react2.default.createElement(
-	          _reactMaterialize.Button,
-	          { waves: 'light', type: 'submit' },
-	          'Adicionar'
-	        )
+	        'span',
+	        null,
+	        'Solicitações'
 	      );
 	    }
 	  }]);
 
-	  return CreateSolicitation;
+	  return SolicitationsQueue;
 	}(_react2.default.Component);
 
-	exports.default = CreateSolicitation;
+	exports.default = SolicitationsQueue;
 
 /***/ },
 /* 223 */
@@ -38394,10 +38345,6 @@
 
 	var _reactMaterialize = __webpack_require__(179);
 
-	var _SolicitationItem = __webpack_require__(224);
-
-	var _SolicitationItem2 = _interopRequireDefault(_SolicitationItem);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38406,45 +38353,63 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SolicitationList = function (_React$Component) {
-	  _inherits(SolicitationList, _React$Component);
+	var ParametersBox = function (_React$Component) {
+	  _inherits(ParametersBox, _React$Component);
 
-	  function SolicitationList(props) {
-	    _classCallCheck(this, SolicitationList);
+	  function ParametersBox(props) {
+	    _classCallCheck(this, ParametersBox);
 
-	    var _this = _possibleConstructorReturn(this, (SolicitationList.__proto__ || Object.getPrototypeOf(SolicitationList)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ParametersBox.__proto__ || Object.getPrototypeOf(ParametersBox)).call(this, props));
 
 	    _this.state = {
-	      products: []
+	      servers: 1,
+	      rule: 'FIFO',
+	      outlier: 'Moderado'
 	    };
 
-	    var self = _this;
-	    _this.props.socket.emit('solicitations');
-	    _this.props.socket.on('solicitations', function (data) {
-	      self.setState({ products: data });
-	    });
+	    _this.serversChange = _this.serversChange.bind(_this);
+	    _this.ruleChange = _this.ruleChange.bind(_this);
+	    _this.outlierChange = _this.outlierChange.bind(_this);
 	    return _this;
 	  }
 
-	  _createClass(SolicitationList, [{
+	  _createClass(ParametersBox, [{
+	    key: 'serversChange',
+	    value: function serversChange() {
+	      this.setState({ servers: event.target.value });
+	    }
+	  }, {
+	    key: 'ruleChange',
+	    value: function ruleChange() {
+	      this.setState({ rule: event.target.value });
+	    }
+	  }, {
+	    key: 'outlierChange',
+	    value: function outlierChange() {
+	      this.setState({ outlier: event.target.value });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var self = this;
-	      var productNodes = this.state.products.map(function (product) {
-	        return _react2.default.createElement(_SolicitationItem2.default, { key: product.id, product: product, socket: self.props.socket });
-	      });
 	      return _react2.default.createElement(
-	        _reactMaterialize.Collection,
-	        { header: 'Solicitações' },
-	        productNodes
+	        _reactMaterialize.Row,
+	        null,
+	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, label: 'Nº servidores', value: this.state.servers, onChange: this.serversChange }),
+	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, label: 'Regra atendimento', value: this.state.rule, onChange: this.ruleChange }),
+	        _react2.default.createElement(_reactMaterialize.Input, { s: 12, label: 'Tipo de outlier', value: this.state.outlier, onChange: this.outlierChange }),
+	        _react2.default.createElement(
+	          _reactMaterialize.Button,
+	          null,
+	          'Iniciar'
+	        )
 	      );
 	    }
 	  }]);
 
-	  return SolicitationList;
+	  return ParametersBox;
 	}(_react2.default.Component);
 
-	exports.default = SolicitationList;
+	exports.default = ParametersBox;
 
 /***/ },
 /* 224 */
@@ -38472,43 +38437,30 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SolicitationItem = function (_React$Component) {
-	  _inherits(SolicitationItem, _React$Component);
+	var ResultsBox = function (_React$Component) {
+	  _inherits(ResultsBox, _React$Component);
 
-	  function SolicitationItem(props) {
-	    _classCallCheck(this, SolicitationItem);
+	  function ResultsBox(props) {
+	    _classCallCheck(this, ResultsBox);
 
-	    var _this = _possibleConstructorReturn(this, (SolicitationItem.__proto__ || Object.getPrototypeOf(SolicitationItem)).call(this, props));
-
-	    _this.processSolicitation = _this.processSolicitation.bind(_this);
-	    return _this;
+	    return _possibleConstructorReturn(this, (ResultsBox.__proto__ || Object.getPrototypeOf(ResultsBox)).call(this, props));
 	  }
 
-	  _createClass(SolicitationItem, [{
-	    key: 'processSolicitation',
-	    value: function processSolicitation(id) {
-	      this.props.socket.emit('processSolicitation', this.props.product.id);
-	    }
-	  }, {
+	  _createClass(ResultsBox, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        _reactMaterialize.CollectionItem,
+	        'span',
 	        null,
-	        this.props.product.name,
-	        _react2.default.createElement(
-	          _reactMaterialize.Button,
-	          { waves: 'light', onClick: this.processSolicitation },
-	          'Processar'
-	        )
+	        'Resultados'
 	      );
 	    }
 	  }]);
 
-	  return SolicitationItem;
+	  return ResultsBox;
 	}(_react2.default.Component);
 
-	exports.default = SolicitationItem;
+	exports.default = ResultsBox;
 
 /***/ },
 /* 225 */

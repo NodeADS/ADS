@@ -1,6 +1,5 @@
 import React from 'react';
-import CreateSolicitation from './CreateSolicitation';
-import SolicitationList from './SolicitationList';
+import SolicitationsQueue from './SolicitationsQueue';
 
 class SolicitationBox extends React.Component {
   constructor(props) {
@@ -10,8 +9,7 @@ class SolicitationBox extends React.Component {
   render() {
     return (
       <div>
-        <CreateSolicitation socket={this.props.socket} />
-        <SolicitationList socket={this.props.socket} />
+        <SolicitationsQueue />
       </div>
     );
   }
