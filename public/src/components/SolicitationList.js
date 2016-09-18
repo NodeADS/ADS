@@ -25,7 +25,7 @@ class SolicitationList extends React.Component {
     });
     return (
       <Collection header='Solicitações'>
-        {productNodes}
+        {productNodes}</CollectionItem>
       </Collection>
     );
   }

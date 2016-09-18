@@ -9,7 +9,7 @@ class SolicitationBox extends React.Component {
   render() {
     return (
       <div>
-        <SolicitationsQueue />
+        <SolicitationsQueue socket={this.props.socket} />
       </div>
     );
   }

@@ -1,1002 +1,1202 @@
 [
   {
-    "name": "Produto 0",
-    "time": "11",
-    "id": 1474140129229
+    "id": 1474219209307,
+    "name": "Solicitação 1",
+    "arrival": 11,
+    "delay": 11
   },
   {
-    "name": "Produto 1",
-    "time": "8",
-    "id": 1474140129230
+    "id": 1474219209308,
+    "name": "Solicitação 2",
+    "arrival": 5,
+    "delay": 8
   },
   {
-    "name": "Produto 2",
-    "time": "1",
-    "id": 1474140129231
+    "id": 1474219209309,
+    "name": "Solicitação 3",
+    "arrival": 2,
+    "delay": 1
   },
   {
-    "name": "Produto 3",
-    "time": "6",
-    "id": 1474140129232
+    "id": 1474219209310,
+    "name": "Solicitação 4",
+    "arrival": 0,
+    "delay": 6
   },
   {
-    "name": "Produto 4",
-    "time": "26",
-    "id": 1474140129233
+    "id": 1474219209311,
+    "name": "Solicitação 5",
+    "arrival": 9,
+    "delay": 26
   },
   {
-    "name": "Produto 5",
-    "time": "21",
-    "id": 1474140129234
+    "id": 1474219209312,
+    "name": "Solicitação 6",
+    "arrival": 9,
+    "delay": 21
   },
   {
-    "name": "Produto 6",
-    "time": "17",
-    "id": 1474140129235
+    "id": 1474219209313,
+    "name": "Solicitação 7",
+    "arrival": 1,
+    "delay": 17
   },
   {
-    "name": "Produto 7",
-    "time": "13",
-    "id": 1474140129236
+    "id": 1474219209314,
+    "name": "Solicitação 8",
+    "arrival": 5,
+    "delay": 13
   },
   {
-    "name": "Produto 8",
-    "time": "31",
-    "id": 1474140129237
+    "id": 1474219209315,
+    "name": "Solicitação 9",
+    "arrival": 1,
+    "delay": 31
   },
   {
-    "name": "Produto 9",
-    "time": "17",
-    "id": 1474140129238
+    "id": 1474219209316,
+    "name": "Solicitação 10",
+    "arrival": 3,
+    "delay": 17
   },
   {
-    "name": "Produto 10",
-    "time": "23",
-    "id": 1474140129239
+    "id": 1474219209317,
+    "name": "Solicitação 11",
+    "arrival": 3,
+    "delay": 23
   },
   {
-    "name": "Produto 11",
-    "time": "2",
-    "id": 1474140129240
+    "id": 1474219209318,
+    "name": "Solicitação 12",
+    "arrival": 3,
+    "delay": 2
   },
   {
-    "name": "Produto 12",
-    "time": "131",
-    "id": 1474140129241
+    "id": 1474219209319,
+    "name": "Solicitação 13",
+    "arrival": 7,
+    "delay": 131
   },
   {
-    "name": "Produto 13",
-    "time": "11",
-    "id": 1474140129242
+    "id": 1474219209320,
+    "name": "Solicitação 14",
+    "arrival": 4,
+    "delay": 11
   },
   {
-    "name": "Produto 14",
-    "time": "20",
-    "id": 1474140129243
+    "id": 1474219209321,
+    "name": "Solicitação 15",
+    "arrival": 12,
+    "delay": 20
   },
   {
-    "name": "Produto 15",
-    "time": "3",
-    "id": 1474140129244
+    "id": 1474219209322,
+    "name": "Solicitação 16",
+    "arrival": 8,
+    "delay": 3
   },
   {
-    "name": "Produto 16",
-    "time": "21",
-    "id": 1474140129245
+    "id": 1474219209323,
+    "name": "Solicitação 17",
+    "arrival": 5,
+    "delay": 21
   },
   {
-    "name": "Produto 17",
-    "time": "12",
-    "id": 1474140129246
+    "id": 1474219209324,
+    "name": "Solicitação 18",
+    "arrival": 2,
+    "delay": 12
   },
   {
-    "name": "Produto 18",
-    "time": "31",
-    "id": 1474140129247
+    "id": 1474219209325,
+    "name": "Solicitação 19",
+    "arrival": 6,
+    "delay": 31
   },
   {
-    "name": "Produto 19",
-    "time": "0",
-    "id": 1474140129248
+    "id": 1474219209326,
+    "name": "Solicitação 20",
+    "arrival": 1,
+    "delay": 0
   },
   {
-    "name": "Produto 20",
-    "time": "20",
-    "id": 1474140129249
+    "id": 1474219209327,
+    "name": "Solicitação 21",
+    "arrival": 11,
+    "delay": 20
   },
   {
-    "name": "Produto 21",
-    "time": "20",
-    "id": 1474140129250
+    "id": 1474219209328,
+    "name": "Solicitação 22",
+    "arrival": 1,
+    "delay": 20
   },
   {
-    "name": "Produto 22",
-    "time": "16",
-    "id": 1474140129251
+    "id": 1474219209329,
+    "name": "Solicitação 23",
+    "arrival": 2,
+    "delay": 16
   },
   {
-    "name": "Produto 23",
-    "time": "26",
-    "id": 1474140129252
+    "id": 1474219209330,
+    "name": "Solicitação 24",
+    "arrival": 4,
+    "delay": 26
   },
   {
-    "name": "Produto 24",
-    "time": "19",
-    "id": 1474140129253
+    "id": 1474219209331,
+    "name": "Solicitação 25",
+    "arrival": 2,
+    "delay": 19
   },
   {
-    "name": "Produto 25",
-    "time": "3",
-    "id": 1474140129254
+    "id": 1474219209332,
+    "name": "Solicitação 26",
+    "arrival": 1,
+    "delay": 3
   },
   {
-    "name": "Produto 26",
-    "time": "19",
-    "id": 1474140129255
+    "id": 1474219209333,
+    "name": "Solicitação 27",
+    "arrival": 3,
+    "delay": 19
   },
   {
-    "name": "Produto 27",
-    "time": "4",
-    "id": 1474140129256
+    "id": 1474219209334,
+    "name": "Solicitação 28",
+    "arrival": 9,
+    "delay": 4
   },
   {
-    "name": "Produto 28",
-    "time": "7",
-    "id": 1474140129257
+    "id": 1474219209335,
+    "name": "Solicitação 29",
+    "arrival": 0,
+    "delay": 7
   },
   {
-    "name": "Produto 29",
-    "time": "11",
-    "id": 1474140129258
+    "id": 1474219209336,
+    "name": "Solicitação 30",
+    "arrival": 10,
+    "delay": 11
   },
   {
-    "name": "Produto 30",
-    "time": "29",
-    "id": 1474140129259
+    "id": 1474219209337,
+    "name": "Solicitação 31",
+    "arrival": 3,
+    "delay": 29
   },
   {
-    "name": "Produto 31",
-    "time": "19",
-    "id": 1474140129260
+    "id": 1474219209338,
+    "name": "Solicitação 32",
+    "arrival": 3,
+    "delay": 19
   },
   {
-    "name": "Produto 32",
-    "time": "21",
-    "id": 1474140129261
+    "id": 1474219209339,
+    "name": "Solicitação 33",
+    "arrival": 1,
+    "delay": 21
   },
   {
-    "name": "Produto 33",
-    "time": "6",
-    "id": 1474140129262
+    "id": 1474219209340,
+    "name": "Solicitação 34",
+    "arrival": 5,
+    "delay": 6
   },
   {
-    "name": "Produto 34",
-    "time": "15",
-    "id": 1474140129263
+    "id": 1474219209341,
+    "name": "Solicitação 35",
+    "arrival": 18,
+    "delay": 15
   },
   {
-    "name": "Produto 35",
-    "time": "1",
-    "id": 1474140129264
+    "id": 1474219209342,
+    "name": "Solicitação 36",
+    "arrival": 4,
+    "delay": 1
   },
   {
-    "name": "Produto 36",
-    "time": "11",
-    "id": 1474140129265
+    "id": 1474219209343,
+    "name": "Solicitação 37",
+    "arrival": 22,
+    "delay": 11
   },
   {
-    "name": "Produto 37",
-    "time": "18",
-    "id": 1474140129266
+    "id": 1474219209344,
+    "name": "Solicitação 38",
+    "arrival": 8,
+    "delay": 18
   },
   {
-    "name": "Produto 38",
-    "time": "3",
-    "id": 1474140129267
+    "id": 1474219209345,
+    "name": "Solicitação 39",
+    "arrival": 3,
+    "delay": 3
   },
   {
-    "name": "Produto 39",
-    "time": "16",
-    "id": 1474140129268
+    "id": 1474219209346,
+    "name": "Solicitação 40",
+    "arrival": 0,
+    "delay": 16
   },
   {
-    "name": "Produto 40",
-    "time": "11",
-    "id": 1474140129269
+    "id": 1474219209347,
+    "name": "Solicitação 41",
+    "arrival": 8,
+    "delay": 11
   },
   {
-    "name": "Produto 41",
-    "time": "2",
-    "id": 1474140129270
+    "id": 1474219209348,
+    "name": "Solicitação 42",
+    "arrival": 9,
+    "delay": 2
   },
   {
-    "name": "Produto 42",
-    "time": "10",
-    "id": 1474140129271
+    "id": 1474219209349,
+    "name": "Solicitação 43",
+    "arrival": 2,
+    "delay": 10
   },
   {
-    "name": "Produto 43",
-    "time": "13",
-    "id": 1474140129272
+    "id": 1474219209350,
+    "name": "Solicitação 44",
+    "arrival": 3,
+    "delay": 13
   },
   {
-    "name": "Produto 44",
-    "time": "18",
-    "id": 1474140129273
+    "id": 1474219209351,
+    "name": "Solicitação 45",
+    "arrival": 12,
+    "delay": 18
   },
   {
-    "name": "Produto 45",
-    "time": "5",
-    "id": 1474140129274
+    "id": 1474219209352,
+    "name": "Solicitação 46",
+    "arrival": 1,
+    "delay": 5
   },
   {
-    "name": "Produto 46",
-    "time": "20",
-    "id": 1474140129275
+    "id": 1474219209353,
+    "name": "Solicitação 47",
+    "arrival": 3,
+    "delay": 20
   },
   {
-    "name": "Produto 47",
-    "time": "4",
-    "id": 1474140129276
+    "id": 1474219209354,
+    "name": "Solicitação 48",
+    "arrival": 1,
+    "delay": 4
   },
   {
-    "name": "Produto 48",
-    "time": "17",
-    "id": 1474140129277
+    "id": 1474219209355,
+    "name": "Solicitação 49",
+    "arrival": 7,
+    "delay": 17
   },
   {
-    "name": "Produto 49",
-    "time": "3",
-    "id": 1474140129278
+    "id": 1474219209356,
+    "name": "Solicitação 50",
+    "arrival": 5,
+    "delay": 3
   },
   {
-    "name": "Produto 50",
-    "time": "4",
-    "id": 1474140129279
+    "id": 1474219209357,
+    "name": "Solicitação 51",
+    "arrival": 14,
+    "delay": 4
   },
   {
-    "name": "Produto 51",
-    "time": "15",
-    "id": 1474140129280
+    "id": 1474219209358,
+    "name": "Solicitação 52",
+    "arrival": 7,
+    "delay": 15
   },
   {
-    "name": "Produto 52",
-    "time": "2",
-    "id": 1474140129281
+    "id": 1474219209359,
+    "name": "Solicitação 53",
+    "arrival": 7,
+    "delay": 2
   },
   {
-    "name": "Produto 53",
-    "time": "20",
-    "id": 1474140129282
+    "id": 1474219209360,
+    "name": "Solicitação 54",
+    "arrival": 28,
+    "delay": 20
   },
   {
-    "name": "Produto 54",
-    "time": "7",
-    "id": 1474140129283
+    "id": 1474219209361,
+    "name": "Solicitação 55",
+    "arrival": 1,
+    "delay": 7
   },
   {
-    "name": "Produto 55",
-    "time": "33",
-    "id": 1474140129284
+    "id": 1474219209362,
+    "name": "Solicitação 56",
+    "arrival": 3,
+    "delay": 33
   },
   {
-    "name": "Produto 56",
-    "time": "30",
-    "id": 1474140129285
+    "id": 1474219209363,
+    "name": "Solicitação 57",
+    "arrival": 2,
+    "delay": 30
   },
   {
-    "name": "Produto 57",
-    "time": "7",
-    "id": 1474140129286
+    "id": 1474219209364,
+    "name": "Solicitação 58",
+    "arrival": 11,
+    "delay": 7
   },
   {
-    "name": "Produto 58",
-    "time": "13",
-    "id": 1474140129287
+    "id": 1474219209365,
+    "name": "Solicitação 59",
+    "arrival": 13,
+    "delay": 13
   },
   {
-    "name": "Produto 59",
-    "time": "12",
-    "id": 1474140129288
+    "id": 1474219209366,
+    "name": "Solicitação 60",
+    "arrival": 2,
+    "delay": 12
   },
   {
-    "name": "Produto 60",
-    "time": "30",
-    "id": 1474140129289
+    "id": 1474219209367,
+    "name": "Solicitação 61",
+    "arrival": 0,
+    "delay": 30
   },
   {
-    "name": "Produto 61",
-    "time": "0",
-    "id": 1474140129290
+    "id": 1474219209368,
+    "name": "Solicitação 62",
+    "arrival": 1,
+    "delay": 0
   },
   {
-    "name": "Produto 62",
-    "time": "20",
-    "id": 1474140129291
+    "id": 1474219209369,
+    "name": "Solicitação 63",
+    "arrival": 6,
+    "delay": 20
   },
   {
-    "name": "Produto 63",
-    "time": "11",
-    "id": 1474140129292
+    "id": 1474219209370,
+    "name": "Solicitação 64",
+    "arrival": 12,
+    "delay": 11
   },
   {
-    "name": "Produto 64",
-    "time": "4",
-    "id": 1474140129293
+    "id": 1474219209371,
+    "name": "Solicitação 65",
+    "arrival": 15,
+    "delay": 4
   },
   {
-    "name": "Produto 65",
-    "time": "18",
-    "id": 1474140129294
+    "id": 1474219209372,
+    "name": "Solicitação 66",
+    "arrival": 0,
+    "delay": 18
   },
   {
-    "name": "Produto 66",
-    "time": "17",
-    "id": 1474140129295
+    "id": 1474219209373,
+    "name": "Solicitação 67",
+    "arrival": 6,
+    "delay": 17
   },
   {
-    "name": "Produto 67",
-    "time": "27",
-    "id": 1474140129296
+    "id": 1474219209374,
+    "name": "Solicitação 68",
+    "arrival": 7,
+    "delay": 27
   },
   {
-    "name": "Produto 68",
-    "time": "4",
-    "id": 1474140129297
+    "id": 1474219209375,
+    "name": "Solicitação 69",
+    "arrival": 19,
+    "delay": 4
   },
   {
-    "name": "Produto 69",
-    "time": "15",
-    "id": 1474140129298
+    "id": 1474219209376,
+    "name": "Solicitação 70",
+    "arrival": 1,
+    "delay": 15
   },
   {
-    "name": "Produto 70",
-    "time": "11",
-    "id": 1474140129299
+    "id": 1474219209377,
+    "name": "Solicitação 71",
+    "arrival": 1,
+    "delay": 11
   },
   {
-    "name": "Produto 71",
-    "time": "6",
-    "id": 1474140129300
+    "id": 1474219209378,
+    "name": "Solicitação 72",
+    "arrival": 9,
+    "delay": 6
   },
   {
-    "name": "Produto 72",
-    "time": "10",
-    "id": 1474140129301
+    "id": 1474219209379,
+    "name": "Solicitação 73",
+    "arrival": 1,
+    "delay": 10
   },
   {
-    "name": "Produto 73",
-    "time": "6",
-    "id": 1474140129302
+    "id": 1474219209380,
+    "name": "Solicitação 74",
+    "arrival": 5,
+    "delay": 6
   },
   {
-    "name": "Produto 74",
-    "time": "7",
-    "id": 1474140129303
+    "id": 1474219209381,
+    "name": "Solicitação 75",
+    "arrival": 3,
+    "delay": 7
   },
   {
-    "name": "Produto 75",
-    "time": "3",
-    "id": 1474140129304
+    "id": 1474219209382,
+    "name": "Solicitação 76",
+    "arrival": 17,
+    "delay": 3
   },
   {
-    "name": "Produto 76",
-    "time": "1",
-    "id": 1474140129305
+    "id": 1474219209383,
+    "name": "Solicitação 77",
+    "arrival": 10,
+    "delay": 1
   },
   {
-    "name": "Produto 77",
-    "time": "12",
-    "id": 1474140129306
+    "id": 1474219209384,
+    "name": "Solicitação 78",
+    "arrival": 15,
+    "delay": 12
   },
   {
-    "name": "Produto 78",
-    "time": "14",
-    "id": 1474140129307
+    "id": 1474219209385,
+    "name": "Solicitação 79",
+    "arrival": 43,
+    "delay": 14
   },
   {
-    "name": "Produto 79",
-    "time": "33",
-    "id": 1474140129308
+    "id": 1474219209386,
+    "name": "Solicitação 80",
+    "arrival": 2,
+    "delay": 33
   },
   {
-    "name": "Produto 80",
-    "time": "24",
-    "id": 1474140129309
+    "id": 1474219209387,
+    "name": "Solicitação 81",
+    "arrival": 6,
+    "delay": 24
   },
   {
-    "name": "Produto 81",
-    "time": "6",
-    "id": 1474140129310
+    "id": 1474219209388,
+    "name": "Solicitação 82",
+    "arrival": 1,
+    "delay": 6
   },
   {
-    "name": "Produto 82",
-    "time": "3",
-    "id": 1474140129311
+    "id": 1474219209389,
+    "name": "Solicitação 83",
+    "arrival": 13,
+    "delay": 3
   },
   {
-    "name": "Produto 83",
-    "time": "18",
-    "id": 1474140129312
+    "id": 1474219209390,
+    "name": "Solicitação 84",
+    "arrival": 13,
+    "delay": 18
   },
   {
-    "name": "Produto 84",
-    "time": "4",
-    "id": 1474140129313
+    "id": 1474219209391,
+    "name": "Solicitação 85",
+    "arrival": 19,
+    "delay": 4
   },
   {
-    "name": "Produto 85",
-    "time": "27",
-    "id": 1474140129314
+    "id": 1474219209392,
+    "name": "Solicitação 86",
+    "arrival": 10,
+    "delay": 27
   },
   {
-    "name": "Produto 86",
-    "time": "8",
-    "id": 1474140129315
+    "id": 1474219209393,
+    "name": "Solicitação 87",
+    "arrival": 9,
+    "delay": 8
   },
   {
-    "name": "Produto 87",
-    "time": "0",
-    "id": 1474140129316
+    "id": 1474219209394,
+    "name": "Solicitação 88",
+    "arrival": 20,
+    "delay": 0
   },
   {
-    "name": "Produto 88",
-    "time": "20",
-    "id": 1474140129317
+    "id": 1474219209395,
+    "name": "Solicitação 89",
+    "arrival": 19,
+    "delay": 20
   },
   {
-    "name": "Produto 89",
-    "time": "24",
-    "id": 1474140129318
+    "id": 1474219209396,
+    "name": "Solicitação 90",
+    "arrival": 2,
+    "delay": 24
   },
   {
-    "name": "Produto 90",
-    "time": "14",
-    "id": 1474140129319
+    "id": 1474219209397,
+    "name": "Solicitação 91",
+    "arrival": 27,
+    "delay": 14
   },
   {
-    "name": "Produto 91",
-    "time": "27",
-    "id": 1474140129320
+    "id": 1474219209398,
+    "name": "Solicitação 92",
+    "arrival": 5,
+    "delay": 27
   },
   {
-    "name": "Produto 92",
-    "time": "1",
-    "id": 1474140129321
+    "id": 1474219209399,
+    "name": "Solicitação 93",
+    "arrival": 20,
+    "delay": 1
   },
   {
-    "name": "Produto 93",
-    "time": "24",
-    "id": 1474140129322
+    "id": 1474219209400,
+    "name": "Solicitação 94",
+    "arrival": 5,
+    "delay": 24
   },
   {
-    "name": "Produto 94",
-    "time": "31",
-    "id": 1474140129323
+    "id": 1474219209401,
+    "name": "Solicitação 95",
+    "arrival": 10,
+    "delay": 31
   },
   {
-    "name": "Produto 95",
-    "time": "20",
-    "id": 1474140129324
+    "id": 1474219209402,
+    "name": "Solicitação 96",
+    "arrival": 8,
+    "delay": 20
   },
   {
-    "name": "Produto 96",
-    "time": "17",
-    "id": 1474140129325
+    "id": 1474219209403,
+    "name": "Solicitação 97",
+    "arrival": 2,
+    "delay": 17
   },
   {
-    "name": "Produto 97",
-    "time": "21",
-    "id": 1474140129326
+    "id": 1474219209404,
+    "name": "Solicitação 98",
+    "arrival": 3,
+    "delay": 21
   },
   {
-    "name": "Produto 98",
-    "time": "6",
-    "id": 1474140129327
+    "id": 1474219209405,
+    "name": "Solicitação 99",
+    "arrival": 1,
+    "delay": 6
   },
   {
-    "name": "Produto 99",
-    "time": "27",
-    "id": 1474140129328
+    "id": 1474219209406,
+    "name": "Solicitação 100",
+    "arrival": 1,
+    "delay": 27
   },
   {
-    "name": "Produto 100",
-    "time": "24",
-    "id": 1474140129329
+    "id": 1474219209407,
+    "name": "Solicitação 101",
+    "arrival": 4,
+    "delay": 24
   },
   {
-    "name": "Produto 101",
-    "time": "16",
-    "id": 1474140129330
+    "id": 1474219209408,
+    "name": "Solicitação 102",
+    "arrival": 3,
+    "delay": 16
   },
   {
-    "name": "Produto 102",
-    "time": "15",
-    "id": 1474140129331
+    "id": 1474219209409,
+    "name": "Solicitação 103",
+    "arrival": 6,
+    "delay": 15
   },
   {
-    "name": "Produto 103",
-    "time": "28",
-    "id": 1474140129332
+    "id": 1474219209410,
+    "name": "Solicitação 104",
+    "arrival": 13,
+    "delay": 28
   },
   {
-    "name": "Produto 104",
-    "time": "10",
-    "id": 1474140129333
+    "id": 1474219209411,
+    "name": "Solicitação 105",
+    "arrival": 10,
+    "delay": 10
   },
   {
-    "name": "Produto 105",
-    "time": "0",
-    "id": 1474140129334
+    "id": 1474219209412,
+    "name": "Solicitação 106",
+    "arrival": 9,
+    "delay": 0
   },
   {
-    "name": "Produto 106",
-    "time": "1",
-    "id": 1474140129335
+    "id": 1474219209413,
+    "name": "Solicitação 107",
+    "arrival": 1,
+    "delay": 1
   },
   {
-    "name": "Produto 107",
-    "time": "4",
-    "id": 1474140129336
+    "id": 1474219209414,
+    "name": "Solicitação 108",
+    "arrival": 1,
+    "delay": 4
   },
   {
-    "name": "Produto 108",
-    "time": "5",
-    "id": 1474140129337
+    "id": 1474219209415,
+    "name": "Solicitação 109",
+    "arrival": 3,
+    "delay": 5
   },
   {
-    "name": "Produto 109",
-    "time": "19",
-    "id": 1474140129338
+    "id": 1474219209416,
+    "name": "Solicitação 110",
+    "arrival": 9,
+    "delay": 19
   },
   {
-    "name": "Produto 110",
-    "time": "6",
-    "id": 1474140129339
+    "id": 1474219209417,
+    "name": "Solicitação 111",
+    "arrival": 9,
+    "delay": 6
   },
   {
-    "name": "Produto 111",
-    "time": "5",
-    "id": 1474140129340
+    "id": 1474219209418,
+    "name": "Solicitação 112",
+    "arrival": 4,
+    "delay": 5
   },
   {
-    "name": "Produto 112",
-    "time": "5",
-    "id": 1474140129341
+    "id": 1474219209419,
+    "name": "Solicitação 113",
+    "arrival": 0,
+    "delay": 5
   },
   {
-    "name": "Produto 113",
-    "time": "16",
-    "id": 1474140129342
+    "id": 1474219209420,
+    "name": "Solicitação 114",
+    "arrival": 3,
+    "delay": 16
   },
   {
-    "name": "Produto 114",
-    "time": "32",
-    "id": 1474140129343
+    "id": 1474219209421,
+    "name": "Solicitação 115",
+    "arrival": 6,
+    "delay": 32
   },
   {
-    "name": "Produto 115",
-    "time": "9",
-    "id": 1474140129344
+    "id": 1474219209422,
+    "name": "Solicitação 116",
+    "arrival": 3,
+    "delay": 9
   },
   {
-    "name": "Produto 116",
-    "time": "26",
-    "id": 1474140129345
+    "id": 1474219209423,
+    "name": "Solicitação 117",
+    "arrival": 27,
+    "delay": 26
   },
   {
-    "name": "Produto 117",
-    "time": "10",
-    "id": 1474140129346
+    "id": 1474219209424,
+    "name": "Solicitação 118",
+    "arrival": 3,
+    "delay": 10
   },
   {
-    "name": "Produto 118",
-    "time": "25",
-    "id": 1474140129347
+    "id": 1474219209425,
+    "name": "Solicitação 119",
+    "arrival": 18,
+    "delay": 25
   },
   {
-    "name": "Produto 119",
-    "time": "3",
-    "id": 1474140129348
+    "id": 1474219209426,
+    "name": "Solicitação 120",
+    "arrival": 4,
+    "delay": 3
   },
   {
-    "name": "Produto 120",
-    "time": "1",
-    "id": 1474140129349
+    "id": 1474219209427,
+    "name": "Solicitação 121",
+    "arrival": 6,
+    "delay": 1
   },
   {
-    "name": "Produto 121",
-    "time": "13",
-    "id": 1474140129350
+    "id": 1474219209428,
+    "name": "Solicitação 122",
+    "arrival": 0,
+    "delay": 13
   },
   {
-    "name": "Produto 122",
-    "time": "24",
-    "id": 1474140129351
+    "id": 1474219209429,
+    "name": "Solicitação 123",
+    "arrival": 2,
+    "delay": 24
   },
   {
-    "name": "Produto 123",
-    "time": "6",
-    "id": 1474140129352
+    "id": 1474219209430,
+    "name": "Solicitação 124",
+    "arrival": 2,
+    "delay": 6
   },
   {
-    "name": "Produto 124",
-    "time": "15",
-    "id": 1474140129353
+    "id": 1474219209431,
+    "name": "Solicitação 125",
+    "arrival": 8,
+    "delay": 15
   },
   {
-    "name": "Produto 125",
-    "time": "15",
-    "id": 1474140129354
+    "id": 1474219209432,
+    "name": "Solicitação 126",
+    "arrival": 4,
+    "delay": 15
   },
   {
-    "name": "Produto 126",
-    "time": "4",
-    "id": 1474140129355
+    "id": 1474219209433,
+    "name": "Solicitação 127",
+    "arrival": 5,
+    "delay": 4
   },
   {
-    "name": "Produto 127",
-    "time": "8",
-    "id": 1474140129356
+    "id": 1474219209434,
+    "name": "Solicitação 128",
+    "arrival": 1,
+    "delay": 8
   },
   {
-    "name": "Produto 128",
-    "time": "25",
-    "id": 1474140129357
+    "id": 1474219209435,
+    "name": "Solicitação 129",
+    "arrival": 4,
+    "delay": 25
   },
   {
-    "name": "Produto 129",
-    "time": "9",
-    "id": 1474140129358
+    "id": 1474219209436,
+    "name": "Solicitação 130",
+    "arrival": 18,
+    "delay": 9
   },
   {
-    "name": "Produto 130",
-    "time": "11",
-    "id": 1474140129359
+    "id": 1474219209437,
+    "name": "Solicitação 131",
+    "arrival": 1,
+    "delay": 11
   },
   {
-    "name": "Produto 131",
-    "time": "34",
-    "id": 1474140129360
+    "id": 1474219209438,
+    "name": "Solicitação 132",
+    "arrival": 0,
+    "delay": 34
   },
   {
-    "name": "Produto 132",
-    "time": "24",
-    "id": 1474140129361
+    "id": 1474219209439,
+    "name": "Solicitação 133",
+    "arrival": 16,
+    "delay": 24
   },
   {
-    "name": "Produto 133",
-    "time": "6",
-    "id": 1474140129362
+    "id": 1474219209440,
+    "name": "Solicitação 134",
+    "arrival": 20,
+    "delay": 6
   },
   {
-    "name": "Produto 134",
-    "time": "1",
-    "id": 1474140129363
+    "id": 1474219209441,
+    "name": "Solicitação 135",
+    "arrival": 2,
+    "delay": 1
   },
   {
-    "name": "Produto 135",
-    "time": "17",
-    "id": 1474140129364
+    "id": 1474219209442,
+    "name": "Solicitação 136",
+    "arrival": 2,
+    "delay": 17
   },
   {
-    "name": "Produto 136",
-    "time": "6",
-    "id": 1474140129365
+    "id": 1474219209443,
+    "name": "Solicitação 137",
+    "arrival": 2,
+    "delay": 6
   },
   {
-    "name": "Produto 137",
-    "time": "1",
-    "id": 1474140129366
+    "id": 1474219209444,
+    "name": "Solicitação 138",
+    "arrival": 12,
+    "delay": 1
   },
   {
-    "name": "Produto 138",
-    "time": "24",
-    "id": 1474140129367
+    "id": 1474219209445,
+    "name": "Solicitação 139",
+    "arrival": 28,
+    "delay": 24
   },
   {
-    "name": "Produto 139",
-    "time": "10",
-    "id": 1474140129368
+    "id": 1474219209446,
+    "name": "Solicitação 140",
+    "arrival": 0,
+    "delay": 10
   },
   {
-    "name": "Produto 140",
-    "time": "15",
-    "id": 1474140129369
+    "id": 1474219209447,
+    "name": "Solicitação 141",
+    "arrival": 7,
+    "delay": 15
   },
   {
-    "name": "Produto 141",
-    "time": "24",
-    "id": 1474140129370
+    "id": 1474219209448,
+    "name": "Solicitação 142",
+    "arrival": 3,
+    "delay": 24
   },
   {
-    "name": "Produto 142",
-    "time": "15",
-    "id": 1474140129371
+    "id": 1474219209449,
+    "name": "Solicitação 143",
+    "arrival": 18,
+    "delay": 15
   },
   {
-    "name": "Produto 143",
-    "time": "19",
-    "id": 1474140129372
+    "id": 1474219209450,
+    "name": "Solicitação 144",
+    "arrival": 12,
+    "delay": 19
   },
   {
-    "name": "Produto 144",
-    "time": "20",
-    "id": 1474140129373
+    "id": 1474219209451,
+    "name": "Solicitação 145",
+    "arrival": 3,
+    "delay": 20
   },
   {
-    "name": "Produto 145",
-    "time": "4",
-    "id": 1474140129374
+    "id": 1474219209452,
+    "name": "Solicitação 146",
+    "arrival": 2,
+    "delay": 4
   },
   {
-    "name": "Produto 146",
-    "time": "9",
-    "id": 1474140129375
+    "id": 1474219209453,
+    "name": "Solicitação 147",
+    "arrival": 8,
+    "delay": 9
   },
   {
-    "name": "Produto 147",
-    "time": "11",
-    "id": 1474140129376
+    "id": 1474219209454,
+    "name": "Solicitação 148",
+    "arrival": 3,
+    "delay": 11
   },
   {
-    "name": "Produto 148",
-    "time": "11",
-    "id": 1474140129377
+    "id": 1474219209455,
+    "name": "Solicitação 149",
+    "arrival": 19,
+    "delay": 11
   },
   {
-    "name": "Produto 149",
-    "time": "8",
-    "id": 1474140129378
+    "id": 1474219209456,
+    "name": "Solicitação 150",
+    "arrival": 12,
+    "delay": 8
   },
   {
-    "name": "Produto 150",
-    "time": "25",
-    "id": 1474140129379
+    "id": 1474219209457,
+    "name": "Solicitação 151",
+    "arrival": 5,
+    "delay": 25
   },
   {
-    "name": "Produto 151",
-    "time": "24",
-    "id": 1474140129380
+    "id": 1474219209458,
+    "name": "Solicitação 152",
+    "arrival": 4,
+    "delay": 24
   },
   {
-    "name": "Produto 152",
-    "time": "2",
-    "id": 1474140129381
+    "id": 1474219209459,
+    "name": "Solicitação 153",
+    "arrival": 6,
+    "delay": 2
   },
   {
-    "name": "Produto 153",
-    "time": "8",
-    "id": 1474140129382
+    "id": 1474219209460,
+    "name": "Solicitação 154",
+    "arrival": 0,
+    "delay": 8
   },
   {
-    "name": "Produto 154",
-    "time": "22",
-    "id": 1474140129383
+    "id": 1474219209461,
+    "name": "Solicitação 155",
+    "arrival": 5,
+    "delay": 22
   },
   {
-    "name": "Produto 155",
-    "time": "7",
-    "id": 1474140129384
+    "id": 1474219209462,
+    "name": "Solicitação 156",
+    "arrival": 0,
+    "delay": 7
   },
   {
-    "name": "Produto 156",
-    "time": "15",
-    "id": 1474140129385
+    "id": 1474219209463,
+    "name": "Solicitação 157",
+    "arrival": 3,
+    "delay": 15
   },
   {
-    "name": "Produto 157",
-    "time": "17",
-    "id": 1474140129386
+    "id": 1474219209464,
+    "name": "Solicitação 158",
+    "arrival": 7,
+    "delay": 17
   },
   {
-    "name": "Produto 158",
-    "time": "22",
-    "id": 1474140129387
+    "id": 1474219209465,
+    "name": "Solicitação 159",
+    "arrival": 0,
+    "delay": 22
   },
   {
-    "name": "Produto 159",
-    "time": "22",
-    "id": 1474140129388
+    "id": 1474219209466,
+    "name": "Solicitação 160",
+    "arrival": 8,
+    "delay": 22
   },
   {
-    "name": "Produto 160",
-    "time": "14",
-    "id": 1474140129389
+    "id": 1474219209467,
+    "name": "Solicitação 161",
+    "arrival": 8,
+    "delay": 14
   },
   {
-    "name": "Produto 161",
-    "time": "27",
-    "id": 1474140129390
+    "id": 1474219209468,
+    "name": "Solicitação 162",
+    "arrival": 12,
+    "delay": 27
   },
   {
-    "name": "Produto 162",
-    "time": "17",
-    "id": 1474140129391
+    "id": 1474219209469,
+    "name": "Solicitação 163",
+    "arrival": 3,
+    "delay": 17
   },
   {
-    "name": "Produto 163",
-    "time": "6",
-    "id": 1474140129392
+    "id": 1474219209470,
+    "name": "Solicitação 164",
+    "arrival": 7,
+    "delay": 6
   },
   {
-    "name": "Produto 164",
-    "time": "17",
-    "id": 1474140129393
+    "id": 1474219209471,
+    "name": "Solicitação 165",
+    "arrival": 1,
+    "delay": 17
   },
   {
-    "name": "Produto 165",
-    "time": "19",
-    "id": 1474140129394
+    "id": 1474219209472,
+    "name": "Solicitação 166",
+    "arrival": 3,
+    "delay": 19
   },
   {
-    "name": "Produto 166",
-    "time": "15",
-    "id": 1474140129395
+    "id": 1474219209473,
+    "name": "Solicitação 167",
+    "arrival": 1,
+    "delay": 15
   },
   {
-    "name": "Produto 167",
-    "time": "19",
-    "id": 1474140129396
+    "id": 1474219209474,
+    "name": "Solicitação 168",
+    "arrival": 3,
+    "delay": 19
   },
   {
-    "name": "Produto 168",
-    "time": "13",
-    "id": 1474140129397
+    "id": 1474219209475,
+    "name": "Solicitação 169",
+    "arrival": 2,
+    "delay": 13
   },
   {
-    "name": "Produto 169",
-    "time": "4",
-    "id": 1474140129398
+    "id": 1474219209476,
+    "name": "Solicitação 170",
+    "arrival": 5,
+    "delay": 4
   },
   {
-    "name": "Produto 170",
-    "time": "23",
-    "id": 1474140129399
+    "id": 1474219209477,
+    "name": "Solicitação 171",
+    "arrival": 4,
+    "delay": 23
   },
   {
-    "name": "Produto 171",
-    "time": "19",
-    "id": 1474140129400
+    "id": 1474219209478,
+    "name": "Solicitação 172",
+    "arrival": 9,
+    "delay": 19
   },
   {
-    "name": "Produto 172",
-    "time": "16",
-    "id": 1474140129401
+    "id": 1474219209479,
+    "name": "Solicitação 173",
+    "arrival": 4,
+    "delay": 16
   },
   {
-    "name": "Produto 173",
-    "time": "2",
-    "id": 1474140129402
+    "id": 1474219209480,
+    "name": "Solicitação 174",
+    "arrival": 12,
+    "delay": 2
   },
   {
-    "name": "Produto 174",
-    "time": "10",
-    "id": 1474140129403
+    "id": 1474219209481,
+    "name": "Solicitação 175",
+    "arrival": 4,
+    "delay": 10
   },
   {
-    "name": "Produto 175",
-    "time": "24",
-    "id": 1474140129404
+    "id": 1474219209482,
+    "name": "Solicitação 176",
+    "arrival": 11,
+    "delay": 24
   },
   {
-    "name": "Produto 176",
-    "time": "25",
-    "id": 1474140129405
+    "id": 1474219209483,
+    "name": "Solicitação 177",
+    "arrival": 9,
+    "delay": 25
   },
   {
-    "name": "Produto 177",
-    "time": "18",
-    "id": 1474140129406
+    "id": 1474219209484,
+    "name": "Solicitação 178",
+    "arrival": 2,
+    "delay": 18
   },
   {
-    "name": "Produto 178",
-    "time": "6",
-    "id": 1474140129407
+    "id": 1474219209485,
+    "name": "Solicitação 179",
+    "arrival": 0,
+    "delay": 6
   },
   {
-    "name": "Produto 179",
-    "time": "7",
-    "id": 1474140129408
+    "id": 1474219209486,
+    "name": "Solicitação 180",
+    "arrival": 5,
+    "delay": 7
   },
   {
-    "name": "Produto 180",
-    "time": "32",
-    "id": 1474140129409
+    "id": 1474219209487,
+    "name": "Solicitação 181",
+    "arrival": 8,
+    "delay": 32
   },
   {
-    "name": "Produto 181",
-    "time": "3",
-    "id": 1474140129410
+    "id": 1474219209488,
+    "name": "Solicitação 182",
+    "arrival": 24,
+    "delay": 3
   },
   {
-    "name": "Produto 182",
-    "time": "8",
-    "id": 1474140129411
+    "id": 1474219209489,
+    "name": "Solicitação 183",
+    "arrival": 1,
+    "delay": 8
   },
   {
-    "name": "Produto 183",
-    "time": "2",
-    "id": 1474140129412
+    "id": 1474219209490,
+    "name": "Solicitação 184",
+    "arrival": 5,
+    "delay": 2
   },
   {
-    "name": "Produto 184",
-    "time": "25",
-    "id": 1474140129413
+    "id": 1474219209491,
+    "name": "Solicitação 185",
+    "arrival": 12,
+    "delay": 25
   },
   {
-    "name": "Produto 185",
-    "time": "24",
-    "id": 1474140129414
+    "id": 1474219209492,
+    "name": "Solicitação 186",
+    "arrival": 9,
+    "delay": 24
   },
   {
-    "name": "Produto 186",
-    "time": "16",
-    "id": 1474140129415
+    "id": 1474219209493,
+    "name": "Solicitação 187",
+    "arrival": 17,
+    "delay": 16
   },
   {
-    "name": "Produto 187",
-    "time": "19",
-    "id": 1474140129416
+    "id": 1474219209494,
+    "name": "Solicitação 188",
+    "arrival": 728,
+    "delay": 19
   },
   {
-    "name": "Produto 188",
-    "time": "6",
-    "id": 1474140129417
+    "id": 1474219209495,
+    "name": "Solicitação 189",
+    "arrival": 12,
+    "delay": 6
   },
   {
-    "name": "Produto 189",
-    "time": "5",
-    "id": 1474140129418
+    "id": 1474219209496,
+    "name": "Solicitação 190",
+    "arrival": 6,
+    "delay": 5
   },
   {
-    "name": "Produto 190",
-    "time": "14",
-    "id": 1474140129419
+    "id": 1474219209497,
+    "name": "Solicitação 191",
+    "arrival": 4,
+    "delay": 14
   },
   {
-    "name": "Produto 191",
-    "time": "0",
-    "id": 1474140129420
+    "id": 1474219209498,
+    "name": "Solicitação 192",
+    "arrival": 3,
+    "delay": 0
   },
   {
-    "name": "Produto 192",
-    "time": "16",
-    "id": 1474140129421
+    "id": 1474219209499,
+    "name": "Solicitação 193",
+    "arrival": 5,
+    "delay": 16
   },
   {
-    "name": "Produto 193",
-    "time": "2",
-    "id": 1474140129422
+    "id": 1474219209500,
+    "name": "Solicitação 194",
+    "arrival": 7,
+    "delay": 2
   },
   {
-    "name": "Produto 194",
-    "time": "9",
-    "id": 1474140129423
+    "id": 1474219209501,
+    "name": "Solicitação 195",
+    "arrival": 4,
+    "delay": 9
   },
   {
-    "name": "Produto 195",
-    "time": "2",
-    "id": 1474140129424
+    "id": 1474219209502,
+    "name": "Solicitação 196",
+    "arrival": 4,
+    "delay": 2
   },
   {
-    "name": "Produto 196",
-    "time": "16",
-    "id": 1474140129425
+    "id": 1474219209503,
+    "name": "Solicitação 197",
+    "arrival": 4,
+    "delay": 16
   },
   {
-    "name": "Produto 197",
-    "time": "17",
-    "id": 1474140129426
+    "id": 1474219209504,
+    "name": "Solicitação 198",
+    "arrival": 11,
+    "delay": 17
   },
   {
-    "name": "Produto 198",
-    "time": "11",
-    "id": 1474140129427
+    "id": 1474219209505,
+    "name": "Solicitação 199",
+    "arrival": 3,
+    "delay": 11
   },
   {
-    "name": "Produto 199",
-    "time": "2",
-    "id": 1474140129428
+    "id": 1474219209506,
+    "name": "Solicitação 200",
+    "arrival": "8",
+    "delay": 2
   }
 ]

@@ -16,7 +16,7 @@ class Home extends React.Component {
       <div>
         <Row>
           <Col s={6}>
-            <ParametersBox />
+            <ParametersBox socket={this.props.socket} />
           </Col>
         </Row>
         <hr/>
