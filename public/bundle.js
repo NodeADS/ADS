@@ -34108,38 +34108,54 @@
 
 	    var _this = _possibleConstructorReturn(this, (ServerStatus.__proto__ || Object.getPrototypeOf(ServerStatus)).call(this, props));
 
-	    var self = _this;
+	    var interval = void 0;
 	    _this.state = {
 	      status: 'Parado',
-	      collor: 'red-text'
+	      collor: 'red-text',
+	      showProgress: false,
+	      progress: 0
 	    };
 
 	    _this.props.socket.on('startServer', function (data) {
 	      _this.setState({
 	        status: 'Aguardando solicitação',
-	        collor: 'green-text'
+	        collor: 'green-text',
+	        showProgress: false
 	      });
 	    });
 
 	    _this.props.socket.on('stopedtServer', function (data) {
 	      _this.setState({
 	        status: 'Parado',
-	        collor: 'red-text'
+	        collor: 'red-text',
+	        showProgress: false
 	      });
 	    });
 
 	    _this.props.socket.on('processItem', function (item) {
+	      var intervalTime = 100,
+	          sum = intervalTime / (item.delay * 1000) * 100,
+	          progress = 0;
+
 	      _this.setState({
 	        status: 'Processando ' + item.name,
-	        collor: 'green-text'
+	        collor: 'green-text',
+	        showProgress: true
 	      });
+
+	      interval = setInterval(function () {
+	        progress += sum;
+	        _this.setState({ progress: progress });
+	      }, intervalTime);
 	    });
 
 	    _this.props.socket.on('completedItem', function (item) {
 	      _this.setState({
 	        status: item.name + ' processada',
-	        collor: 'green-text'
+	        collor: 'green-text',
+	        showProgress: true
 	      });
+	      clearInterval(interval);
 	    });
 
 	    return _this;
@@ -34163,7 +34179,8 @@
 	            'span',
 	            { className: this.state.collor + ' small' },
 	            this.state.status
-	          )
+	          ),
+	          this.state.showProgress ? _react2.default.createElement(_reactMaterialize.ProgressBar, { progress: this.state.progress }) : null
 	        )
 	      );
 	    }
