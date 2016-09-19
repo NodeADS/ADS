@@ -8,6 +8,7 @@ class Socket {
     var io = socketIo(server);
     server.listen(8080, "127.0.0.1");
     this.io = io;
+    this.processTimeouts = [];
     this.solicitation = solicitation;
     this.process = new Process(io, {
       start: () => {
@@ -74,8 +75,24 @@ class Socket {
         socket.emit('solicitations', self.solicitation.get());
       });
 
-      socket.on('totalSolicitations', () => {
-        socket.emit('totalSolicitations', self.process.getTotal());
+      socket.on('resultSolicitation', () => {
+        socket.emit('resultSolicitation', {
+          total: self.process.getTotal(),
+          average: 0,
+          mode: 0,
+          variance: 0,
+          deviation: 0
+        });
+      });
+
+      socket.on('resultServer', () => {
+        socket.emit('resultServer', {
+          total: self.process.getProcesseds().length,
+          average: 0,
+          mode: 0,
+          variance: 0,
+          deviation: 0
+        });
       });
 
       socket.on('disconnect', () => {
@@ -88,15 +105,17 @@ class Socket {
     var itens = this.solicitation.get();
     var arrivalSum = 0;
 
+    this.processTimeouts.map((timeOut) => clearTimeout(timeOut));
     this.process.reset();
 
     itens.map((item) => {
       arrivalSum += item.arrival;
       let arrival = arrivalSum;
 
-      setTimeout(() => {
+      let timeOut = setTimeout(() => {
         this.process.addItem(item);
       }, arrival * 1000);
+      this.processTimeouts.push(timeOut);
     });
   }
 }

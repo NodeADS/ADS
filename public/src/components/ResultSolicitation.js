@@ -14,9 +14,9 @@ class ResultSolicitation extends React.Component {
   }
 
   componentDidMount() {
-    this.props.socket.emit('totalSolicitations');
-    this.props.socket.on('totalSolicitations', (data) => {
-      this.setState({total : data});
+    this.props.socket.emit('resultSolicitation');
+    this.props.socket.on('resultSolicitation', (data) => {
+      this.setState(data);
     });
 
     this.props.socket.on('receivedItem', (data) => {

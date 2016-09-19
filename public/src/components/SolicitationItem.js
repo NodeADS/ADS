@@ -2,6 +2,13 @@ import React from 'react';
 import countdown from 'countdown';
 import { Button } from 'react-materialize';
 
+countdown.setLabels(
+	' milissegundo| segundo| minuto| hora| dia| semana| mês| ano| década| século| milênio',
+	' milissegundos| segundos| minutos| horas| dias| semanas| meses| anos| décadas| séculos| milênios',
+	' e ',
+	' + ',
+	'agora');
+
 class SolicitationItem extends React.Component {
   constructor(props) {
     super(props);

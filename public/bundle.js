@@ -38481,6 +38481,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	_countdown2.default.setLabels(' milissegundo| segundo| minuto| hora| dia| semana| mês| ano| década| século| milênio', ' milissegundos| segundos| minutos| horas| dias| semanas| meses| anos| décadas| séculos| milênios', ' e ', ' + ', 'agora');
+
 	var SolicitationItem = function (_React$Component) {
 	  _inherits(SolicitationItem, _React$Component);
 
@@ -40285,6 +40287,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactMaterialize = __webpack_require__(179);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40299,16 +40303,73 @@
 	  function ResultServer(props) {
 	    _classCallCheck(this, ResultServer);
 
-	    return _possibleConstructorReturn(this, (ResultServer.__proto__ || Object.getPrototypeOf(ResultServer)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ResultServer.__proto__ || Object.getPrototypeOf(ResultServer)).call(this, props));
+
+	    _this.state = {
+	      total: 0,
+	      average: 0,
+	      mode: 0,
+	      variance: 0,
+	      deviation: 0
+	    };
+	    return _this;
 	  }
 
 	  _createClass(ResultServer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      this.props.socket.emit('resultServer');
+	      this.props.socket.on('resultServer', function (data) {
+	        _this2.setState(data);
+	      });
+
+	      this.props.socket.on('completedItem', function (data) {
+	        _this2.setState({ total: _this2.state.total + 1 });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var func = function func(name, value) {
+	        return _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            name
+	          ),
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            value
+	          )
+	        );
+	      };
+
 	      return _react2.default.createElement(
-	        'span',
+	        'div',
 	        null,
-	        'ResultServer'
+	        _react2.default.createElement(
+	          'h5',
+	          { className: 'left-align' },
+	          'Atendimento'
+	        ),
+	        _react2.default.createElement(
+	          _reactMaterialize.Table,
+	          null,
+	          _react2.default.createElement(
+	            'tbody',
+	            null,
+	            func('Total', this.state.total),
+	            func('Média', this.state.average),
+	            func('Moda', this.state.mode),
+	            func('Variância', this.state.variance),
+	            func('Desvio Padrão', this.state.deviation)
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -40367,9 +40428,9 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      this.props.socket.emit('totalSolicitations');
-	      this.props.socket.on('totalSolicitations', function (data) {
-	        _this2.setState({ total: data });
+	      this.props.socket.emit('resultSolicitation');
+	      this.props.socket.on('resultSolicitation', function (data) {
+	        _this2.setState(data);
 	      });
 
 	      this.props.socket.on('receivedItem', function (data) {
