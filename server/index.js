@@ -11,8 +11,6 @@ var app = express();
 var solicitation = new Solicitation(fs, SOLICITATIONS_FILE);
 var socket = new Socket(app, http, solicitation);
 
-
-
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(path.join(__dirname, '../public')));
@@ -29,45 +27,6 @@ app.use((req, res, next) => {
     res.setHeader('Cache-Control', 'no-cache');
     next();
 });
-
-/*
-var listProducts = function(callback) {
-  fs.readFile(PRODUCTS_FILE, function(err, data) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    var temp = JSON.parse(data);
-    productsHelper = temp;
-    callback(temp);
-    //res.json(JSON.parse(data));
-  });
-};
-
-var addProduct = function(newProduct, callback) {
-  fs.readFile(PRODUCTS_FILE, function(err, data) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    var products = JSON.parse(data);
-    newProduct.id = Date.now();
-    products.push(newProduct);
-    productsHelper = products;
-    fs.writeFile(PRODUCTS_FILE, JSON.stringify(products, null, 2), function(err) {
-      if (err) {
-        console.error(err);
-        process.exit(1);
-      }
-      callback();
-    });
-  });
-}
-
-app.get('/api/products', function(req, res) {
-
-});
-*/
 
 socket.start();
 
