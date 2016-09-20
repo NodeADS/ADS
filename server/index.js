@@ -5,13 +5,16 @@ import bodyParser from 'body-parser';
 import http from 'http';
 import Socket from './Socket';
 import Solicitation from './Solicitation';
+import API from './API';
+import Process from './Process';
 
 var SOLICITATIONS_FILE = path.join(__dirname, '../solicitations.json');
 var app = express();
 var solicitation = new Solicitation(fs, SOLICITATIONS_FILE);
-var socket = new Socket(app, http, solicitation);
+var processManager = new Process();
+var socket = new Socket(app, http, solicitation, processManager);
 
-
+new API(app, processManager);
 
 app.set('port', (process.env.PORT || 3000));
 

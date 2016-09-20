@@ -8,6 +8,7 @@ class ParametersBox extends React.Component {
       servers: 1,
       rule: 'FIFO',
       outlier: 'Moderado',
+      time: 1,
       running: false
     };
 
@@ -22,16 +23,22 @@ class ParametersBox extends React.Component {
     this.onStop = this.onStop.bind(this);
   }
 
-  serversChange() {
-    this.setState({servers: event.target.value});
+  serversChange(e) {
+    if (e.target.value >= 1 && e.target.value <= 10) {
+      this.setState({servers: e.target.value});
+    }
   }
 
-  ruleChange() {
-    this.setState({rule: event.target.value});
+  ruleChange(e) {
+    this.setState({rule: e.target.value});
   }
 
-  outlierChange() {
-    this.setState({outlier: event.target.value});
+  outlierChange(e) {
+    this.setState({outlier: e.target.value});
+  }
+
+  timeChange(e) {
+    this.setState({time: e.target.value});
   }
 
   onStart() {
@@ -39,7 +46,9 @@ class ParametersBox extends React.Component {
     this.setState({
       running: true
     });
-    this.props.socket.emit('start');
+    this.props.socket.emit('start', {
+      time: this.state.time == 1 ? 's' : 'm'
+    });
   }
 
   onStop() {
@@ -53,7 +62,7 @@ class ParametersBox extends React.Component {
   render() {
     return (
       <Row>
-        <Input s={6} label="Nº servidores" value={this.state.servers} onChange={this.serversChange} />
+        <Input s={6} type='number' label="Nº servidores" value={this.state.servers} onChange={this.serversChange} />
         <Input s={6} label="Regra atendimento" value={this.state.rule} onChange={this.ruleChange} />
         <Input s={12} label="Tipo de outlier" value={this.state.outlier} onChange={this.outlierChange} />
         <Button onClick={this.onStart} disabled={this.state.running} >Iniciar</Button>
@@ -61,6 +70,12 @@ class ParametersBox extends React.Component {
       </Row>
     );
   }
+  /*
+  <Input s={12} type='select' label="Tempo da solicitação" value={this.state.time} onChange={this.timeChange} >
+    <option value='1'>Segundos</option>
+    <option value='2'>Minutos</option>
+  </Input>
+  */
 }
 
 export default ParametersBox;

@@ -1,6 +1,5 @@
 class Process {
-  constructor(ioSocket, events) {
-    this.io = ioSocket;
+  constructor(events = {}) {
     this.item;
     this.queue = [];
     this.processeds = [];
@@ -15,9 +14,11 @@ class Process {
       receivedItem: () => {}
     };
 
-    this.events = Object.assign(this.events, events);
-
     this.start();
+  }
+
+  setEvents(events = {}) {
+    this.events = Object.assign(this.events, events);
   }
 
   isStarted() {

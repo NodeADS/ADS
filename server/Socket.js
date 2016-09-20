@@ -1,16 +1,17 @@
 import socketIo from 'socket.io';
-import Process from './Process';
+
 
 class Socket {
 
-  constructor(app, http, solicitation) {
+  constructor(app, http, solicitation, process) {
     var server = http.createServer(app);
     var io = socketIo(server);
     server.listen(8080, "127.0.0.1");
     this.io = io;
     this.processTimeouts = [];
     this.solicitation = solicitation;
-    this.process = new Process(io, {
+    this.process = process
+    process.setEvents({
       start: () => {
         this.io.emit('startServer');
       },
@@ -42,9 +43,9 @@ class Socket {
 
       socket.emit('processing', this.process.isProcessing());
 
-      socket.on('start', () => {
+      socket.on('start', (data) => {
         this.process.start();
-        self.startProcessing();
+        self.startProcessing(data);
       });
 
       socket.on('stop', () => {
@@ -101,9 +102,10 @@ class Socket {
     });
   }
 
-  startProcessing() {
+  startProcessing(data) {
     var itens = this.solicitation.get();
     var arrivalSum = 0;
+    var time = data.time == 's' ? 1 : 60;
 
     this.processTimeouts.map((timeOut) => clearTimeout(timeOut));
     this.process.reset();
@@ -114,7 +116,7 @@ class Socket {
 
       let timeOut = setTimeout(() => {
         this.process.addItem(item);
-      }, arrival * 1000);
+      }, arrival * 1000 * time);
       this.processTimeouts.push(timeOut);
     });
   }

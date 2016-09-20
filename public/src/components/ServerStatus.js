@@ -1,5 +1,7 @@
 import React from 'react';
+import 'ajax-promise-es6';
 import { Collection, CollectionItem, ProgressBar } from 'react-materialize';
+
 
 class ServerStatus extends React.Component {
   constructor(props) {
@@ -14,6 +16,13 @@ class ServerStatus extends React.Component {
 
   componentDidMount() {
     this.interval = undefined;
+/*
+    ajax.get('/api/products', {}, {}).then((res)=> {
+          console.log(res);
+    }).catch((err)=> {
+        console.log(err);
+    });*/
+
 
     this.props.socket.emit('serverStatus');
     this.props.socket.on('serverStatus', (data) => {
@@ -84,7 +93,8 @@ class ServerStatus extends React.Component {
       this.setState({
         status: `${item.name} processada`,
         collor: 'green-text',
-        showProgress: true
+        showProgress: true,
+        progress: 100
       });
       clearInterval(this.interval);
     });
