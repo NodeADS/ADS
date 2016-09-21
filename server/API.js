@@ -6,8 +6,12 @@ class API {
   }
 
   gets() {
-    this.app.get('/api/metrics', (req, res) => {
-      res.json(this.processManager.getMetrics());
+    this.app.get('/api/metrics/delay', (req, res) => {
+      res.json(this.processManager.getMetricsDelay());
+    });
+
+    this.app.get('/api/metrics/arrival', (req, res) => {
+      res.json(this.processManager.getMetricsArrival());
     });
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Collection, CollectionItem, Row, Col } from 'react-materialize';
-import ResultServer from './ResultServer';
-import ResultSolicitation from './ResultSolicitation';
+import ResultDelay from './ResultDelay';
+import ResultArrival from './ResultArrival';
 
 class ResultsBox extends React.Component {
   constructor(props) {
@@ -14,10 +14,10 @@ class ResultsBox extends React.Component {
         <CollectionItem>
           <Row>
             <Col s={6}>
-              <ResultSolicitation socket={this.props.socket} />
+              <ResultArrival socket={this.props.socket} />
             </Col>
             <Col s={6}>
-              <ResultServer socket={this.props.socket} />
+              <ResultDelay socket={this.props.socket} />
             </Col>
           </Row>
         </CollectionItem>

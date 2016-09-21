@@ -1,10 +1,6 @@
 class Process {
   constructor(events = {}) {
-    this.item;
-    this.queue = [];
-    this.processeds = [];
-    this.itemMostDelayed;
-    this.metrics = {
+    let metrics = {
       average: 0,
       mode: 0,
       variance: 0,
@@ -12,6 +8,13 @@ class Process {
       processeds: 0,
       queue: 0
     };
+
+    this.item;
+    this.queue = [];
+    this.processeds = [];
+    this.itemMostDelayed;
+    this.metricsArrival = metrics;
+    this.metricsDelay = metrics;
 
     this.events = {
       start: () => {},
@@ -22,7 +25,8 @@ class Process {
       removeQueueItem: () => {},
       receivedItem: () => {},
       mostDelayed: (timeMili) => {},
-      recalculateMetrics: () => {}
+      recalculateMetricsDelay: () => {},
+      recalculateMetricsArrival: () => {}
     };
 
     this.start();
@@ -48,8 +52,12 @@ class Process {
     return this.processeds;
   }
 
-  getMetrics() {
-    return this.metrics;
+  getMetricsDelay() {
+    return this.metricsDelay;
+  }
+
+  getMetricsArrival() {
+    return this.metricsArrival;
   }
 
   getTotal() {
@@ -79,6 +87,7 @@ class Process {
     //console.log('');
     if (this.item) {
       this.addQueue(item);
+      this.recalculateMetricsArrival();
     } else {
       this.process(item);
     }
@@ -96,6 +105,7 @@ class Process {
     //console.log('');
     item.startDate = Date.now();
     this.events.processItem(item);
+    this.recalculateMetricsArrival();
     setTimeout(() => {
       this.completedItem(item);
       this.goNext();
@@ -107,7 +117,8 @@ class Process {
     this.events.completedItem(item);
     this.processeds.push(item);
     this.mostDelayed(item);
-    this.recalculateMetrics();
+    this.recalculateMetricsDelay();
+    this.recalculateMetricsArrival();
   }
 
   mostDelayed(item) {
@@ -129,17 +140,36 @@ class Process {
     }
   }
 
-  recalculateMetrics() {
-    let itens = this.processeds.map((i) => i.delay);
+  recalculateMetricsArrival() {
+    let itens = this.processeds.concat(this.queue);
+    if (this.item) {
+      itens = itens.concat(this.item);
+    }
+    this.recalculateMetrics(itens.map((i) => i.arrival), (metrics) => {
+      this.metricsArrival = metrics;
+      this.events.recalculateMetricsArrival(metrics);
+    });
+  }
 
-    this.metrics.average = this.getAverage(itens);
-    this.metrics.mode = this.getMode(itens);
-    this.metrics.variance = this.getVariance(itens, this.metrics.average);
-    this.metrics.deviation = this.getDeviation(this.metrics.variance);
-    this.metrics.processeds = this.processeds.length;
-    this.metrics.queue = this.queue.length;
+  recalculateMetricsDelay() {
+    this.recalculateMetrics(this.processeds.map((i) => i.delay), (metrics) => {
+      this.metricsDelay = metrics;
+      this.events.recalculateMetricsDelay(metrics);
+    });
+  }
 
-    this.events.recalculateMetrics(this.metrics);
+  recalculateMetrics(itens, callback) {
+    let obj = {};
+
+    obj.average = this.getAverage(itens);
+    obj.mode = this.getMode(itens);
+    obj.variance = this.getVariance(itens, obj.average);
+    obj.deviation = this.getDeviation(obj.variance);
+    obj.processeds = this.processeds.length;
+    obj.queue = this.queue.length;
+    obj.total = this.queue.length + this.processeds.length + (this.item ? 1 : 0);
+
+    callback(obj);
   }
 
   getAverage(itens) {

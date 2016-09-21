@@ -2,7 +2,7 @@ import React from 'react';
 import Qajax from 'qajax';
 import { Table } from 'react-materialize';
 
-class ResultServer extends React.Component {
+class ResultDelay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,7 @@ class ResultServer extends React.Component {
   }
 
   componentDidMount() {
-    Qajax('/api/metrics')
+    Qajax('/api/metrics/delay')
       .then(Qajax.filterSuccess)
       .then(Qajax.toJSON)
       .then((metrics) => {
@@ -34,7 +34,7 @@ class ResultServer extends React.Component {
       this.setState({total : this.state.total+1});
     });
 
-    this.props.socket.on('recalculateMetrics', (metrics) => {
+    this.props.socket.on('recalculateMetricsDelay', (metrics) => {
       this.setState({
         total: metrics.processeds,
         average: Math.round(metrics.average * 100) / 100,
@@ -57,7 +57,7 @@ class ResultServer extends React.Component {
 
     return (
       <div>
-        <h5 className='left-align'>Servidor</h5>
+        <h5 className='left-align'>Tempo Proc.</h5>
         <Table>
           <tbody>
             {func('Total', this.state.total)}
@@ -72,4 +72,4 @@ class ResultServer extends React.Component {
   }
 }
 
-export default ResultServer;
+export default ResultDelay;

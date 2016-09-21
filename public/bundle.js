@@ -42658,13 +42658,13 @@
 
 	var _reactMaterialize = __webpack_require__(183);
 
-	var _ResultServer = __webpack_require__(232);
+	var _ResultDelay = __webpack_require__(232);
 
-	var _ResultServer2 = _interopRequireDefault(_ResultServer);
+	var _ResultDelay2 = _interopRequireDefault(_ResultDelay);
 
-	var _ResultSolicitation = __webpack_require__(233);
+	var _ResultArrival = __webpack_require__(233);
 
-	var _ResultSolicitation2 = _interopRequireDefault(_ResultSolicitation);
+	var _ResultArrival2 = _interopRequireDefault(_ResultArrival);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42698,12 +42698,12 @@
 	            _react2.default.createElement(
 	              _reactMaterialize.Col,
 	              { s: 6 },
-	              _react2.default.createElement(_ResultSolicitation2.default, { socket: this.props.socket })
+	              _react2.default.createElement(_ResultArrival2.default, { socket: this.props.socket })
 	            ),
 	            _react2.default.createElement(
 	              _reactMaterialize.Col,
 	              { s: 6 },
-	              _react2.default.createElement(_ResultServer2.default, { socket: this.props.socket })
+	              _react2.default.createElement(_ResultDelay2.default, { socket: this.props.socket })
 	            )
 	          )
 	        )
@@ -42746,13 +42746,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ResultServer = function (_React$Component) {
-	  _inherits(ResultServer, _React$Component);
+	var ResultDelay = function (_React$Component) {
+	  _inherits(ResultDelay, _React$Component);
 
-	  function ResultServer(props) {
-	    _classCallCheck(this, ResultServer);
+	  function ResultDelay(props) {
+	    _classCallCheck(this, ResultDelay);
 
-	    var _this = _possibleConstructorReturn(this, (ResultServer.__proto__ || Object.getPrototypeOf(ResultServer)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ResultDelay.__proto__ || Object.getPrototypeOf(ResultDelay)).call(this, props));
 
 	    _this.state = {
 	      total: 0,
@@ -42764,13 +42764,12 @@
 	    return _this;
 	  }
 
-	  _createClass(ResultServer, [{
+	  _createClass(ResultDelay, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      (0, _qajax2.default)('/api/metrics').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (metrics) {
-	        console.log(metrics);
+	      (0, _qajax2.default)('/api/metrics/delay').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (metrics) {
 	        _this2.setState({
 	          total: metrics.processeds,
 	          average: Math.round(metrics.average * 100) / 100,
@@ -42786,8 +42785,7 @@
 	        _this2.setState({ total: _this2.state.total + 1 });
 	      });
 
-	      this.props.socket.on('recalculateMetrics', function (metrics) {
-	        console.log(metrics);
+	      this.props.socket.on('recalculateMetricsDelay', function (metrics) {
 	        _this2.setState({
 	          total: metrics.processeds,
 	          average: Math.round(metrics.average * 100) / 100,
@@ -42823,7 +42821,7 @@
 	        _react2.default.createElement(
 	          'h5',
 	          { className: 'left-align' },
-	          'Servidor'
+	          'Tempo Proc.'
 	        ),
 	        _react2.default.createElement(
 	          _reactMaterialize.Table,
@@ -42842,10 +42840,10 @@
 	    }
 	  }]);
 
-	  return ResultServer;
+	  return ResultDelay;
 	}(_react2.default.Component);
 
-	exports.default = ResultServer;
+	exports.default = ResultDelay;
 
 /***/ },
 /* 233 */
@@ -42863,6 +42861,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _qajax = __webpack_require__(179);
+
+	var _qajax2 = _interopRequireDefault(_qajax);
+
 	var _reactMaterialize = __webpack_require__(183);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42873,13 +42875,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ResultSolicitation = function (_React$Component) {
-	  _inherits(ResultSolicitation, _React$Component);
+	var ResultArrival = function (_React$Component) {
+	  _inherits(ResultArrival, _React$Component);
 
-	  function ResultSolicitation(props) {
-	    _classCallCheck(this, ResultSolicitation);
+	  function ResultArrival(props) {
+	    _classCallCheck(this, ResultArrival);
 
-	    var _this = _possibleConstructorReturn(this, (ResultSolicitation.__proto__ || Object.getPrototypeOf(ResultSolicitation)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ResultArrival.__proto__ || Object.getPrototypeOf(ResultArrival)).call(this, props));
 
 	    _this.state = {
 	      total: 0,
@@ -42891,18 +42893,31 @@
 	    return _this;
 	  }
 
-	  _createClass(ResultSolicitation, [{
+	  _createClass(ResultArrival, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      this.props.socket.emit('resultSolicitation');
-	      this.props.socket.on('resultSolicitation', function (data) {
-	        _this2.setState(data);
+	      (0, _qajax2.default)('/api/metrics/arrival').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (metrics) {
+	        _this2.setState({
+	          total: metrics.processeds,
+	          average: Math.round(metrics.average * 100) / 100,
+	          mode: metrics.mode,
+	          variance: Math.round(metrics.variance * 100) / 100,
+	          deviation: Math.round(metrics.deviation * 100) / 100
+	        });
+	      }, function (err) {
+	        console.log(err);
 	      });
 
-	      this.props.socket.on('receivedItem', function (data) {
-	        _this2.setState({ total: _this2.state.total + 1 });
+	      this.props.socket.on('recalculateMetricsArrival', function (metrics) {
+	        _this2.setState({
+	          total: metrics.total,
+	          average: Math.round(metrics.average * 100) / 100,
+	          mode: metrics.mode,
+	          variance: Math.round(metrics.variance * 100) / 100,
+	          deviation: Math.round(metrics.deviation * 100) / 100
+	        });
 	      });
 	    }
 	  }, {
@@ -42931,7 +42946,7 @@
 	        _react2.default.createElement(
 	          'h5',
 	          { className: 'left-align' },
-	          'Solicitações'
+	          'Tempo Fila'
 	        ),
 	        _react2.default.createElement(
 	          _reactMaterialize.Table,
@@ -42950,10 +42965,10 @@
 	    }
 	  }]);
 
-	  return ResultSolicitation;
+	  return ResultArrival;
 	}(_react2.default.Component);
 
-	exports.default = ResultSolicitation;
+	exports.default = ResultArrival;
 
 /***/ },
 /* 234 */

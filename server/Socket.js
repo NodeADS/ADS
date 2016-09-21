@@ -36,9 +36,12 @@ class Socket {
       mostDelayed: (miliseconds) => {
         this.io.emit('mostDelayed', miliseconds);
       },
-      recalculateMetrics: (metrics) => {
-        this.io.emit('recalculateMetrics', metrics);
-      }
+      recalculateMetricsDelay: (metrics) => {
+        this.io.emit('recalculateMetricsDelay', metrics);
+      },
+      recalculateMetricsArrival: (metrics) => {
+        this.io.emit('recalculateMetricsArrival', metrics);
+      },
     });
   }
 
