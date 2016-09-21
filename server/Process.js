@@ -8,7 +8,9 @@ class Process {
       average: 0,
       mode: 0,
       variance: 0,
-      deviation: 0
+      deviation: 0,
+      processeds: 0,
+      queue: 0
     };
 
     this.events = {
@@ -44,6 +46,10 @@ class Process {
 
   getProcesseds() {
     return this.processeds;
+  }
+
+  getMetrics() {
+    return this.metrics;
   }
 
   getTotal() {
@@ -124,12 +130,14 @@ class Process {
   }
 
   recalculateMetrics() {
-    var itens = this.processeds.map((i) => i.delay);
+    let itens = this.processeds.map((i) => i.delay);
 
-    this.metrics.average = getAverage(itens);
-    this.metrics.mode = getMode(itens);
-    this.metrics.variance = getVariance(itens);
-    this.metrics.deviation = getDeviation(itens);;
+    this.metrics.average = this.getAverage(itens);
+    this.metrics.mode = this.getMode(itens);
+    this.metrics.variance = this.getVariance(itens, this.metrics.average);
+    this.metrics.deviation = this.getDeviation(this.metrics.variance);
+    this.metrics.processeds = this.processeds.length;
+    this.metrics.queue = this.queue.length;
 
     this.events.recalculateMetrics(this.metrics);
   }
@@ -139,19 +147,40 @@ class Process {
   }
 
   getMode(itens) {
-    let temp = {};
+    let dict = {}
+      , greatestFreq = -1
+      , mode;
+
     itens.map((item) => {
-      if (temp.item) temp.item++;
-      else temp.item = 0;
+      if (dict[item]) {
+        dict[item] = dict[item] + 1;
+      } else {
+        dict[item] = 1;
+      }
     });
+
+    for(let key in dict) {
+      if(dict[key] > greatestFreq){
+          greatestFreq = dict[key];
+          mode = key;
+      }
+    }
+
+    return parseInt(mode);
   }
 
-  getVariance(itens) {
-    return itens.reduce((p, c) => p + c, 0) / itens.length;
+  getVariance(itens, average) {
+    return itens.reduce((p, c) => {
+      return p + Math.pow(c - average, 2);
+    }, 0) / itens.length;
   }
 
-  getDeviation(itens) {
-    return itens.reduce((p, c) => p + c, 0) / itens.length;
+  getDeviation(variance) {
+    let deviation = Math.sqrt(variance);
+    if (deviation < 0) {
+      deviation = deviation * -1;
+    }
+    return deviation;
   }
 
   isProcessing() {

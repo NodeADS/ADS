@@ -6,10 +6,8 @@ class API {
   }
 
   gets() {
-    this.app.get('/api/products', (req, res) => {
-      res.json({
-        name: 'Felipe Nolleto'
-      });
+    this.app.get('/api/metrics', (req, res) => {
+      res.json(this.processManager.getMetrics());
     });
   }
 }

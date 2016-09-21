@@ -34132,18 +34132,14 @@
 
 	      this.interval = undefined;
 
-	      (0, _qajax2.default)('/api/products').then(_qajax2.default.filterSuccess).get("responseText") // using a cool Q feature here
-	      .then(function (txt) {
-	        console.log("server returned: " + txt);
-	      }, function (err) {
-	        console.log("xhr failure: ", err);
-	      });
-	      /*
-	          ajax.get('/api/products', {}, {}).then((res)=> {
-	                console.log(res);
-	          }).catch((err)=> {
-	              console.log(err);
-	          });*/
+	      /*Qajax('/api/products')
+	        .then(Qajax.filterSuccess)
+	        .get("responseText") // using a cool Q feature here
+	        .then(function (txt) {
+	          console.log("server returned: "+txt);
+	        }, function (err) {
+	          console.log("xhr failure: ", err);
+	        });*/
 
 	      this.props.socket.emit('serverStatus');
 	      this.props.socket.on('serverStatus', function (data) {
@@ -42736,6 +42732,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _qajax = __webpack_require__(179);
+
+	var _qajax2 = _interopRequireDefault(_qajax);
+
 	var _reactMaterialize = __webpack_require__(183);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42769,9 +42769,17 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      this.props.socket.emit('resultServer');
-	      this.props.socket.on('resultServer', function (data) {
-	        _this2.setState(data);
+	      (0, _qajax2.default)('/api/metrics').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (metrics) {
+	        console.log(metrics);
+	        _this2.setState({
+	          total: metrics.processeds,
+	          average: Math.round(metrics.average * 100) / 100,
+	          mode: metrics.mode,
+	          variance: Math.round(metrics.variance * 100) / 100,
+	          deviation: Math.round(metrics.deviation * 100) / 100
+	        });
+	      }, function (err) {
+	        console.log(err);
 	      });
 
 	      this.props.socket.on('completedItem', function (data) {
@@ -42780,6 +42788,13 @@
 
 	      this.props.socket.on('recalculateMetrics', function (metrics) {
 	        console.log(metrics);
+	        _this2.setState({
+	          total: metrics.processeds,
+	          average: Math.round(metrics.average * 100) / 100,
+	          mode: metrics.mode,
+	          variance: Math.round(metrics.variance * 100) / 100,
+	          deviation: Math.round(metrics.deviation * 100) / 100
+	        });
 	      });
 	    }
 	  }, {
@@ -42808,7 +42823,7 @@
 	        _react2.default.createElement(
 	          'h5',
 	          { className: 'left-align' },
-	          'Atendimento'
+	          'Servidor'
 	        ),
 	        _react2.default.createElement(
 	          _reactMaterialize.Table,
