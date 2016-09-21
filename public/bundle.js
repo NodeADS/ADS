@@ -42770,7 +42770,6 @@
 	      var _this2 = this;
 
 	      (0, _qajax2.default)('/api/metrics').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (metrics) {
-	        console.log(metrics);
 	        _this2.setState({
 	          total: metrics.processeds,
 	          average: Math.round(metrics.average * 100) / 100,
@@ -42787,7 +42786,6 @@
 	      });
 
 	      this.props.socket.on('recalculateMetrics', function (metrics) {
-	        console.log(metrics);
 	        _this2.setState({
 	          total: metrics.processeds,
 	          average: Math.round(metrics.average * 100) / 100,
@@ -43079,6 +43077,10 @@
 
 	      this.props.socket.on('mostDelayed', function (miliseconds) {
 	        _this2.setState({ maxTimeComplete: (0, _countdown2.default)(0, miliseconds).toString() });
+	      });
+
+	      this.props.socket.on('mostTimeInQueue', function (miliseconds) {
+	        _this2.setState({ maxTimeStart: (0, _countdown2.default)(0, miliseconds).toString() });
 	      });
 	    }
 	  }, {

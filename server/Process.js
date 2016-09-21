@@ -4,6 +4,7 @@ class Process {
     this.queue = [];
     this.processeds = [];
     this.itemMostDelayed;
+    this.itemMostTimeInQueue;
     this.metrics = {
       average: 0,
       mode: 0,
@@ -22,6 +23,7 @@ class Process {
       removeQueueItem: () => {},
       receivedItem: () => {},
       mostDelayed: (timeMili) => {},
+      mostTimeInQueue: (timeMili) => {},
       recalculateMetrics: () => {}
     };
 
@@ -70,8 +72,6 @@ class Process {
 
   }
 
-
-
   addItem(item) {
     item.receiveDate = Date.now();
     this.events.receivedItem(item);
@@ -95,6 +95,8 @@ class Process {
     //console.log('process', this.item, this.queue);
     //console.log('');
     item.startDate = Date.now();
+    item.timeInQueue = item.startDate - item.receiveDate;
+    this.mostTimeInQueue(item);
     this.events.processItem(item);
     setTimeout(() => {
       this.completedItem(item);
@@ -104,6 +106,7 @@ class Process {
 
   completedItem(item) {
     item.completeDate = Date.now();
+    item.timeToComplete = item.completeDate - item.receiveDate;
     this.events.completedItem(item);
     this.processeds.push(item);
     this.mostDelayed(item);
@@ -112,11 +115,20 @@ class Process {
 
   mostDelayed(item) {
     if (this.itemMostDelayed) {
-      this.itemMostDelayed = item.delay > this.itemMostDelayed.delay ? item : this.itemMostDelayed;
+      this.itemMostDelayed = item.timeToComplete > this.itemMostDelayed.timeToComplete ? item : this.itemMostDelayed;
     } else {
       this.itemMostDelayed = item;
     }
-    this.events.mostDelayed(this.itemMostDelayed.delay * 1000);
+    this.events.mostDelayed(this.itemMostDelayed.timeToComplete);
+  }
+
+  mostTimeInQueue(item) {
+    if (this.itemMostTimeInQueue) {
+      this.itemMostTimeInQueue = item.timeInQueue > this.itemMostTimeInQueue.timeInQueue ? item : this.itemMostTimeInQueue;
+    } else {
+      this.itemMostTimeInQueue = item;
+    }
+    this.events.mostTimeInQueue(this.itemMostTimeInQueue.timeInQueue);
   }
 
   goNext() {
