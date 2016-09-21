@@ -18,7 +18,7 @@ var processManager = new Process();
 var serverManager = new ServerManager();
 var socket = new Socket(app, http, solicitation, processManager, serverManager);
 
-new API(app, processManager);
+new API(app, serverManager);
 
 app.set('port', (process.env.PORT || 3000));
 

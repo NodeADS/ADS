@@ -40728,6 +40728,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _qajax = __webpack_require__(179);
+
+	var _qajax2 = _interopRequireDefault(_qajax);
+
 	var _Server = __webpack_require__(226);
 
 	var _Server2 = _interopRequireDefault(_Server);
@@ -40760,6 +40764,12 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
+
+	      (0, _qajax2.default)('/api/servers').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (servers) {
+	        _this2.setState({ servers: servers });
+	      }, function (err) {
+	        console.log(err);
+	      });
 
 	      this.props.socket.on('createdServers', function (servers) {
 	        _this2.setState({ servers: servers });
@@ -40843,15 +40853,34 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      /*Qajax('/api/')
-	        .then(Qajax.filterSuccess)
-	        .then(Qajax.toJSON)
-	        .then((data) => {
-	          }, function (err) {
-	          console.log(err);
-	        });*/
+	      (0, _qajax2.default)({ url: '/api/server/status', params: { id: this.props.server.id } }).then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (data) {
+	        if (data.item) {
+	          (function () {
+	            var intervalTime = 100,
+	                initDate = new Date(data.item.startDate),
+	                delay = data.item.delay * 1000;
+
+	            _this2.setState({
+	              status: 'Processando ' + data.item.name,
+	              collor: 'green-text',
+	              showProgress: true,
+	              progress: (new Date() - initDate) / delay * 100
+	            });
+
+	            _this2.interval = setInterval(function () {
+	              var completed = new Date() - initDate;
+	              _this2.setState({ progress: completed / delay * 100 });
+	            }, intervalTime);
+	          })();
+	        }
+	      }, function (err) {
+	        console.log(err);
+	      });
+
 	      this.props.socket.on('serverIdle', function (server) {
 	        if (server.id != _this2.props.server.id) return;
+
+	        clearInterval(_this2.interval);
 	        _this2.setState({
 	          status: 'Aguardando solicitação',
 	          collor: 'green-text',
@@ -40865,6 +40894,7 @@
 	            sum = intervalTime / (item.delay * 1000) * 100,
 	            progress = 0;
 
+	        clearInterval(_this2.interval);
 	        _this2.setState({
 	          status: 'Processando ' + item.name,
 	          collor: 'green-text',
@@ -40993,6 +41023,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _qajax = __webpack_require__(179);
+
+	var _qajax2 = _interopRequireDefault(_qajax);
+
 	var _reactMaterialize = __webpack_require__(183);
 
 	var _SolicitationItem = __webpack_require__(229);
@@ -41026,18 +41060,26 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      this.props.socket.emit('solicitationsProcessing');
-	      this.props.socket.on('solicitationsProcessing', function (data) {
-	        var solicitations = [];
-	        if (data) {
-	          solicitations.push(data);
-	        }
-
-	        _this2.props.socket.emit('solicitationsQueue');
-	        _this2.props.socket.on('solicitationsQueue', function (itens) {
-	          solicitations = solicitations.concat(itens);
-	          _this2.setState({ solicitations: solicitations });
-	        });
+	      (0, _qajax2.default)('/api/solicitations/processing').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (itens) {
+	        console.log(itens);
+	        _this2.setState({ solicitations: itens });
+	        /*if (data.item) {
+	          let intervalTime = 100
+	             , initDate = new Date(data.item.startDate)
+	             , delay = data.item.delay * 1000;
+	            this.setState({
+	            status: `Processando ${data.item.name}`,
+	            collor: 'green-text',
+	            showProgress: true,
+	            progress: ((new Date() - initDate) / delay) * 100
+	          });
+	            this.interval = setInterval(() => {
+	            let completed = new Date() - initDate;
+	            this.setState({ progress: (completed / delay) * 100 });
+	          }, intervalTime);
+	        }*/
+	      }, function (err) {
+	        console.log(err);
 	      });
 
 	      this.props.socket.on('receivedItem', function (item) {
@@ -42631,6 +42673,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _qajax = __webpack_require__(179);
+
+	var _qajax2 = _interopRequireDefault(_qajax);
+
 	var _SolicitationItem = __webpack_require__(229);
 
 	var _SolicitationItem2 = _interopRequireDefault(_SolicitationItem);
@@ -42664,12 +42710,13 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      this.props.socket.emit('solicitationsProcesseds');
-	      this.props.socket.on('solicitationsProcesseds', function (itens) {
+	      (0, _qajax2.default)('/api/solicitations/completed').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (itens) {
 	        _this2.setState({ solicitations: itens });
+	      }, function (err) {
+	        console.log(err);
 	      });
 
-	      this.props.socket.on('completedItem', function (item) {
+	      this.props.socket.on('serverProcessedItem', function (server, item) {
 	        var solicitations = _this2.state.solicitations;
 	        solicitations.push(item);
 	        _this2.setState({ solicitations: solicitations });
@@ -42963,26 +43010,29 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      (0, _qajax2.default)('/api/metrics/delay').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (metrics) {
-	        _this2.setState({
-	          total: metrics.processeds,
-	          average: Math.round(metrics.average * 100) / 100,
-	          mode: metrics.mode,
-	          median: metrics.median,
-	          variance: Math.round(metrics.variance * 100) / 100,
-	          deviation: Math.round(metrics.deviation * 100) / 100
-	        });
-	      }, function (err) {
-	        console.log(err);
-	      });
+	      /*Qajax('/api/metrics/delay')
+	        .then(Qajax.filterSuccess)
+	        .then(Qajax.toJSON)
+	        .then((metrics) => {
+	          this.setState({
+	            total: metrics.processeds,
+	            average: Math.round(metrics.average * 100) / 100,
+	            mode: metrics.mode,
+	            median: metrics.median,
+	            variance: Math.round(metrics.variance * 100) / 100,
+	            deviation: Math.round(metrics.deviation * 100) / 100
+	          });
+	        }, function (err) {
+	          console.log(err);
+	        });*/
 
-	      this.props.socket.on('completedItem', function (data) {
+	      this.props.socket.on('serverProcessedItem', function () {
 	        _this2.setState({ total: _this2.state.total + 1 });
 	      });
 
-	      this.props.socket.on('recalculateMetricsDelay', function (metrics) {
+	      this.props.socket.on('updatedDelay', function (metrics) {
 	        _this2.setState({
-	          total: metrics.processeds,
+	          total: metrics.total,
 	          average: Math.round(metrics.average * 100) / 100,
 	          mode: metrics.mode,
 	          median: metrics.median,
@@ -43096,20 +43146,23 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      (0, _qajax2.default)('/api/metrics/arrival').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (metrics) {
-	        _this2.setState({
-	          total: metrics.processeds,
-	          average: Math.round(metrics.average * 100) / 100,
-	          mode: metrics.mode,
-	          median: metrics.median,
-	          variance: Math.round(metrics.variance * 100) / 100,
-	          deviation: Math.round(metrics.deviation * 100) / 100
-	        });
-	      }, function (err) {
-	        console.log(err);
-	      });
+	      /*Qajax('/api/metrics/arrival')
+	        .then(Qajax.filterSuccess)
+	        .then(Qajax.toJSON)
+	        .then((metrics) => {
+	          this.setState({
+	            //total: metrics.processeds,
+	            average: Math.round(metrics.average * 100) / 100,
+	            mode: metrics.mode,
+	            median: metrics.median,
+	            variance: Math.round(metrics.variance * 100) / 100,
+	            deviation: Math.round(metrics.deviation * 100) / 100
+	          });
+	        }, function (err) {
+	          console.log(err);
+	        });*/
 
-	      this.props.socket.on('recalculateMetricsArrival', function (metrics) {
+	      this.props.socket.on('updatedArrival', function (metrics) {
 	        _this2.setState({
 	          total: metrics.total,
 	          average: Math.round(metrics.average * 100) / 100,

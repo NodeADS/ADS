@@ -1,4 +1,5 @@
 import React from 'react';
+import Qajax from 'qajax';
 import SolicitationItem from './SolicitationItem';
 import { Collection, CollectionItem, CollapsibleItem } from 'react-materialize';
 
@@ -11,12 +12,18 @@ class SolicitationsCompleted extends React.Component {
   }
 
   componentDidMount() {
-    this.props.socket.emit('solicitationsProcesseds');
-    this.props.socket.on('solicitationsProcesseds', (itens) => {
-      this.setState({solicitations: itens});
-    });
+    Qajax('/api/solicitations/completed')
+      .then(Qajax.filterSuccess)
+      .then(Qajax.toJSON)
+      .then((itens) => {
+        this.setState({solicitations: itens});
 
-    this.props.socket.on('completedItem', (item) => {
+      }, function (err) {
+        console.log(err);
+      });
+
+
+    this.props.socket.on('serverProcessedItem', (server, item) => {
       let solicitations = this.state.solicitations;
       solicitations.push(item);
       this.setState({solicitations: solicitations});

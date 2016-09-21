@@ -16,12 +16,12 @@ class ResultArrival extends React.Component {
   }
 
   componentDidMount() {
-    Qajax('/api/metrics/arrival')
+    /*Qajax('/api/metrics/arrival')
       .then(Qajax.filterSuccess)
       .then(Qajax.toJSON)
       .then((metrics) => {
         this.setState({
-          total: metrics.processeds,
+          //total: metrics.processeds,
           average: Math.round(metrics.average * 100) / 100,
           mode: metrics.mode,
           median: metrics.median,
@@ -30,9 +30,9 @@ class ResultArrival extends React.Component {
         });
       }, function (err) {
         console.log(err);
-      });
+      });*/
 
-    this.props.socket.on('recalculateMetricsArrival', (metrics) => {
+    this.props.socket.on('updatedArrival', (metrics) => {
       this.setState({
         total: metrics.total,
         average: Math.round(metrics.average * 100) / 100,

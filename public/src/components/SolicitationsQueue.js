@@ -1,4 +1,5 @@
 import React from 'react';
+import Qajax from 'qajax';
 import { Collection, CollectionItem, CollapsibleItem } from 'react-materialize';
 import SolicitationItem from './SolicitationItem';
 
@@ -11,21 +12,33 @@ class SolicitationsQueue extends React.Component {
   }
 
   componentDidMount() {
-    this.props.socket.emit('solicitationsProcessing');
-    this.props.socket.on('solicitationsProcessing', (data) => {
-      var solicitations = [];
-      if (data) {
-        solicitations.push(data);
-      }
+    Qajax('/api/solicitations/processing')
+      .then(Qajax.filterSuccess)
+      .then(Qajax.toJSON)
+      .then((itens) => {
+        console.log(itens);
+        this.setState({solicitations: itens});
+        /*if (data.item) {
+          let intervalTime = 100
+             , initDate = new Date(data.item.startDate)
+             , delay = data.item.delay * 1000;
 
-      this.props.socket.emit('solicitationsQueue');
-      this.props.socket.on('solicitationsQueue', (itens) => {
-        solicitations = solicitations.concat(itens);
-        this.setState({solicitations: solicitations});
+          this.setState({
+            status: `Processando ${data.item.name}`,
+            collor: 'green-text',
+            showProgress: true,
+            progress: ((new Date() - initDate) / delay) * 100
+          });
+
+          this.interval = setInterval(() => {
+            let completed = new Date() - initDate;
+            this.setState({ progress: (completed / delay) * 100 });
+          }, intervalTime);
+        }*/
+
+      }, function (err) {
+        console.log(err);
       });
-    });
-
-
 
     this.props.socket.on('receivedItem', (item) => {
       let solicitations = this.state.solicitations;

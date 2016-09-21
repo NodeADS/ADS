@@ -16,7 +16,7 @@ class ResultDelay extends React.Component {
   }
 
   componentDidMount() {
-    Qajax('/api/metrics/delay')
+    /*Qajax('/api/metrics/delay')
       .then(Qajax.filterSuccess)
       .then(Qajax.toJSON)
       .then((metrics) => {
@@ -30,15 +30,15 @@ class ResultDelay extends React.Component {
         });
       }, function (err) {
         console.log(err);
-      });
+      });*/
 
-    this.props.socket.on('completedItem', (data) => {
+    this.props.socket.on('serverProcessedItem', () => {
       this.setState({total : this.state.total+1});
     });
 
-    this.props.socket.on('recalculateMetricsDelay', (metrics) => {
+    this.props.socket.on('updatedDelay', (metrics) => {
       this.setState({
-        total: metrics.processeds,
+        total: metrics.total,
         average: Math.round(metrics.average * 100) / 100,
         mode: metrics.mode,
         median: metrics.median,

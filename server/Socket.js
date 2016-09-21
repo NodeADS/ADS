@@ -19,12 +19,6 @@ class Socket {
       },
       queueItem: (item) => {
         this.io.emit('queueItem', item);
-      },
-      mostDelayed: (timeMili) => {
-        this.io.emit('mostDelayed', timeMili);
-      },
-      mostTimeInQueue: (timeMili) => {
-        this.io.emit('mostTimeInQueue', timeMili);
       }
     });
     serverManager.setServerEvents({
@@ -42,14 +36,20 @@ class Socket {
       }
     });
     serverManager.setMetricsEvents({
-      updatedTimeInQueue: (metrics) => {
-        this.io.emit('updatedTimeInQueue', metrics);
+      updatedDelay: (metrics) => {
+        this.io.emit('updatedDelay', metrics);
       },
-      updatedProcessingTime: (metrics) => {
-        this.io.emit('updatedProcessingTime', metrics);
+      updatedArrival: (metrics) => {
+        this.io.emit('updatedArrival', metrics);
       },
       updatedAverages: (metrics) => {
         this.io.emit('updatedAverages', metrics);
+      },
+      mostDelayed: (timeMili) => {
+        this.io.emit('mostDelayed', timeMili);
+      },
+      mostTimeInQueue: (timeMili) => {
+        this.io.emit('mostTimeInQueue', timeMili);
       }
     });
 

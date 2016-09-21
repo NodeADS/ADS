@@ -1,17 +1,17 @@
 import Server from './Server';
+import Calc from './Calc';
 
 class ServerManager {
   constructor() {
     this.servers = [];
     this.queue = [];
+    this.processeds = [];
     this.itemMostDelayed;
     this.itemMostTimeInQueue;
 
     this.geralEvents = {
       receivedItem: (item) => {},
-      queueItem: (item) => {},
-      mostDelayed: (timeMili) => {},
-      mostTimeInQueue: (timeMili) => {}
+      queueItem: (item) => {}
     };
 
     this.serverEvents = {
@@ -22,9 +22,11 @@ class ServerManager {
     };
 
     this.metricsEvents = {
-      updatedTimeInQueue: (metrics) => {},
-      updatedProcessingTime: (metrics) => {},
-      updatedAverages: (metrics) => {}
+      updatedDelay: (metrics) => {},
+      updatedArrival: (metrics) => {},
+      updatedAverages: (metrics) => {},
+      mostDelayed: (timeMili) => {},
+      mostTimeInQueue: (timeMili) => {}
     };
   }
 
@@ -57,6 +59,7 @@ class ServerManager {
 
     this.servers = [];
     this.queue = [];
+    this.processeds = [];
   }
 
   addItem(item) {
@@ -78,6 +81,7 @@ class ServerManager {
     if (!processingItem) {
       this.addQueue(item);
     }
+    this.updatedArrivalMetric();
   }
 
   goNext(server) {
@@ -100,8 +104,10 @@ class ServerManager {
     server.processItem(item, (_) => {
       item.completeDate = Date.now();
       item.timeToComplete = item.completeDate - item.receiveDate;
+      this.processeds.push(item);
       this.serverEvents.processedItem(server, item);
       this.updateMostDelayed(item);
+      this.updatedDelayMetric();
 
       this.goNext(server)
     });
@@ -113,13 +119,61 @@ class ServerManager {
     this.geralEvents.queueItem(item);
   }
 
+  calculateMetrics(itens) {
+    let obj = {};
+
+    obj.total = itens.length;
+    obj.average = Calc.getAverage(itens);
+    obj.mode = Calc.getMode(itens);
+    obj.variance = Calc.getVariance(itens, obj.average);
+    obj.deviation = Calc.getDeviation(obj.variance);
+    obj.median = Calc.getMedian(itens);
+
+    return obj;
+  }
+
+  updatedDelayMetric() {
+    let itens = this.processeds;
+    let obj = this.calculateMetrics(
+      itens.map((item) => {
+        return (item.startDate - item.receiveDate) / 1000;
+      })
+    );
+
+    this.metricsEvents.updatedDelay(obj);
+  }
+
+  updatedArrivalMetric() {
+    let itens = this.processeds.concat(this.queue);
+    for (let i in this.servers) {
+      let server = this.servers[i];
+      let item = server.getProcessingItem();
+      if (item) {
+        itens = itens.concat(item);
+      }
+    }
+
+    let obj = this.calculateMetrics(
+      itens.map((item) => item.arrival)
+    );
+
+    this.metricsEvents.updatedArrival(obj);
+  }
+
+  updatedAveragesMetric() {
+    this.metricsEvents.updatedAverages({
+      toConclude: 0,
+      inQueue: 0
+    });
+  }
+
   updateMostDelayed(item) {
     if (this.itemMostDelayed) {
       this.itemMostDelayed = item.timeToComplete > this.itemMostDelayed.timeToComplete ? item : this.itemMostDelayed;
     } else {
       this.itemMostDelayed = item;
     }
-    this.geralEvents.mostDelayed(this.itemMostDelayed.timeToComplete);
+    this.metricsEvents.mostDelayed(this.itemMostDelayed.timeToComplete);
   }
 
   updateMostTimeInQueue(item) {
@@ -128,7 +182,7 @@ class ServerManager {
     } else {
       this.itemMostTimeInQueue = item;
     }
-    this.geralEvents.mostTimeInQueue(this.itemMostTimeInQueue.timeInQueue);
+    this.metricsEvents.mostTimeInQueue(this.itemMostTimeInQueue.timeInQueue);
   }
 
 }

@@ -15,17 +15,36 @@ class Server extends React.Component {
   }
 
   componentDidMount() {
-
-    /*Qajax('/api/')
+    Qajax({ url: '/api/server/status', params: { id: this.props.server.id } })
       .then(Qajax.filterSuccess)
       .then(Qajax.toJSON)
       .then((data) => {
+        if (data.item) {
+          let intervalTime = 100
+             , initDate = new Date(data.item.startDate)
+             , delay = data.item.delay * 1000;
+
+          this.setState({
+            status: `Processando ${data.item.name}`,
+            collor: 'green-text',
+            showProgress: true,
+            progress: ((new Date() - initDate) / delay) * 100
+          });
+
+          this.interval = setInterval(() => {
+            let completed = new Date() - initDate;
+            this.setState({ progress: (completed / delay) * 100 });
+          }, intervalTime);
+        }
 
       }, function (err) {
         console.log(err);
-      });*/
+      });
+
     this.props.socket.on('serverIdle', (server) => {
       if (server.id != this.props.server.id) return;
+
+      clearInterval(this.interval);
       this.setState({
         status: 'Aguardando solicitação',
         collor: 'green-text',
@@ -39,6 +58,7 @@ class Server extends React.Component {
          , sum = (intervalTime / (item.delay * 1000)) * 100
          , progress = 0;
 
+      clearInterval(this.interval);
       this.setState({
         status: `Processando ${item.name}`,
         collor: 'green-text',

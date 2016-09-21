@@ -1,4 +1,5 @@
 import React from 'react';
+import Qajax from 'qajax';
 import Server from './Server';
 import { Collection, CollectionItem } from 'react-materialize';
 
@@ -11,6 +12,15 @@ class ServerList extends React.Component {
   }
 
   componentDidMount() {
+    Qajax('/api/servers')
+      .then(Qajax.filterSuccess)
+      .then(Qajax.toJSON)
+      .then((servers) => {
+        this.setState({servers: servers})
+      }, function (err) {
+        console.log(err);
+      });
+
     this.props.socket.on('createdServers', (servers) => {
       this.setState({servers: servers})
     })

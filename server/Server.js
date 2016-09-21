@@ -5,6 +5,7 @@ class Server {
     this.id = Guid.create();
     this.name = `Servidor ${number}`;
     this.processingItem = undefined;
+    this.timeout = undefined;
   }
 
   getInfo() {
@@ -14,11 +15,19 @@ class Server {
     }
   }
 
+  getProcessingItem() {
+    return this.processingItem;
+  }
+
+  cancel() {
+    clearTimeout(this.timeout);
+  }
+
   processItem(item, callback) {
     if (this.processingItem) throw new Error('Processing a item. Cannot process another.')
     this.processingItem = item;
 
-    setTimeout(() => {
+    this.timeout = setTimeout(() => {
       let i = this.processingItem;
       this.processingItem = undefined;
 
