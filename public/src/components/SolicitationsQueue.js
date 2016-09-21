@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collection, CollectionItem } from 'react-materialize';
+import { Collection, CollectionItem, CollapsibleItem } from 'react-materialize';
 import SolicitationItem from './SolicitationItem';
 
 class SolicitationsQueue extends React.Component {
@@ -49,9 +49,11 @@ class SolicitationsQueue extends React.Component {
       );
     });
     return (
-      <Collection header='Solicitações Pendentes'>
-        {solicitationItens}
-      </Collection>
+      <CollapsibleItem header='Solicitações Pendentes' icon='view_list' expanded={true}>
+        <Collection>
+          {solicitationItens}
+        </Collection>
+      </CollapsibleItem>
     );
   }
 }

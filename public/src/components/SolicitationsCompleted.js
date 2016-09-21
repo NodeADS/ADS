@@ -1,6 +1,6 @@
 import React from 'react';
 import SolicitationItem from './SolicitationItem';
-import { Collection, CollectionItem } from 'react-materialize';
+import { Collection, CollectionItem, CollapsibleItem } from 'react-materialize';
 
 class SolicitationsCompleted extends React.Component {
   constructor(props) {
@@ -32,11 +32,12 @@ class SolicitationsCompleted extends React.Component {
       );
     });
     return (
-      <div className={this.state.solicitations.length == 0 ? 'hide' : ''}>
-        <Collection header='Solicitações Finalizadas'>
-          {solicitationItens}
-        </Collection>
-      </div>
+        <CollapsibleItem header='Solicitações Finalizadas' icon='done' className={this.state.solicitations.length == 0 ? 'hide' : ''}>
+          <Collection>
+            {solicitationItens}
+          </Collection>
+        </CollapsibleItem>
+
     );
   }
 }

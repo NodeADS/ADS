@@ -40741,6 +40741,8 @@
 
 	var _SolicitationsCompleted2 = _interopRequireDefault(_SolicitationsCompleted);
 
+	var _reactMaterialize = __webpack_require__(183);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40762,7 +40764,7 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
+	        _reactMaterialize.Collapsible,
 	        null,
 	        _react2.default.createElement(_SolicitationsQueue2.default, { socket: this.props.socket }),
 	        _react2.default.createElement(_SolicitationsCompleted2.default, { socket: this.props.socket })
@@ -40865,9 +40867,13 @@
 	        );
 	      });
 	      return _react2.default.createElement(
-	        _reactMaterialize.Collection,
-	        { header: 'Solicitações Pendentes' },
-	        solicitationItens
+	        _reactMaterialize.CollapsibleItem,
+	        { header: 'Solicitações Pendentes', icon: 'view_list', expanded: true },
+	        _react2.default.createElement(
+	          _reactMaterialize.Collection,
+	          null,
+	          solicitationItens
+	        )
 	      );
 	    }
 	  }]);
@@ -42493,11 +42499,11 @@
 	        );
 	      });
 	      return _react2.default.createElement(
-	        'div',
-	        { className: this.state.solicitations.length == 0 ? 'hide' : '' },
+	        _reactMaterialize.CollapsibleItem,
+	        { header: 'Solicitações Finalizadas', icon: 'done', className: this.state.solicitations.length == 0 ? 'hide' : '' },
 	        _react2.default.createElement(
 	          _reactMaterialize.Collection,
-	          { header: 'Solicitações Finalizadas' },
+	          null,
 	          solicitationItens
 	        )
 	      );
