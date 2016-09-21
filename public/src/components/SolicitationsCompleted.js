@@ -32,12 +32,11 @@ class SolicitationsCompleted extends React.Component {
       );
     });
     return (
-        <CollapsibleItem header='Solicitações Finalizadas' icon='done' className={this.state.solicitations.length == 0 ? 'hide' : ''}>
-          <Collection>
-            {solicitationItens}
-          </Collection>
-        </CollapsibleItem>
-
+      <div className={this.state.solicitations.length == 0 ? 'hide' : ''}>
+        <Collection header='Solicitações Finalizadas'>
+          {solicitationItens}
+        </Collection>
+      </div>
     );
   }
 }

@@ -10,18 +10,22 @@ class Process {
       queue: 0,
       total: 0
     };
-    this.item;
-    this.queue = [];
-    this.processeds = [];
-    this.itemMostDelayed = metrics;
-    this.itemMostTimeInQueue = metrics;
 
     this.item;
     this.queue = [];
     this.processeds = [];
     this.itemMostDelayed;
+    this.itemMostTimeInQueue;
+
+    this.item;
+    this.queue = [];
+    this.processeds = [];;
     this.metricsArrival = metrics;
     this.metricsDelay = metrics;
+    this.metricsAvg = {
+      inQueue: 0,
+      toComplete: 0
+    };
 
     this.events = {
       start: () => {},
@@ -34,6 +38,7 @@ class Process {
       mostDelayed: (timeMili) => {},
       recalculateMetricsDelay: () => {},
       recalculateMetricsArrival: () => {},
+      recalculateMetricsAvg: () => {},
       mostTimeInQueue: (timeMili) => {}
     };
 
@@ -129,7 +134,7 @@ class Process {
       this.item = undefined;
     }
   }
-  
+
   completedItem(item) {
     item.completeDate = Date.now();
     item.timeToComplete = item.completeDate - item.receiveDate;
@@ -138,6 +143,7 @@ class Process {
     this.mostDelayed(item);
     this.recalculateMetricsDelay();
     this.recalculateMetricsArrival();
+    this.recalculateMetricsAvg();
   }
 
   mostDelayed(item) {
@@ -156,6 +162,16 @@ class Process {
       this.itemMostTimeInQueue = item;
     }
     this.events.mostTimeInQueue(this.itemMostTimeInQueue.timeInQueue);
+  }
+
+  recalculateMetricsAvg() {
+    let timesQueue = this.processeds.map((i) => i.timeInQueue);
+    let timesToComplete = this.processeds.map((i) => i.timeToComplete);
+
+    this.metricsAvg.inQueue = this.getAverage(timesQueue);
+    this.metricsAvg.toComplete = this.getAverage(timesToComplete);
+
+    this.events.recalculateMetricsAvg(this.metricsAvg);
   }
 
   recalculateMetricsArrival() {

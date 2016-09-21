@@ -3,7 +3,7 @@ import socketIo from 'socket.io';
 
 class Socket {
 
-  constructor(app, http, solicitation, process) {
+  constructor(app, http, solicitation, process, serverManager) {
     var server = http.createServer(app);
     var io = socketIo(server);
     server.listen(8080, "127.0.0.1");
@@ -11,6 +11,10 @@ class Socket {
     this.processTimeouts = [];
     this.solicitation = solicitation;
     this.process = process
+    this.serverManager = serverManager;
+
+    
+
     process.setEvents({
       start: () => {
         this.io.emit('startServer');
@@ -44,7 +48,11 @@ class Socket {
       },
       mostTimeInQueue: (miliseconds) => {
         this.io.emit('mostTimeInQueue', miliseconds);
+      },
+      recalculateMetricsAvg: (metrics) => {
+        this.io.emit('recalculateMetricsAvg', metrics);
       }
+
     });
   }
 

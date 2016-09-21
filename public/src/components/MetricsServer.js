@@ -31,6 +31,13 @@ class MetricsServer extends React.Component {
       this.setState({maxTimeStart: countdown(0, miliseconds).toString() });
     });
 
+    this.props.socket.on('recalculateMetricsAvg', (metrics) => {
+      this.setState({
+        avgToConclude: countdown(0, metrics.toComplete).toString(),
+        avgInQueue: countdown(0, metrics.inQueue).toString()
+      });
+    });
+
   }
 
   render() {

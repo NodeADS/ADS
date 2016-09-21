@@ -7,12 +7,16 @@ import Socket from './Socket';
 import Solicitation from './Solicitation';
 import API from './API';
 import Process from './Process';
+import ServerManager from './ServerManager';
+
+
 
 var SOLICITATIONS_FILE = path.join(__dirname, '../solicitations.json');
 var app = express();
 var solicitation = new Solicitation(fs, SOLICITATIONS_FILE);
 var processManager = new Process();
-var socket = new Socket(app, http, solicitation, processManager);
+var serverManager = new ServerManager();
+var socket = new Socket(app, http, solicitation, processManager, serverManager);
 
 new API(app, processManager);
 

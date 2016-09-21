@@ -49,11 +49,9 @@ class SolicitationsQueue extends React.Component {
       );
     });
     return (
-      <CollapsibleItem header='Solicitações Pendentes' icon='view_list' expanded={true}>
-        <Collection>
-          {solicitationItens}
-        </Collection>
-      </CollapsibleItem>
+      <Collection header='Solicitações Pendentes'>
+        {solicitationItens}
+      </Collection>
     );
   }
 }

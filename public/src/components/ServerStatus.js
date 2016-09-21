@@ -17,16 +17,6 @@ class ServerStatus extends React.Component {
   componentDidMount() {
     this.interval = undefined;
 
-    /*Qajax('/api/products')
-      .then(Qajax.filterSuccess)
-      .get("responseText") // using a cool Q feature here
-      .then(function (txt) {
-        console.log("server returned: "+txt);
-      }, function (err) {
-        console.log("xhr failure: ", err);
-      });*/
-
-
     this.props.socket.emit('serverStatus');
     this.props.socket.on('serverStatus', (data) => {
       let status = 'Parado'
