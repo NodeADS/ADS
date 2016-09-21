@@ -41061,7 +41061,6 @@
 	      var _this2 = this;
 
 	      (0, _qajax2.default)('/api/solicitations/processing').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (itens) {
-	        console.log(itens);
 	        _this2.setState({ solicitations: itens });
 	        /*if (data.item) {
 	          let intervalTime = 100
@@ -43010,36 +43009,31 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      /*Qajax('/api/metrics/delay')
-	        .then(Qajax.filterSuccess)
-	        .then(Qajax.toJSON)
-	        .then((metrics) => {
-	          this.setState({
-	            total: metrics.processeds,
-	            average: Math.round(metrics.average * 100) / 100,
-	            mode: metrics.mode,
-	            median: metrics.median,
-	            variance: Math.round(metrics.variance * 100) / 100,
-	            deviation: Math.round(metrics.deviation * 100) / 100
-	          });
-	        }, function (err) {
-	          console.log(err);
-	        });*/
+	      (0, _qajax2.default)('/api/metrics/delay').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (metrics) {
+	        _this2.setState(_this2.formatJSON(metrics));
+	      }, function (err) {
+	        console.log(err);
+	      });
 
 	      this.props.socket.on('serverProcessedItem', function () {
 	        _this2.setState({ total: _this2.state.total + 1 });
 	      });
 
 	      this.props.socket.on('updatedDelay', function (metrics) {
-	        _this2.setState({
-	          total: metrics.total,
-	          average: Math.round(metrics.average * 100) / 100,
-	          mode: metrics.mode,
-	          median: metrics.median,
-	          variance: Math.round(metrics.variance * 100) / 100,
-	          deviation: Math.round(metrics.deviation * 100) / 100
-	        });
+	        _this2.setState(_this2.formatJSON(metrics));
 	      });
+	    }
+	  }, {
+	    key: 'formatJSON',
+	    value: function formatJSON(metrics) {
+	      return {
+	        total: metrics.total,
+	        average: Math.round(metrics.average * 100) / 100,
+	        mode: metrics.mode,
+	        median: metrics.median,
+	        variance: Math.round(metrics.variance * 100) / 100,
+	        deviation: Math.round(metrics.deviation * 100) / 100
+	      };
 	    }
 	  }, {
 	    key: 'render',
@@ -43146,32 +43140,27 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      /*Qajax('/api/metrics/arrival')
-	        .then(Qajax.filterSuccess)
-	        .then(Qajax.toJSON)
-	        .then((metrics) => {
-	          this.setState({
-	            //total: metrics.processeds,
-	            average: Math.round(metrics.average * 100) / 100,
-	            mode: metrics.mode,
-	            median: metrics.median,
-	            variance: Math.round(metrics.variance * 100) / 100,
-	            deviation: Math.round(metrics.deviation * 100) / 100
-	          });
-	        }, function (err) {
-	          console.log(err);
-	        });*/
+	      (0, _qajax2.default)('/api/metrics/arrival').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (metrics) {
+	        _this2.setState(_this2.formatJSON(metrics));
+	      }, function (err) {
+	        console.log(err);
+	      });
 
 	      this.props.socket.on('updatedArrival', function (metrics) {
-	        _this2.setState({
-	          total: metrics.total,
-	          average: Math.round(metrics.average * 100) / 100,
-	          mode: metrics.mode,
-	          median: metrics.median,
-	          variance: Math.round(metrics.variance * 100) / 100,
-	          deviation: Math.round(metrics.deviation * 100) / 100
-	        });
+	        _this2.setState(_this2.formatJSON(metrics));
 	      });
+	    }
+	  }, {
+	    key: 'formatJSON',
+	    value: function formatJSON(metrics) {
+	      return {
+	        total: metrics.total,
+	        average: Math.round(metrics.average * 100) / 100,
+	        mode: metrics.mode,
+	        median: metrics.median,
+	        variance: Math.round(metrics.variance * 100) / 100,
+	        deviation: Math.round(metrics.deviation * 100) / 100
+	      };
 	    }
 	  }, {
 	    key: 'render',
@@ -43307,6 +43296,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _qajax = __webpack_require__(179);
+
+	var _qajax2 = _interopRequireDefault(_qajax);
+
 	var _reactMaterialize = __webpack_require__(183);
 
 	var _countdown = __webpack_require__(230);
@@ -43321,7 +43314,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	_countdown2.default.setLabels(' milissegundo| segundo| minuto| hora| dia| semana| mês| ano| década| século| milênio', ' milissegundos| segundos| minutos| horas| dias| semanas| meses| anos| décadas| séculos| milênios', ' e ', ' + ', 'agora');
+	_countdown2.default.setLabels(' milissegundo| segundo| minuto| hora| dia| semana| mês| ano| década| século| milênio', ' milissegundos| segundos| minutos| horas| dias| semanas| meses| anos| décadas| séculos| milênios', ' e ', ' + ', '0');
 
 	var MetricsServer = function (_React$Component) {
 	  _inherits(MetricsServer, _React$Component);
@@ -43347,6 +43340,21 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
+	      (0, _qajax2.default)('/api/servers/status').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (data) {
+	        _this2.serverStatus(data);
+	      }, function (err) {
+	        console.log(err);
+	      });
+
+	      (0, _qajax2.default)('/api/metrics/most').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (data) {
+	        _this2.setState({
+	          maxTimeComplete: (0, _countdown2.default)(0, data.maxTimeComplete).toString(),
+	          maxTimeStart: (0, _countdown2.default)(0, data.maxTimeStart).toString()
+	        });
+	      }, function (err) {
+	        console.log(err);
+	      });
+
 	      this.props.socket.on('mostDelayed', function (miliseconds) {
 	        _this2.setState({ maxTimeComplete: (0, _countdown2.default)(0, miliseconds).toString() });
 	      });
@@ -43355,11 +43363,40 @@
 	        _this2.setState({ maxTimeStart: (0, _countdown2.default)(0, miliseconds).toString() });
 	      });
 
-	      this.props.socket.on('recalculateMetricsAvg', function (metrics) {
+	      this.props.socket.on('updatedServersStatus', function (servers) {
+	        _this2.serverStatus(servers);
+	      });
+
+	      this.props.socket.on('updatedAverages', function (metrics) {
 	        _this2.setState({
 	          avgToConclude: (0, _countdown2.default)(0, metrics.toComplete).toString(),
 	          avgInQueue: (0, _countdown2.default)(0, metrics.inQueue).toString()
 	        });
+	      });
+	    }
+	  }, {
+	    key: 'serverStatus',
+	    value: function serverStatus(servers) {
+	      var idle = 0,
+	          prosessing = 0,
+	          maxIdle = 0,
+	          useServer = 0;
+
+	      for (var i in servers) {
+	        var status = servers[i];
+	        idle += status.idleTime;
+	        prosessing += status.processingTime;
+	        if (status.maxIdleTime > maxIdle) {
+	          maxIdle = status.maxIdleTime;
+	        }
+	      }
+
+	      useServer = prosessing / (idle + prosessing) * 100;
+	      useServer = Math.round(useServer * 100) / 100;
+
+	      this.setState({
+	        serverUserPercentage: useServer + ' %',
+	        maxInativeTime: maxIdle + ' mili.'
 	      });
 	    }
 	  }, {
@@ -43397,8 +43434,8 @@
 	            'tbody',
 	            null,
 	            func('Tempo máximo para conclusão', this.state.maxTimeComplete),
-	            func('Tempo médio para conclusão', this.state.avgToConclude),
 	            func('Tempo máximo na fila', this.state.maxTimeStart),
+	            func('Tempo médio para conclusão', this.state.avgToConclude),
 	            func('Tempo médio na fila', this.state.avgInQueue),
 	            func('Tempo máximo de inatividade (server)', this.state.maxInativeTime),
 	            func('% uso do Server', this.state.serverUserPercentage)

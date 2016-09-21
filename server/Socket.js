@@ -10,7 +10,6 @@ class Socket {
     this.io = io;
     this.processTimeouts = [];
     this.solicitation = solicitation;
-    this.process = process
     this.serverManager = serverManager;
 
     serverManager.setGeralEvents({
@@ -44,6 +43,9 @@ class Socket {
       },
       updatedAverages: (metrics) => {
         this.io.emit('updatedAverages', metrics);
+      },
+      updatedServersStatus: (serversStatus) => {
+        this.io.emit('updatedServersStatus', serversStatus);
       },
       mostDelayed: (timeMili) => {
         this.io.emit('mostDelayed', timeMili);
@@ -100,7 +102,7 @@ class Socket {
     this.io.on('connection', (socket) => {
       console.log('a user connected');
 
-      socket.emit('processing', this.process.isProcessing());
+      socket.emit('processing', this.serverManager.isProcessing());
 
       socket.on('start', (data) => {
         this.serverManager.stop();
@@ -110,30 +112,6 @@ class Socket {
 
       socket.on('stop', () => {
         this.serverManager.stop();
-      });
-
-      socket.on('serverStatus', () => {
-        socket.emit('serverStatus', {
-          on: this.process.isStarted(),
-          processing: this.process.isProcessing(),
-          processingItem: this.process.getProcessingItem()
-        });
-      });
-
-      socket.on('solicitationsQueue', () => {
-        socket.emit('solicitationsQueue', self.process.getQueue());
-      });
-
-      socket.on('solicitationsProcesseds', () => {
-        socket.emit('solicitationsProcesseds', self.process.getProcesseds());
-      });
-
-      socket.on('solicitationsProcessing', () => {
-        socket.emit('solicitationsProcessing', self.process.getProcessingItem());
-      });
-
-      socket.on('solicitations', () => {
-        socket.emit('solicitations', self.solicitation.get());
       });
 
       socket.on('disconnect', () => {

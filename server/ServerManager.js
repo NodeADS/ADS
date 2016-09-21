@@ -6,8 +6,13 @@ class ServerManager {
     this.servers = [];
     this.queue = [];
     this.processeds = [];
+    this.metrics = {
+      delay: this.getDefaultMetric(),
+      arrival: this.getDefaultMetric()
+    };
     this.itemMostDelayed;
     this.itemMostTimeInQueue;
+    this.intervalServersStatus;
 
     this.geralEvents = {
       receivedItem: (item) => {},
@@ -25,9 +30,21 @@ class ServerManager {
       updatedDelay: (metrics) => {},
       updatedArrival: (metrics) => {},
       updatedAverages: (metrics) => {},
+      updatedServersStatus: (serversStatus) => {},
       mostDelayed: (timeMili) => {},
       mostTimeInQueue: (timeMili) => {}
     };
+  }
+
+  getDefaultMetric() {
+    return {
+      total: 0,
+      average: 0,
+      mode: 0,
+      variance: 0,
+      deviation: 0,
+      median: 0
+    }
   }
 
   setGeralEvents(events: {}) {
@@ -49,9 +66,17 @@ class ServerManager {
       );
     }
     this.serverEvents.create(this.servers);
+
+    clearInterval(this.intervalServersStatus);
+    this.intervalServersStatus = setInterval(() => {
+      this.metricsEvents.updatedServersStatus(
+        this.servers.map((server) => server.getStatus())
+      );
+    }, 1000);
   }
 
   stop() {
+    clearInterval(this.intervalServersStatus);
     for (let i in this.servers) {
       let server = this.servers[i];
       server.cancel();
@@ -60,6 +85,19 @@ class ServerManager {
     this.servers = [];
     this.queue = [];
     this.processeds = [];
+    this.metrics = {
+      delay: this.getDefaultMetric(),
+      arrival: this.getDefaultMetric()
+    };
+  }
+
+  isProcessing() {
+    for (let i in this.server) {
+      let server = this.server[i];
+      if (server.isProcessing()) return true;
+    }
+
+    return false;
   }
 
   addItem(item) {
@@ -140,6 +178,7 @@ class ServerManager {
       })
     );
 
+    this.metrics.delay = obj;
     this.metricsEvents.updatedDelay(obj);
   }
 
@@ -157,6 +196,7 @@ class ServerManager {
       itens.map((item) => item.arrival)
     );
 
+    this.metrics.arrival = obj;
     this.metricsEvents.updatedArrival(obj);
   }
 

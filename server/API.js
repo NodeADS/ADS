@@ -12,6 +12,13 @@ class API {
       }));
     });
 
+    this.app.get('/api/servers/status', (req, res) => {
+      res.json(
+        this.serverManager.servers
+          .map((server) => server.getStatus())
+      );
+    });
+
     this.app.get('/api/server/status', (req, res) => {
       var server;
       for (let i in this.serverManager.servers) {
@@ -37,7 +44,7 @@ class API {
         }
       }
       itens = itens.concat(this.serverManager.queue);
-      
+
       res.json(itens);
     });
 
@@ -45,13 +52,20 @@ class API {
       res.json(this.serverManager.processeds);
     });
 
-  /*  this.app.get('/api/metrics/delay', (req, res) => {
-      res.json(this.processManager.getMetricsDelay());
+    this.app.get('/api/metrics/delay', (req, res) => {
+      res.json(this.serverManager.metrics.delay);
     });
 
     this.app.get('/api/metrics/arrival', (req, res) => {
-      res.json(this.processManager.getMetricsArrival());
-    });*/
+      res.json(this.serverManager.metrics.arrival);
+    });
+
+    this.app.get('/api/metrics/most', (req, res) => {
+      res.json({
+        maxTimeComplete: this.serverManager.itemMostDelayed != undefined ? this.serverManager.itemMostDelayed.timeToComplete : 0,
+        maxTimeStart: this.serverManager.itemMostTimeInQueue != undefined ? this.serverManager.itemMostTimeInQueue.timeInQueue : 0
+      });
+    });
   }
 }
 

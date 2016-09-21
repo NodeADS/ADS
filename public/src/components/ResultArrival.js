@@ -16,33 +16,30 @@ class ResultArrival extends React.Component {
   }
 
   componentDidMount() {
-    /*Qajax('/api/metrics/arrival')
+    Qajax('/api/metrics/arrival')
       .then(Qajax.filterSuccess)
       .then(Qajax.toJSON)
       .then((metrics) => {
-        this.setState({
-          //total: metrics.processeds,
-          average: Math.round(metrics.average * 100) / 100,
-          mode: metrics.mode,
-          median: metrics.median,
-          variance: Math.round(metrics.variance * 100) / 100,
-          deviation: Math.round(metrics.deviation * 100) / 100
-        });
+        this.setState(this.formatJSON(metrics));
       }, function (err) {
         console.log(err);
-      });*/
+      });
 
     this.props.socket.on('updatedArrival', (metrics) => {
-      this.setState({
-        total: metrics.total,
-        average: Math.round(metrics.average * 100) / 100,
-        mode: metrics.mode,
-        median: metrics.median,
-        variance: Math.round(metrics.variance * 100) / 100,
-        deviation: Math.round(metrics.deviation * 100) / 100
-      });
+      this.setState(this.formatJSON(metrics));
     });
 
+  }
+
+  formatJSON(metrics) {
+    return {
+      total: metrics.total,
+      average: Math.round(metrics.average * 100) / 100,
+      mode: metrics.mode,
+      median: metrics.median,
+      variance: Math.round(metrics.variance * 100) / 100,
+      deviation: Math.round(metrics.deviation * 100) / 100
+    };
   }
 
   render() {

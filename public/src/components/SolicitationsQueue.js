@@ -16,7 +16,6 @@ class SolicitationsQueue extends React.Component {
       .then(Qajax.filterSuccess)
       .then(Qajax.toJSON)
       .then((itens) => {
-        console.log(itens);
         this.setState({solicitations: itens});
         /*if (data.item) {
           let intervalTime = 100

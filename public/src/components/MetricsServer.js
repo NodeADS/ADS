@@ -1,4 +1,5 @@
 import React from 'react';
+import Qajax from 'qajax';
 import { Table } from 'react-materialize';
 import countdown from 'countdown';
 
@@ -7,7 +8,7 @@ countdown.setLabels(
 	' milissegundos| segundos| minutos| horas| dias| semanas| meses| anos| décadas| séculos| milênios',
 	' e ',
 	' + ',
-	'agora');
+	'0');
 
 class MetricsServer extends React.Component {
   constructor(props) {
@@ -23,6 +24,27 @@ class MetricsServer extends React.Component {
   }
 
   componentDidMount() {
+		Qajax('/api/servers/status')
+      .then(Qajax.filterSuccess)
+      .then(Qajax.toJSON)
+      .then((data) => {
+				this.serverStatus(data);
+      }, function (err) {
+        console.log(err);
+      });
+
+			Qajax('/api/metrics/most')
+	      .then(Qajax.filterSuccess)
+	      .then(Qajax.toJSON)
+	      .then((data) => {
+					this.setState({
+						maxTimeComplete: countdown(0, data.maxTimeComplete).toString() ,
+						maxTimeStart: countdown(0, data.maxTimeStart).toString()
+					});
+	      }, function (err) {
+	        console.log(err);
+	      });
+
     this.props.socket.on('mostDelayed', (miliseconds) => {
       this.setState({maxTimeComplete: countdown(0, miliseconds).toString() });
     });
@@ -31,7 +53,11 @@ class MetricsServer extends React.Component {
       this.setState({maxTimeStart: countdown(0, miliseconds).toString() });
     });
 
-    this.props.socket.on('recalculateMetricsAvg', (metrics) => {
+		this.props.socket.on('updatedServersStatus', (servers) => {
+			this.serverStatus(servers);
+    });
+
+    this.props.socket.on('updatedAverages', (metrics) => {
       this.setState({
         avgToConclude: countdown(0, metrics.toComplete).toString(),
         avgInQueue: countdown(0, metrics.inQueue).toString()
@@ -39,6 +65,30 @@ class MetricsServer extends React.Component {
     });
 
   }
+
+	serverStatus(servers) {
+		let idle = 0
+			, prosessing = 0
+			, maxIdle = 0
+			, useServer = 0;
+
+		for (let i in servers) {
+			let status = servers[i];
+			idle += status.idleTime;
+			prosessing += status.processingTime;
+			if (status.maxIdleTime > maxIdle) {
+				maxIdle = status.maxIdleTime;
+			}
+		}
+
+		useServer = (prosessing / (idle + prosessing)) * 100;
+		useServer = Math.round(useServer * 100) / 100
+
+		this.setState({
+			serverUserPercentage: `${useServer} %`,
+			maxInativeTime: `${maxIdle} mili.`
+		});
+	}
 
   render() {
     let func = (name, value) => {
@@ -56,8 +106,8 @@ class MetricsServer extends React.Component {
         <Table>
           <tbody>
             {func('Tempo máximo para conclusão', this.state.maxTimeComplete)}
+						{func('Tempo máximo na fila', this.state.maxTimeStart)}
             {func('Tempo médio para conclusão', this.state.avgToConclude)}
-            {func('Tempo máximo na fila', this.state.maxTimeStart)}
             {func('Tempo médio na fila', this.state.avgInQueue)}
             {func('Tempo máximo de inatividade (server)', this.state.maxInativeTime)}
             {func('% uso do Server', this.state.serverUserPercentage)}
