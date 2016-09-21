@@ -60,7 +60,7 @@ class ResultDelay extends React.Component {
 
     return (
       <div>
-        <h5 className='left-align'>Tempo Proc.</h5>
+        <h5 className='left-align' title='Tempo de processamento das solicitações'>Tempo Proc.</h5>
         <Table>
           <tbody>
             {func('Total', this.state.total)}

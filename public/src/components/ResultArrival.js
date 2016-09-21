@@ -57,7 +57,7 @@ class ResultArrival extends React.Component {
 
     return (
       <div>
-        <h5 className='left-align'>Tempo Fila</h5>
+        <h5 className='left-align' title='Tempo de chegada das solicitações'>Tempo Cheg.</h5>
         <Table>
           <tbody>
             {func('Total', this.state.total)}

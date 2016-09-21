@@ -42823,7 +42823,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'h5',
-	          { className: 'left-align' },
+	          { className: 'left-align', title: 'Tempo de processamento das solicitações' },
 	          'Tempo Proc.'
 	        ),
 	        _react2.default.createElement(
@@ -42952,8 +42952,8 @@
 	        null,
 	        _react2.default.createElement(
 	          'h5',
-	          { className: 'left-align' },
-	          'Tempo Fila'
+	          { className: 'left-align', title: 'Tempo de chegada das solicitações' },
+	          'Tempo Cheg.'
 	        ),
 	        _react2.default.createElement(
 	          _reactMaterialize.Table,
