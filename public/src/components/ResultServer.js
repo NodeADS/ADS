@@ -22,6 +22,10 @@ class ResultServer extends React.Component {
     this.props.socket.on('completedItem', (data) => {
       this.setState({total : this.state.total+1});
     });
+
+    this.props.socket.on('recalculateMetrics', (metrics) => {
+      console.log(metrics);
+    });
   }
 
   render() {

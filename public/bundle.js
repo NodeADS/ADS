@@ -42777,6 +42777,10 @@
 	      this.props.socket.on('completedItem', function (data) {
 	        _this2.setState({ total: _this2.state.total + 1 });
 	      });
+
+	      this.props.socket.on('recalculateMetrics', function (metrics) {
+	        console.log(metrics);
+	      });
 	    }
 	  }, {
 	    key: 'render',

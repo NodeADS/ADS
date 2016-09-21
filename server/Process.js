@@ -4,6 +4,12 @@ class Process {
     this.queue = [];
     this.processeds = [];
     this.itemMostDelayed;
+    this.metrics = {
+      average: 0,
+      mode: 0,
+      variance: 0,
+      deviation: 0
+    };
 
     this.events = {
       start: () => {},
@@ -13,7 +19,8 @@ class Process {
       addQueueItem: () => {},
       removeQueueItem: () => {},
       receivedItem: () => {},
-      mostDelayed: (timeMili) => {}
+      mostDelayed: (timeMili) => {},
+      recalculateMetrics: () => {}
     };
 
     this.start();
@@ -86,7 +93,7 @@ class Process {
     setTimeout(() => {
       this.completedItem(item);
       this.goNext();
-    }, item.delay );
+    }, item.delay * 1000);
   }
 
   completedItem(item) {
@@ -94,6 +101,7 @@ class Process {
     this.events.completedItem(item);
     this.processeds.push(item);
     this.mostDelayed(item);
+    this.recalculateMetrics();
   }
 
   mostDelayed(item) {
@@ -113,6 +121,37 @@ class Process {
     } else {
       this.item = undefined;
     }
+  }
+
+  recalculateMetrics() {
+    var itens = this.processeds.map((i) => i.delay);
+
+    this.metrics.average = getAverage(itens);
+    this.metrics.mode = getMode(itens);
+    this.metrics.variance = getVariance(itens);
+    this.metrics.deviation = getDeviation(itens);;
+
+    this.events.recalculateMetrics(this.metrics);
+  }
+
+  getAverage(itens) {
+    return itens.reduce((p, c) => p + c, 0) / itens.length;
+  }
+
+  getMode(itens) {
+    let temp = {};
+    itens.map((item) => {
+      if (temp.item) temp.item++;
+      else temp.item = 0;
+    });
+  }
+
+  getVariance(itens) {
+    return itens.reduce((p, c) => p + c, 0) / itens.length;
+  }
+
+  getDeviation(itens) {
+    return itens.reduce((p, c) => p + c, 0) / itens.length;
   }
 
   isProcessing() {
