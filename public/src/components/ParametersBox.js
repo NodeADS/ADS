@@ -1,4 +1,5 @@
 import React from 'react';
+import Qajax from 'qajax';
 import { Row, Input, Button } from 'react-materialize';
 
 class ParametersBox extends React.Component {
@@ -6,9 +7,9 @@ class ParametersBox extends React.Component {
     super(props);
     this.state = {
       servers: 1,
-      rule: 'FIFO',
-      outlier: 'Moderado',
-      time: 1,
+      percentError: 5,
+      timeAvgAttendance: 1,
+      extraTime: 1,
       running: false
     };
 
@@ -17,10 +18,12 @@ class ParametersBox extends React.Component {
     });
 
     this.serversChange = this.serversChange.bind(this);
-    this.ruleChange = this.ruleChange.bind(this);
-    this.outlierChange = this.outlierChange.bind(this);
+    this.timeAvgAttendanceChange = this.timeAvgAttendanceChange.bind(this);
+    this.extraTimeChange = this.extraTimeChange.bind(this);
+    this.percentErrorChange = this.percentErrorChange.bind(this);
     this.onStart = this.onStart.bind(this);
     this.onStop = this.onStop.bind(this);
+    this.metricClick = this.metricClick.bind(this);
   }
 
   serversChange(e) {
@@ -29,16 +32,20 @@ class ParametersBox extends React.Component {
     }
   }
 
-  ruleChange(e) {
-    this.setState({rule: e.target.value});
+  timeAvgAttendanceChange(e) {
+    this.setState({timeAvgAttendance: e.target.value});
   }
 
-  outlierChange(e) {
-    this.setState({outlier: e.target.value});
+  extraTimeChange(e) {
+    this.setState({extraTime: e.target.value});
   }
 
   timeChange(e) {
     this.setState({time: e.target.value});
+  }
+
+  percentErrorChange(e) {
+    this.setState({percentError: parseInt(e.target.value)});
   }
 
   onStart() {
@@ -53,20 +60,35 @@ class ParametersBox extends React.Component {
 
   onStop() {
     if (!this.state.running) return;
-    this.setState({
-      running: false
-    });
+    this.setState(this.state);
     this.props.socket.emit('stop');
   }
+
+  metricClick() {
+    Qajax('/api/metrics/arrival')
+      .then(Qajax.filterSuccess)
+      .then(Qajax.toJSON)
+      .then((data) => {
+        let result = (data.average + this.state.timeAvgAttendance + ((this.state.percentError / 100) * this.state.extraTime)) / this.state.servers;
+        alert(result);
+      }, function (err) {
+        console.log(err);
+      });
+  }
+
 
   render() {
     return (
       <Row>
         <Input s={6} type='number' label="Nº servidores" value={this.state.servers} onChange={this.serversChange} />
-        <Input s={6} label="Regra atendimento" value={this.state.rule} onChange={this.ruleChange} />
-        <Input s={12} label="Tipo de outlier" value={this.state.outlier} onChange={this.outlierChange} />
+        <Input s={6} type='number' label="Porcentagem de Erro" value={this.state.percentError} onChange={this.percentErrorChange} />
+        <Input s={6} type='number' label="Média de Atendimento" value={this.state.timeAvgAttendance} onChange={this.timeAvgAttendanceChange} />
+        <Input s={6} type='number' label="Tempo Extra" value={this.state.extraTime} onChange={this.extraTimeChange} />
         <Button onClick={this.onStart} disabled={this.state.running} >Iniciar</Button>
+        <span> </span>
         <Button onClick={this.onStop} disabled={!this.state.running} >Parar</Button>
+        <span> </span>
+        <Button onClick={this.metricClick} >Resultado da Métricas</Button>
       </Row>
     );
   }

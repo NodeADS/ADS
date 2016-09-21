@@ -41202,6 +41202,11 @@
 	          })();
 	        }
 	      }
+
+	      /*if (this.props.completed) {
+	      	let time = (this.props.solicitation.timeInQueue + this.props.solicitation.timeToComplete);
+	      	console.log(this.props.solicitation.name, countdown(0, time).toString());
+	      }*/
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
@@ -42764,6 +42769,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _qajax = __webpack_require__(179);
+
+	var _qajax2 = _interopRequireDefault(_qajax);
+
 	var _reactMaterialize = __webpack_require__(183);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42784,9 +42793,9 @@
 
 	    _this.state = {
 	      servers: 1,
-	      rule: 'FIFO',
-	      outlier: 'Moderado',
-	      time: 1,
+	      percentError: 5,
+	      timeAvgAttendance: 1,
+	      extraTime: 1,
 	      running: false
 	    };
 
@@ -42795,10 +42804,12 @@
 	    });
 
 	    _this.serversChange = _this.serversChange.bind(_this);
-	    _this.ruleChange = _this.ruleChange.bind(_this);
-	    _this.outlierChange = _this.outlierChange.bind(_this);
+	    _this.timeAvgAttendanceChange = _this.timeAvgAttendanceChange.bind(_this);
+	    _this.extraTimeChange = _this.extraTimeChange.bind(_this);
+	    _this.percentErrorChange = _this.percentErrorChange.bind(_this);
 	    _this.onStart = _this.onStart.bind(_this);
 	    _this.onStop = _this.onStop.bind(_this);
+	    _this.metricClick = _this.metricClick.bind(_this);
 	    return _this;
 	  }
 
@@ -42810,19 +42821,24 @@
 	      }
 	    }
 	  }, {
-	    key: 'ruleChange',
-	    value: function ruleChange(e) {
-	      this.setState({ rule: e.target.value });
+	    key: 'timeAvgAttendanceChange',
+	    value: function timeAvgAttendanceChange(e) {
+	      this.setState({ timeAvgAttendance: e.target.value });
 	    }
 	  }, {
-	    key: 'outlierChange',
-	    value: function outlierChange(e) {
-	      this.setState({ outlier: e.target.value });
+	    key: 'extraTimeChange',
+	    value: function extraTimeChange(e) {
+	      this.setState({ extraTime: e.target.value });
 	    }
 	  }, {
 	    key: 'timeChange',
 	    value: function timeChange(e) {
 	      this.setState({ time: e.target.value });
+	    }
+	  }, {
+	    key: 'percentErrorChange',
+	    value: function percentErrorChange(e) {
+	      this.setState({ percentError: parseInt(e.target.value) });
 	    }
 	  }, {
 	    key: 'onStart',
@@ -42839,10 +42855,20 @@
 	    key: 'onStop',
 	    value: function onStop() {
 	      if (!this.state.running) return;
-	      this.setState({
-	        running: false
-	      });
+	      this.setState(this.state);
 	      this.props.socket.emit('stop');
+	    }
+	  }, {
+	    key: 'metricClick',
+	    value: function metricClick() {
+	      var _this2 = this;
+
+	      (0, _qajax2.default)('/api/metrics/arrival').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (data) {
+	        var result = (data.average + _this2.state.timeAvgAttendance + _this2.state.percentError / 100 * _this2.state.extraTime) / _this2.state.servers;
+	        alert(result);
+	      }, function (err) {
+	        console.log(err);
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -42851,17 +42877,33 @@
 	        _reactMaterialize.Row,
 	        null,
 	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, type: 'number', label: 'Nº servidores', value: this.state.servers, onChange: this.serversChange }),
-	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, label: 'Regra atendimento', value: this.state.rule, onChange: this.ruleChange }),
-	        _react2.default.createElement(_reactMaterialize.Input, { s: 12, label: 'Tipo de outlier', value: this.state.outlier, onChange: this.outlierChange }),
+	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, type: 'number', label: 'Porcentagem de Erro', value: this.state.percentError, onChange: this.percentErrorChange }),
+	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, type: 'number', label: 'Média de Atendimento', value: this.state.timeAvgAttendance, onChange: this.timeAvgAttendanceChange }),
+	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, type: 'number', label: 'Tempo Extra', value: this.state.extraTime, onChange: this.extraTimeChange }),
 	        _react2.default.createElement(
 	          _reactMaterialize.Button,
 	          { onClick: this.onStart, disabled: this.state.running },
 	          'Iniciar'
 	        ),
 	        _react2.default.createElement(
+	          'span',
+	          null,
+	          ' '
+	        ),
+	        _react2.default.createElement(
 	          _reactMaterialize.Button,
 	          { onClick: this.onStop, disabled: !this.state.running },
 	          'Parar'
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          ' '
+	        ),
+	        _react2.default.createElement(
+	          _reactMaterialize.Button,
+	          { onClick: this.metricClick },
+	          'Resultado da Métricas'
 	        )
 	      );
 	    }

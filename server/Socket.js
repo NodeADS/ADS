@@ -111,6 +111,7 @@ class Socket {
       });
 
       socket.on('stop', () => {
+        this.processTimeouts.map((timeOut) => clearTimeout(timeOut));
         this.serverManager.stop();
       });
 

@@ -46,6 +46,11 @@ class SolicitationItem extends React.Component {
         }, intervalTime);
       }
     }
+
+		/*if (this.props.completed) {
+			let time = (this.props.solicitation.timeInQueue + this.props.solicitation.timeToComplete);
+			console.log(this.props.solicitation.name, countdown(0, time).toString());
+		}*/
   }
 
   componentWillUnmount () {
