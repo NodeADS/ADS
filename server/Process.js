@@ -3,6 +3,7 @@ class Process {
     this.item;
     this.queue = [];
     this.processeds = [];
+    this.itemMostDelayed;
 
     this.events = {
       start: () => {},
@@ -11,7 +12,8 @@ class Process {
       completedItem: () => {},
       addQueueItem: () => {},
       removeQueueItem: () => {},
-      receivedItem: () => {}
+      receivedItem: () => {},
+      mostDelayed: (timeMili) => {}
     };
 
     this.start();
@@ -55,6 +57,8 @@ class Process {
 
   }
 
+
+
   addItem(item) {
     item.receiveDate = Date.now();
     this.events.receivedItem(item);
@@ -82,13 +86,23 @@ class Process {
     setTimeout(() => {
       this.completedItem(item);
       this.goNext();
-    }, item.delay * 1000);
+    }, item.delay );
   }
 
   completedItem(item) {
     item.completeDate = Date.now();
     this.events.completedItem(item);
     this.processeds.push(item);
+    this.mostDelayed(item);
+  }
+
+  mostDelayed(item) {
+    if (this.itemMostDelayed) {
+      this.itemMostDelayed = item.delay > this.itemMostDelayed.delay ? item : this.itemMostDelayed;
+    } else {
+      this.itemMostDelayed = item;
+    }
+    this.events.mostDelayed(this.itemMostDelayed.delay * 1000);
   }
 
   goNext() {

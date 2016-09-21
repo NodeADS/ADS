@@ -32,6 +32,9 @@ class Socket {
       },
       removeQueueItem: (item) => {
         this.io.emit('removeQueueItem', item);
+      },
+      mostDelayed: (miliseconds) => {
+        this.io.emit('mostDelayed', miliseconds);
       }
     });
   }
@@ -116,7 +119,7 @@ class Socket {
 
       let timeOut = setTimeout(() => {
         this.process.addItem(item);
-      }, arrival * 1000 * time);
+      }, arrival  * time);
       this.processTimeouts.push(timeOut);
     });
   }

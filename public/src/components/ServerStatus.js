@@ -1,5 +1,5 @@
 import React from 'react';
-import 'ajax-promise-es6';
+import Qajax from 'qajax';
 import { Collection, CollectionItem, ProgressBar } from 'react-materialize';
 
 
@@ -16,6 +16,15 @@ class ServerStatus extends React.Component {
 
   componentDidMount() {
     this.interval = undefined;
+
+    Qajax('/api/products')
+      .then(Qajax.filterSuccess)
+      .get("responseText") // using a cool Q feature here
+      .then(function (txt) {
+        console.log("server returned: "+txt);
+      }, function (err) {
+        console.log("xhr failure: ", err);
+      });
 /*
     ajax.get('/api/products', {}, {}).then((res)=> {
           console.log(res);
