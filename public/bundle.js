@@ -42758,6 +42758,7 @@
 	      total: 0,
 	      average: 0,
 	      mode: 0,
+	      median: 0,
 	      variance: 0,
 	      deviation: 0
 	    };
@@ -42774,6 +42775,7 @@
 	          total: metrics.processeds,
 	          average: Math.round(metrics.average * 100) / 100,
 	          mode: metrics.mode,
+	          median: metrics.median,
 	          variance: Math.round(metrics.variance * 100) / 100,
 	          deviation: Math.round(metrics.deviation * 100) / 100
 	        });
@@ -42790,6 +42792,7 @@
 	          total: metrics.processeds,
 	          average: Math.round(metrics.average * 100) / 100,
 	          mode: metrics.mode,
+	          median: metrics.median,
 	          variance: Math.round(metrics.variance * 100) / 100,
 	          deviation: Math.round(metrics.deviation * 100) / 100
 	        });
@@ -42831,6 +42834,7 @@
 	            null,
 	            func('Total', this.state.total),
 	            func('Média', this.state.average),
+	            func('Mediana', this.state.median),
 	            func('Moda', this.state.mode),
 	            func('Variância', this.state.variance),
 	            func('Desvio Padrão', this.state.deviation)
@@ -42887,6 +42891,7 @@
 	      total: 0,
 	      average: 0,
 	      mode: 0,
+	      median: 0,
 	      variance: 0,
 	      deviation: 0
 	    };
@@ -42903,6 +42908,7 @@
 	          total: metrics.processeds,
 	          average: Math.round(metrics.average * 100) / 100,
 	          mode: metrics.mode,
+	          median: metrics.median,
 	          variance: Math.round(metrics.variance * 100) / 100,
 	          deviation: Math.round(metrics.deviation * 100) / 100
 	        });
@@ -42915,6 +42921,7 @@
 	          total: metrics.total,
 	          average: Math.round(metrics.average * 100) / 100,
 	          mode: metrics.mode,
+	          median: metrics.median,
 	          variance: Math.round(metrics.variance * 100) / 100,
 	          deviation: Math.round(metrics.deviation * 100) / 100
 	        });
@@ -42956,6 +42963,7 @@
 	            null,
 	            func('Total', this.state.total),
 	            func('Média', this.state.average),
+	            func('Mediana', this.state.median),
 	            func('Moda', this.state.mode),
 	            func('Variância', this.state.variance),
 	            func('Desvio Padrão', this.state.deviation)
@@ -43079,6 +43087,7 @@
 
 	    _this.state = {
 	      maxTimeComplete: 0,
+	      avgToConclude: 0,
 	      maxTimeStart: 0,
 	      avgInQueue: 0,
 	      maxInativeTime: 0,
@@ -43094,6 +43103,10 @@
 
 	      this.props.socket.on('mostDelayed', function (miliseconds) {
 	        _this2.setState({ maxTimeComplete: (0, _countdown2.default)(0, miliseconds).toString() });
+	      });
+
+	      this.props.socket.on('mostTimeInQueue', function (miliseconds) {
+	        _this2.setState({ maxTimeStart: (0, _countdown2.default)(0, miliseconds).toString() });
 	      });
 	    }
 	  }, {
@@ -43130,8 +43143,9 @@
 	          _react2.default.createElement(
 	            'tbody',
 	            null,
-	            func('Temp máximo para conclusão', this.state.maxTimeComplete),
-	            func('Tempo máximo para inicio', this.state.maxTimeStart),
+	            func('Tempo máximo para conclusão', this.state.maxTimeComplete),
+	            func('Tempo médio para conclusão', this.state.avgToConclude),
+	            func('Tempo máximo na fila', this.state.maxTimeStart),
 	            func('Tempo médio na fila', this.state.avgInQueue),
 	            func('Tempo máximo de inatividade (server)', this.state.maxInativeTime),
 	            func('% uso do Server', this.state.serverUserPercentage)

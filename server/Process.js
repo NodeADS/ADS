@@ -5,9 +5,16 @@ class Process {
       mode: 0,
       variance: 0,
       deviation: 0,
+      median: 0,
       processeds: 0,
-      queue: 0
+      queue: 0,
+      total: 0
     };
+    this.item;
+    this.queue = [];
+    this.processeds = [];
+    this.itemMostDelayed = metrics;
+    this.itemMostTimeInQueue = metrics;
 
     this.item;
     this.queue = [];
@@ -26,7 +33,8 @@ class Process {
       receivedItem: () => {},
       mostDelayed: (timeMili) => {},
       recalculateMetricsDelay: () => {},
-      recalculateMetricsArrival: () => {}
+      recalculateMetricsArrival: () => {},
+      mostTimeInQueue: (timeMili) => {}
     };
 
     this.start();
@@ -78,8 +86,6 @@ class Process {
 
   }
 
-
-
   addItem(item) {
     item.receiveDate = Date.now();
     this.events.receivedItem(item);
@@ -104,30 +110,14 @@ class Process {
     //console.log('process', this.item, this.queue);
     //console.log('');
     item.startDate = Date.now();
+    item.timeInQueue = item.startDate - item.receiveDate;
+    this.mostTimeInQueue(item);
     this.events.processItem(item);
     this.recalculateMetricsArrival();
     setTimeout(() => {
       this.completedItem(item);
       this.goNext();
     }, item.delay * 1000);
-  }
-
-  completedItem(item) {
-    item.completeDate = Date.now();
-    this.events.completedItem(item);
-    this.processeds.push(item);
-    this.mostDelayed(item);
-    this.recalculateMetricsDelay();
-    this.recalculateMetricsArrival();
-  }
-
-  mostDelayed(item) {
-    if (this.itemMostDelayed) {
-      this.itemMostDelayed = item.delay > this.itemMostDelayed.delay ? item : this.itemMostDelayed;
-    } else {
-      this.itemMostDelayed = item;
-    }
-    this.events.mostDelayed(this.itemMostDelayed.delay * 1000);
   }
 
   goNext() {
@@ -138,6 +128,34 @@ class Process {
     } else {
       this.item = undefined;
     }
+  }
+  
+  completedItem(item) {
+    item.completeDate = Date.now();
+    item.timeToComplete = item.completeDate - item.receiveDate;
+    this.events.completedItem(item);
+    this.processeds.push(item);
+    this.mostDelayed(item);
+    this.recalculateMetricsDelay();
+    this.recalculateMetricsArrival();
+  }
+
+  mostDelayed(item) {
+    if (this.itemMostDelayed) {
+      this.itemMostDelayed = item.timeToComplete > this.itemMostDelayed.timeToComplete ? item : this.itemMostDelayed;
+    } else {
+      this.itemMostDelayed = item;
+    }
+    this.events.mostDelayed(this.itemMostDelayed.timeToComplete);
+  }
+
+  mostTimeInQueue(item) {
+    if (this.itemMostTimeInQueue) {
+      this.itemMostTimeInQueue = item.timeInQueue > this.itemMostTimeInQueue.timeInQueue ? item : this.itemMostTimeInQueue;
+    } else {
+      this.itemMostTimeInQueue = item;
+    }
+    this.events.mostTimeInQueue(this.itemMostTimeInQueue.timeInQueue);
   }
 
   recalculateMetricsArrival() {
@@ -165,6 +183,7 @@ class Process {
     obj.mode = this.getMode(itens);
     obj.variance = this.getVariance(itens, obj.average);
     obj.deviation = this.getDeviation(obj.variance);
+    obj.median = this.getMedian(itens);
     obj.processeds = this.processeds.length;
     obj.queue = this.queue.length;
     obj.total = this.queue.length + this.processeds.length + (this.item ? 1 : 0);
@@ -203,6 +222,11 @@ class Process {
     return itens.reduce((p, c) => {
       return p + Math.pow(c - average, 2);
     }, 0) / itens.length;
+  }
+
+  getMedian(itens) {
+    let middle = Math.floor(itens.length / 2);
+    return itens[middle];
   }
 
   getDeviation(variance) {

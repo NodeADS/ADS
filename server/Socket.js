@@ -42,6 +42,9 @@ class Socket {
       recalculateMetricsArrival: (metrics) => {
         this.io.emit('recalculateMetricsArrival', metrics);
       },
+      mostTimeInQueue: (miliseconds) => {
+        this.io.emit('mostTimeInQueue', miliseconds);
+      }
     });
   }
 
@@ -125,7 +128,8 @@ class Socket {
 
       let timeOut = setTimeout(() => {
         this.process.addItem(item);
-      }, arrival * 1000 * time);
+      }, arrival * time * 1000);
+
       this.processTimeouts.push(timeOut);
     });
   }
