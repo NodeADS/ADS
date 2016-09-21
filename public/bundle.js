@@ -43108,6 +43108,13 @@
 	      this.props.socket.on('mostTimeInQueue', function (miliseconds) {
 	        _this2.setState({ maxTimeStart: (0, _countdown2.default)(0, miliseconds).toString() });
 	      });
+
+	      this.props.socket.on('recalculateMetrics', function (metrics) {
+	        _this2.setState({
+	          avgToConclude: (0, _countdown2.default)(0, metrics.avgToComplete).toString(),
+	          avgInQueue: (0, _countdown2.default)(0, metrics.avgInQueue).toString()
+	        });
+	      });
 	    }
 	  }, {
 	    key: 'render',

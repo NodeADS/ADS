@@ -8,8 +8,11 @@ class Process {
       median: 0,
       processeds: 0,
       queue: 0,
-      total: 0
+      total: 0,
+      avgInQueue: 0,
+      avgToComplete: 0
     };
+
     this.item;
     this.queue = [];
     this.processeds = [];
@@ -178,6 +181,10 @@ class Process {
 
   recalculateMetrics(itens, callback) {
     let obj = {};
+    
+    let itens = this.processeds.map((i) => i.delay);
+    let timesQueue = this.processeds.map((i) => i.timeInQueue);
+    let timesToComplete = this.processeds.map((i) => i.timeToComplete);
 
     obj.average = this.getAverage(itens);
     obj.mode = this.getMode(itens);
@@ -189,6 +196,12 @@ class Process {
     obj.total = this.queue.length + this.processeds.length + (this.item ? 1 : 0);
 
     callback(obj);
+
+    this.metrics.avgInQueue = this.getAverage(timesQueue);
+    this.metrics.avgToComplete = this.getAverage(timesToComplete);
+
+    this.events.recalculateMetrics(this.metrics);
+
   }
 
   getAverage(itens) {
