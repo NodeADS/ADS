@@ -60,7 +60,7 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _socket = __webpack_require__(237);
+	var _socket = __webpack_require__(238);
 
 	var _socket2 = _interopRequireDefault(_socket);
 
@@ -33945,19 +33945,19 @@
 
 	var _ServerBox2 = _interopRequireDefault(_ServerBox);
 
-	var _SolicitationBox = __webpack_require__(226);
+	var _SolicitationBox = __webpack_require__(227);
 
 	var _SolicitationBox2 = _interopRequireDefault(_SolicitationBox);
 
-	var _ParametersBox = __webpack_require__(231);
+	var _ParametersBox = __webpack_require__(232);
 
 	var _ParametersBox2 = _interopRequireDefault(_ParametersBox);
 
-	var _ResultsBox = __webpack_require__(232);
+	var _ResultsBox = __webpack_require__(233);
 
 	var _ResultsBox2 = _interopRequireDefault(_ResultsBox);
 
-	var _MetricsBox = __webpack_require__(235);
+	var _MetricsBox = __webpack_require__(236);
 
 	var _MetricsBox2 = _interopRequireDefault(_MetricsBox);
 
@@ -34049,9 +34049,9 @@
 
 	var _ServerStatus2 = _interopRequireDefault(_ServerStatus);
 
-	var _Server = __webpack_require__(225);
+	var _ServerList = __webpack_require__(225);
 
-	var _Server2 = _interopRequireDefault(_Server);
+	var _ServerList2 = _interopRequireDefault(_ServerList);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34073,7 +34073,7 @@
 	  _createClass(ServerBox, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_ServerStatus2.default, { socket: this.props.socket });
+	      return _react2.default.createElement(_ServerList2.default, { socket: this.props.socket });
 	    }
 	  }]);
 
@@ -40728,6 +40728,84 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Server = __webpack_require__(226);
+
+	var _Server2 = _interopRequireDefault(_Server);
+
+	var _reactMaterialize = __webpack_require__(183);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ServerList = function (_React$Component) {
+	  _inherits(ServerList, _React$Component);
+
+	  function ServerList(props) {
+	    _classCallCheck(this, ServerList);
+
+	    var _this = _possibleConstructorReturn(this, (ServerList.__proto__ || Object.getPrototypeOf(ServerList)).call(this, props));
+
+	    _this.state = {
+	      servers: []
+	    };
+	    return _this;
+	  }
+
+	  _createClass(ServerList, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      this.props.socket.on('createdServers', function (servers) {
+	        _this2.setState({ servers: servers });
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+
+	      var nodes = this.state.servers.map(function (server) {
+	        return _react2.default.createElement(
+	          _reactMaterialize.CollectionItem,
+	          { key: server.id },
+	          _react2.default.createElement(_Server2.default, { server: server, socket: _this3.props.socket })
+	        );
+	      });
+	      return _react2.default.createElement(
+	        _reactMaterialize.Collection,
+	        { header: 'Atendimento' },
+	        nodes
+	      );
+	    }
+	  }]);
+
+	  return ServerList;
+	}(_react2.default.Component);
+
+	exports.default = ServerList;
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(5);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _qajax = __webpack_require__(179);
 
 	var _qajax2 = _interopRequireDefault(_qajax);
@@ -40756,15 +40834,64 @@
 	      showProgress: true,
 	      progress: 0
 	    };
+	    _this.interval;
 	    return _this;
 	  }
 
 	  _createClass(Server, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      (0, _qajax2.default)('/api/').then(_qajax2.default.filterSuccess).then(_qajax2.default.toJSON).then(function (data) {}, function (err) {
-	        console.log(err);
+	      var _this2 = this;
+
+	      /*Qajax('/api/')
+	        .then(Qajax.filterSuccess)
+	        .then(Qajax.toJSON)
+	        .then((data) => {
+	          }, function (err) {
+	          console.log(err);
+	        });*/
+	      this.props.socket.on('serverIdle', function (server) {
+	        if (server.id != _this2.props.server.id) return;
+	        _this2.setState({
+	          status: 'Aguardando solicitação',
+	          collor: 'green-text',
+	          showProgress: false
+	        });
 	      });
+
+	      this.props.socket.on('serverProcessingItem', function (server, item) {
+	        if (server.id != _this2.props.server.id) return;
+	        var intervalTime = 100,
+	            sum = intervalTime / (item.delay * 1000) * 100,
+	            progress = 0;
+
+	        _this2.setState({
+	          status: 'Processando ' + item.name,
+	          collor: 'green-text',
+	          showProgress: true
+	        });
+
+	        _this2.interval = setInterval(function () {
+	          progress += sum;
+	          _this2.setState({ progress: progress });
+	        }, intervalTime);
+	      });
+
+	      this.props.socket.on('serverProcessedItem', function (server, item) {
+	        if (server.id != _this2.props.server.id) return;
+	        _this2.setState({
+	          status: item.name + ' processada',
+	          collor: 'green-text',
+	          showProgress: true,
+	          progress: 100
+	        });
+	        clearInterval(_this2.interval);
+	      });
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      clearInterval(this.interval);
 	    }
 	  }, {
 	    key: 'render',
@@ -40793,7 +40920,7 @@
 	exports.default = Server;
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40808,11 +40935,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SolicitationsQueue = __webpack_require__(227);
+	var _SolicitationsQueue = __webpack_require__(228);
 
 	var _SolicitationsQueue2 = _interopRequireDefault(_SolicitationsQueue);
 
-	var _SolicitationsCompleted = __webpack_require__(230);
+	var _SolicitationsCompleted = __webpack_require__(231);
 
 	var _SolicitationsCompleted2 = _interopRequireDefault(_SolicitationsCompleted);
 
@@ -40851,7 +40978,7 @@
 	exports.default = SolicitationBox;
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40868,7 +40995,7 @@
 
 	var _reactMaterialize = __webpack_require__(183);
 
-	var _SolicitationItem = __webpack_require__(228);
+	var _SolicitationItem = __webpack_require__(229);
 
 	var _SolicitationItem2 = _interopRequireDefault(_SolicitationItem);
 
@@ -40919,7 +41046,7 @@
 	        _this2.setState({ solicitations: solicitations });
 	      });
 
-	      this.props.socket.on('completedItem', function (item) {
+	      this.props.socket.on('serverProcessedItem', function (server, item) {
 	        var solicitations = _this2.state.solicitations;
 	        solicitations = solicitations.filter(function (sol) {
 	          return sol.id != item.id;
@@ -40953,7 +41080,7 @@
 	exports.default = SolicitationsQueue;
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40968,7 +41095,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _countdown = __webpack_require__(229);
+	var _countdown = __webpack_require__(230);
 
 	var _countdown2 = _interopRequireDefault(_countdown);
 
@@ -41045,7 +41172,7 @@
 	    value: function setupSocket() {
 	      var _this3 = this;
 
-	      this.props.socket.on('processItem', function (item) {
+	      this.props.socket.on('serverProcessingItem', function (server, item) {
 	        if (item.id != _this3.props.solicitation.id) return;
 
 	        _this3.setState({
@@ -41067,7 +41194,7 @@
 	      });
 	      */
 
-	      this.props.socket.on('addQueueItem', function (item) {
+	      this.props.socket.on('queueItem', function (item) {
 	        if (item.id != _this3.props.solicitation.id) return;
 	        var intervalTime = 1000,
 	            val = 0;
@@ -41083,15 +41210,6 @@
 	          val += intervalTime;
 	          _this3.setState({ timeOnQueue: (0, _countdown2.default)(0, val).toString() });
 	        }, intervalTime);
-	      });
-
-	      this.props.socket.on('removeQueueItem', function (item) {
-	        if (item.id != _this3.props.solicitation.id) return;
-	        _this3.setState({
-	          status: 'Parado',
-	          collor: 'orange-text',
-	          queue: false
-	        });
 	      });
 	    }
 	  }, {
@@ -41126,7 +41244,7 @@
 	exports.default = SolicitationItem;
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports) {
 
 	/*global window */
@@ -42498,7 +42616,7 @@
 
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42513,7 +42631,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SolicitationItem = __webpack_require__(228);
+	var _SolicitationItem = __webpack_require__(229);
 
 	var _SolicitationItem2 = _interopRequireDefault(_SolicitationItem);
 
@@ -42585,7 +42703,7 @@
 	exports.default = SolicitationsCompleted;
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42668,7 +42786,7 @@
 	        running: true
 	      });
 	      this.props.socket.emit('start', {
-	        time: this.state.time == 1 ? 's' : 'm'
+	        servers: this.state.servers
 	      });
 	    }
 	  }, {
@@ -42716,7 +42834,7 @@
 	exports.default = ParametersBox;
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42733,11 +42851,11 @@
 
 	var _reactMaterialize = __webpack_require__(183);
 
-	var _ResultDelay = __webpack_require__(233);
+	var _ResultDelay = __webpack_require__(234);
 
 	var _ResultDelay2 = _interopRequireDefault(_ResultDelay);
 
-	var _ResultArrival = __webpack_require__(234);
+	var _ResultArrival = __webpack_require__(235);
 
 	var _ResultArrival2 = _interopRequireDefault(_ResultArrival);
 
@@ -42792,7 +42910,7 @@
 	exports.default = ResultsBox;
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42925,7 +43043,7 @@
 	exports.default = ResultDelay;
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43054,7 +43172,7 @@
 	exports.default = ResultArrival;
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43071,7 +43189,7 @@
 
 	var _reactMaterialize = __webpack_require__(183);
 
-	var _MetricsServer = __webpack_require__(236);
+	var _MetricsServer = __webpack_require__(237);
 
 	var _MetricsServer2 = _interopRequireDefault(_MetricsServer);
 
@@ -43121,7 +43239,7 @@
 	exports.default = MetricsBox;
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43138,7 +43256,7 @@
 
 	var _reactMaterialize = __webpack_require__(183);
 
-	var _countdown = __webpack_require__(229);
+	var _countdown = __webpack_require__(230);
 
 	var _countdown2 = _interopRequireDefault(_countdown);
 
@@ -43243,7 +43361,7 @@
 	exports.default = MetricsServer;
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -43251,10 +43369,10 @@
 	 * Module dependencies.
 	 */
 
-	var url = __webpack_require__(238);
-	var parser = __webpack_require__(243);
-	var Manager = __webpack_require__(250);
-	var debug = __webpack_require__(240)('socket.io-client');
+	var url = __webpack_require__(239);
+	var parser = __webpack_require__(244);
+	var Manager = __webpack_require__(251);
+	var debug = __webpack_require__(241)('socket.io-client');
 
 	/**
 	 * Module exports.
@@ -43336,12 +43454,12 @@
 	 * @api public
 	 */
 
-	exports.Manager = __webpack_require__(250);
-	exports.Socket = __webpack_require__(276);
+	exports.Manager = __webpack_require__(251);
+	exports.Socket = __webpack_require__(277);
 
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -43349,8 +43467,8 @@
 	 * Module dependencies.
 	 */
 
-	var parseuri = __webpack_require__(239);
-	var debug = __webpack_require__(240)('socket.io-client:url');
+	var parseuri = __webpack_require__(240);
+	var debug = __webpack_require__(241)('socket.io-client:url');
 
 	/**
 	 * Module exports.
@@ -43424,7 +43542,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports) {
 
 	/**
@@ -43469,7 +43587,7 @@
 
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -43479,7 +43597,7 @@
 	 * Expose `debug()` as the module.
 	 */
 
-	exports = module.exports = __webpack_require__(241);
+	exports = module.exports = __webpack_require__(242);
 	exports.log = log;
 	exports.formatArgs = formatArgs;
 	exports.save = save;
@@ -43643,7 +43761,7 @@
 
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -43659,7 +43777,7 @@
 	exports.disable = disable;
 	exports.enable = enable;
 	exports.enabled = enabled;
-	exports.humanize = __webpack_require__(242);
+	exports.humanize = __webpack_require__(243);
 
 	/**
 	 * The currently active debug mode names, and names to skip.
@@ -43846,7 +43964,7 @@
 
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports) {
 
 	/**
@@ -43977,7 +44095,7 @@
 
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -43985,12 +44103,12 @@
 	 * Module dependencies.
 	 */
 
-	var debug = __webpack_require__(240)('socket.io-parser');
-	var json = __webpack_require__(244);
-	var isArray = __webpack_require__(246);
-	var Emitter = __webpack_require__(247);
-	var binary = __webpack_require__(248);
-	var isBuf = __webpack_require__(249);
+	var debug = __webpack_require__(241)('socket.io-parser');
+	var json = __webpack_require__(245);
+	var isArray = __webpack_require__(247);
+	var Emitter = __webpack_require__(248);
+	var binary = __webpack_require__(249);
+	var isBuf = __webpack_require__(250);
 
 	/**
 	 * Protocol version.
@@ -44383,7 +44501,7 @@
 
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */
@@ -45289,10 +45407,10 @@
 	  }
 	}).call(this);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(245)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(246)(module), (function() { return this; }())))
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -45308,7 +45426,7 @@
 
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -45317,7 +45435,7 @@
 
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports) {
 
 	
@@ -45487,7 +45605,7 @@
 
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -45496,8 +45614,8 @@
 	 * Module requirements
 	 */
 
-	var isArray = __webpack_require__(246);
-	var isBuf = __webpack_require__(249);
+	var isArray = __webpack_require__(247);
+	var isBuf = __webpack_require__(250);
 
 	/**
 	 * Replaces every Buffer | ArrayBuffer in packet with a numbered placeholder.
@@ -45635,7 +45753,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -45655,7 +45773,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -45663,15 +45781,15 @@
 	 * Module dependencies.
 	 */
 
-	var eio = __webpack_require__(251);
-	var Socket = __webpack_require__(276);
-	var Emitter = __webpack_require__(277);
-	var parser = __webpack_require__(243);
-	var on = __webpack_require__(279);
-	var bind = __webpack_require__(280);
-	var debug = __webpack_require__(240)('socket.io-client:manager');
-	var indexOf = __webpack_require__(274);
-	var Backoff = __webpack_require__(282);
+	var eio = __webpack_require__(252);
+	var Socket = __webpack_require__(277);
+	var Emitter = __webpack_require__(278);
+	var parser = __webpack_require__(244);
+	var on = __webpack_require__(280);
+	var bind = __webpack_require__(281);
+	var debug = __webpack_require__(241)('socket.io-client:manager');
+	var indexOf = __webpack_require__(275);
+	var Backoff = __webpack_require__(283);
 
 	/**
 	 * IE6+ hasOwnProperty
@@ -46218,19 +46336,19 @@
 
 
 /***/ },
-/* 251 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	module.exports =  __webpack_require__(252);
-
-
-/***/ },
 /* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	module.exports = __webpack_require__(253);
+	module.exports =  __webpack_require__(253);
+
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	module.exports = __webpack_require__(254);
 
 	/**
 	 * Exports parser
@@ -46238,25 +46356,25 @@
 	 * @api public
 	 *
 	 */
-	module.exports.parser = __webpack_require__(260);
+	module.exports.parser = __webpack_require__(261);
 
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies.
 	 */
 
-	var transports = __webpack_require__(254);
-	var Emitter = __webpack_require__(247);
-	var debug = __webpack_require__(240)('engine.io-client:socket');
-	var index = __webpack_require__(274);
-	var parser = __webpack_require__(260);
-	var parseuri = __webpack_require__(239);
-	var parsejson = __webpack_require__(275);
-	var parseqs = __webpack_require__(268);
+	var transports = __webpack_require__(255);
+	var Emitter = __webpack_require__(248);
+	var debug = __webpack_require__(241)('engine.io-client:socket');
+	var index = __webpack_require__(275);
+	var parser = __webpack_require__(261);
+	var parseuri = __webpack_require__(240);
+	var parsejson = __webpack_require__(276);
+	var parseqs = __webpack_require__(269);
 
 	/**
 	 * Module exports.
@@ -46380,9 +46498,9 @@
 	 */
 
 	Socket.Socket = Socket;
-	Socket.Transport = __webpack_require__(259);
-	Socket.transports = __webpack_require__(254);
-	Socket.parser = __webpack_require__(260);
+	Socket.Transport = __webpack_require__(260);
+	Socket.transports = __webpack_require__(255);
+	Socket.parser = __webpack_require__(261);
 
 	/**
 	 * Creates transport of the given type.
@@ -46977,17 +47095,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies
 	 */
 
-	var XMLHttpRequest = __webpack_require__(255);
-	var XHR = __webpack_require__(257);
-	var JSONP = __webpack_require__(271);
-	var websocket = __webpack_require__(272);
+	var XMLHttpRequest = __webpack_require__(256);
+	var XHR = __webpack_require__(258);
+	var JSONP = __webpack_require__(272);
+	var websocket = __webpack_require__(273);
 
 	/**
 	 * Export transports.
@@ -47037,11 +47155,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// browser shim for xmlhttprequest module
-	var hasCORS = __webpack_require__(256);
+	var hasCORS = __webpack_require__(257);
 
 	module.exports = function(opts) {
 	  var xdomain = opts.xdomain;
@@ -47079,7 +47197,7 @@
 
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports) {
 
 	
@@ -47102,18 +47220,18 @@
 
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module requirements.
 	 */
 
-	var XMLHttpRequest = __webpack_require__(255);
-	var Polling = __webpack_require__(258);
-	var Emitter = __webpack_require__(247);
-	var inherit = __webpack_require__(269);
-	var debug = __webpack_require__(240)('engine.io-client:polling-xhr');
+	var XMLHttpRequest = __webpack_require__(256);
+	var Polling = __webpack_require__(259);
+	var Emitter = __webpack_require__(248);
+	var inherit = __webpack_require__(270);
+	var debug = __webpack_require__(241)('engine.io-client:polling-xhr');
 
 	/**
 	 * Module exports.
@@ -47521,19 +47639,19 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Transport = __webpack_require__(259);
-	var parseqs = __webpack_require__(268);
-	var parser = __webpack_require__(260);
-	var inherit = __webpack_require__(269);
-	var yeast = __webpack_require__(270);
-	var debug = __webpack_require__(240)('engine.io-client:polling');
+	var Transport = __webpack_require__(260);
+	var parseqs = __webpack_require__(269);
+	var parser = __webpack_require__(261);
+	var inherit = __webpack_require__(270);
+	var yeast = __webpack_require__(271);
+	var debug = __webpack_require__(241)('engine.io-client:polling');
 
 	/**
 	 * Module exports.
@@ -47546,7 +47664,7 @@
 	 */
 
 	var hasXHR2 = (function() {
-	  var XMLHttpRequest = __webpack_require__(255);
+	  var XMLHttpRequest = __webpack_require__(256);
 	  var xhr = new XMLHttpRequest({ xdomain: false });
 	  return null != xhr.responseType;
 	})();
@@ -47774,15 +47892,15 @@
 
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var parser = __webpack_require__(260);
-	var Emitter = __webpack_require__(247);
+	var parser = __webpack_require__(261);
+	var Emitter = __webpack_require__(248);
 
 	/**
 	 * Module exports.
@@ -47935,19 +48053,19 @@
 
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies.
 	 */
 
-	var keys = __webpack_require__(261);
-	var hasBinary = __webpack_require__(262);
-	var sliceBuffer = __webpack_require__(263);
-	var base64encoder = __webpack_require__(264);
-	var after = __webpack_require__(265);
-	var utf8 = __webpack_require__(266);
+	var keys = __webpack_require__(262);
+	var hasBinary = __webpack_require__(263);
+	var sliceBuffer = __webpack_require__(264);
+	var base64encoder = __webpack_require__(265);
+	var after = __webpack_require__(266);
+	var utf8 = __webpack_require__(267);
 
 	/**
 	 * Check if we are running an android browser. That requires us to use
@@ -48004,7 +48122,7 @@
 	 * Create a blob api even for blob builder when vendor prefixes exist
 	 */
 
-	var Blob = __webpack_require__(267);
+	var Blob = __webpack_require__(268);
 
 	/**
 	 * Encodes a packet.
@@ -48536,7 +48654,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports) {
 
 	
@@ -48561,7 +48679,7 @@
 
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -48569,7 +48687,7 @@
 	 * Module requirements.
 	 */
 
-	var isArray = __webpack_require__(246);
+	var isArray = __webpack_require__(247);
 
 	/**
 	 * Module exports.
@@ -48626,7 +48744,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports) {
 
 	/**
@@ -48661,7 +48779,7 @@
 
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports) {
 
 	/*
@@ -48726,7 +48844,7 @@
 
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports) {
 
 	module.exports = after
@@ -48760,7 +48878,7 @@
 
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! https://mths.be/utf8js v2.0.0 by @mathias */
@@ -49006,10 +49124,10 @@
 
 	}(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(245)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(246)(module), (function() { return this; }())))
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -49112,7 +49230,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports) {
 
 	/**
@@ -49155,7 +49273,7 @@
 
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports) {
 
 	
@@ -49167,7 +49285,7 @@
 	};
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -49241,7 +49359,7 @@
 
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -49249,8 +49367,8 @@
 	 * Module requirements.
 	 */
 
-	var Polling = __webpack_require__(258);
-	var inherit = __webpack_require__(269);
+	var Polling = __webpack_require__(259);
+	var inherit = __webpack_require__(270);
 
 	/**
 	 * Module exports.
@@ -49486,19 +49604,19 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies.
 	 */
 
-	var Transport = __webpack_require__(259);
-	var parser = __webpack_require__(260);
-	var parseqs = __webpack_require__(268);
-	var inherit = __webpack_require__(269);
-	var yeast = __webpack_require__(270);
-	var debug = __webpack_require__(240)('engine.io-client:websocket');
+	var Transport = __webpack_require__(260);
+	var parser = __webpack_require__(261);
+	var parseqs = __webpack_require__(269);
+	var inherit = __webpack_require__(270);
+	var yeast = __webpack_require__(271);
+	var debug = __webpack_require__(241)('engine.io-client:websocket');
 	var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 
 	/**
@@ -49510,7 +49628,7 @@
 	var WebSocket = BrowserWebSocket;
 	if (!WebSocket && typeof window === 'undefined') {
 	  try {
-	    WebSocket = __webpack_require__(273);
+	    WebSocket = __webpack_require__(274);
 	  } catch (e) { }
 	}
 
@@ -49781,13 +49899,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports) {
 
 	
@@ -49802,7 +49920,7 @@
 	};
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -49840,7 +49958,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -49848,13 +49966,13 @@
 	 * Module dependencies.
 	 */
 
-	var parser = __webpack_require__(243);
-	var Emitter = __webpack_require__(277);
-	var toArray = __webpack_require__(278);
-	var on = __webpack_require__(279);
-	var bind = __webpack_require__(280);
-	var debug = __webpack_require__(240)('socket.io-client:socket');
-	var hasBin = __webpack_require__(281);
+	var parser = __webpack_require__(244);
+	var Emitter = __webpack_require__(278);
+	var toArray = __webpack_require__(279);
+	var on = __webpack_require__(280);
+	var bind = __webpack_require__(281);
+	var debug = __webpack_require__(241)('socket.io-client:socket');
+	var hasBin = __webpack_require__(282);
 
 	/**
 	 * Module exports.
@@ -50258,7 +50376,7 @@
 
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports) {
 
 	
@@ -50425,7 +50543,7 @@
 
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports) {
 
 	module.exports = toArray
@@ -50444,7 +50562,7 @@
 
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports) {
 
 	
@@ -50474,7 +50592,7 @@
 
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports) {
 
 	/**
@@ -50503,7 +50621,7 @@
 
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -50511,7 +50629,7 @@
 	 * Module requirements.
 	 */
 
-	var isArray = __webpack_require__(246);
+	var isArray = __webpack_require__(247);
 
 	/**
 	 * Module exports.
@@ -50569,7 +50687,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports) {
 
 	

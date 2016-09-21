@@ -53,7 +53,7 @@ class SolicitationItem extends React.Component {
   }
 
   setupSocket() {
-    this.props.socket.on('processItem', (item) => {
+    this.props.socket.on('serverProcessingItem', (server, item) => {
       if (item.id != this.props.solicitation.id) return;
 
 
@@ -76,7 +76,7 @@ class SolicitationItem extends React.Component {
     });
     */
 
-    this.props.socket.on('addQueueItem', (item) => {
+    this.props.socket.on('queueItem', (item) => {
       if (item.id != this.props.solicitation.id) return;
       let intervalTime = 1000
          , val = 0;
@@ -93,15 +93,6 @@ class SolicitationItem extends React.Component {
         val += intervalTime;
         this.setState({ timeOnQueue: countdown(0, val).toString() });
       }, intervalTime);
-    });
-
-    this.props.socket.on('removeQueueItem', (item) => {
-      if (item.id != this.props.solicitation.id) return;
-      this.setState({
-        status: 'Parado',
-        collor: 'orange-text',
-        queue: false
-      });
     });
   }
 

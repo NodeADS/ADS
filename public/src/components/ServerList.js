@@ -18,9 +18,11 @@ class ServerList extends React.Component {
 
   render() {
     let nodes = this.state.servers.map((server) => {
-      <CollectionItem key={server.id}>
-        <Server server={server} />
-      </CollectionItem>
+      return (
+        <CollectionItem key={server.id}>
+          <Server server={server} socket={this.props.socket} />
+        </CollectionItem>
+      );
     });
     return (
       <Collection header='Atendimento'>

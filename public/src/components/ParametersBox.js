@@ -47,7 +47,7 @@ class ParametersBox extends React.Component {
       running: true
     });
     this.props.socket.emit('start', {
-      time: this.state.time == 1 ? 's' : 'm'
+      servers: this.state.servers
     });
   }
 

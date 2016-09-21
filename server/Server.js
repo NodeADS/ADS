@@ -4,11 +4,7 @@ class Server {
   constructor(number, events) {
     this.id = Guid.create();
     this.name = `Servidor ${number}`;
-    this.processingItem;
-
-    this.events = {
-      completedItem: (server, item) => {}
-    }
+    this.processingItem = undefined;
   }
 
   getInfo() {
@@ -18,20 +14,20 @@ class Server {
     }
   }
 
-  processItem(item) {
-    if (this.processItem) throw new Error('Processing a item. Cannot process another.')
+  processItem(item, callback) {
+    if (this.processingItem) throw new Error('Processing a item. Cannot process another.')
     this.processingItem = item;
 
     setTimeout(() => {
       let i = this.processingItem;
       this.processingItem = undefined;
 
-      this.events.completedItem(i);
+      callback(i);
     }, item.delay * 1000);
   }
 
   isProcessing() {
-    return this.item != undefined;
+    return this.processingItem != undefined;
   }
 }
 

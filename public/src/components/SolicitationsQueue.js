@@ -33,7 +33,7 @@ class SolicitationsQueue extends React.Component {
       this.setState({solicitations: solicitations});
     });
 
-    this.props.socket.on('completedItem', (item) => {
+    this.props.socket.on('serverProcessedItem', (server, item) => {
       let solicitations = this.state.solicitations;
       solicitations = solicitations.filter((sol) => sol.id != item.id);
       this.setState({solicitations: solicitations});

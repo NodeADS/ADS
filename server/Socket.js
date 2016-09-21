@@ -13,7 +13,46 @@ class Socket {
     this.process = process
     this.serverManager = serverManager;
 
-    
+    serverManager.setGeralEvents({
+      receivedItem: (item) => {
+        this.io.emit('receivedItem', item);
+      },
+      queueItem: (item) => {
+        this.io.emit('queueItem', item);
+      },
+      mostDelayed: (timeMili) => {
+        this.io.emit('mostDelayed', timeMili);
+      },
+      mostTimeInQueue: (timeMili) => {
+        this.io.emit('mostTimeInQueue', timeMili);
+      }
+    });
+    serverManager.setServerEvents({
+      create: (servers) => {
+        this.io.emit('createdServers', servers);
+      },
+      idle: (server) => {
+        this.io.emit('serverIdle', server);
+      },
+      processingItem: (server, item) => {
+        this.io.emit('serverProcessingItem', server, item);
+      },
+      processedItem: (server, item) => {
+        this.io.emit('serverProcessedItem', server, item);
+      }
+    });
+    serverManager.setMetricsEvents({
+      updatedTimeInQueue: (metrics) => {
+        this.io.emit('updatedTimeInQueue', metrics);
+      },
+      updatedProcessingTime: (metrics) => {
+        this.io.emit('updatedProcessingTime', metrics);
+      },
+      updatedAverages: (metrics) => {
+        this.io.emit('updatedAverages', metrics);
+      }
+    });
+
 
     process.setEvents({
       start: () => {
@@ -64,12 +103,13 @@ class Socket {
       socket.emit('processing', this.process.isProcessing());
 
       socket.on('start', (data) => {
-        this.process.start();
+        this.serverManager.stop();
+        this.serverManager.start(data.servers);
         self.startProcessing(data);
       });
 
       socket.on('stop', () => {
-        this.process.stop();
+        this.serverManager.stop();
       });
 
       socket.on('serverStatus', () => {
@@ -96,26 +136,6 @@ class Socket {
         socket.emit('solicitations', self.solicitation.get());
       });
 
-      socket.on('resultSolicitation', () => {
-        socket.emit('resultSolicitation', {
-          total: self.process.getTotal(),
-          average: 0,
-          mode: 0,
-          variance: 0,
-          deviation: 0
-        });
-      });
-
-      socket.on('resultServer', () => {
-        socket.emit('resultServer', {
-          total: self.process.getProcesseds().length,
-          average: 0,
-          mode: 0,
-          variance: 0,
-          deviation: 0
-        });
-      });
-
       socket.on('disconnect', () => {
         console.log('user disconnected');
       });
@@ -125,18 +145,16 @@ class Socket {
   startProcessing(data) {
     var itens = this.solicitation.get();
     var arrivalSum = 0;
-    var time = data.time == 's' ? 1 : 60;
 
     this.processTimeouts.map((timeOut) => clearTimeout(timeOut));
-    this.process.reset();
 
     itens.map((item) => {
       arrivalSum += item.arrival;
       let arrival = arrivalSum;
 
       let timeOut = setTimeout(() => {
-        this.process.addItem(item);
-      }, arrival * time * 1000);
+        this.serverManager.addItem(item);
+      }, arrival * 1000);
 
       this.processTimeouts.push(timeOut);
     });

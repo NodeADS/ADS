@@ -1,6 +1,6 @@
 import React from 'react';
 import ServerStatus from './ServerStatus';
-import Server from './Server';
+import ServerList from './ServerList';
 
 class ServerBox extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class ServerBox extends React.Component {
 
   render() {
     return (
-      <ServerStatus socket={this.props.socket} />
+      <ServerList socket={this.props.socket} />
     );
   }
 }
