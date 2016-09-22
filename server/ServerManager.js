@@ -146,6 +146,7 @@ class ServerManager {
       this.serverEvents.processedItem(server, item);
       this.updateMostDelayed(item);
       this.updatedDelayMetric();
+      this.updatedAveragesMetric();
 
       this.goNext(server)
     });
@@ -202,8 +203,12 @@ class ServerManager {
 
   updatedAveragesMetric() {
     this.metricsEvents.updatedAverages({
-      toConclude: 0,
-      inQueue: 0
+      toConclude: this.processeds.reduce((p, item) => {
+        return p + item.timeToComplete;
+      }, 0) / this.processeds.length,
+      inQueue: this.processeds.reduce((p, item) => {
+        return p + item.timeInQueue;
+      }, 0) / this.processeds.length
     });
   }
 

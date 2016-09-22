@@ -59,7 +59,7 @@ class MetricsServer extends React.Component {
 
     this.props.socket.on('updatedAverages', (metrics) => {
       this.setState({
-        avgToConclude: countdown(0, metrics.toComplete).toString(),
+        avgToConclude: countdown(0, metrics.toConclude).toString(),
         avgInQueue: countdown(0, metrics.inQueue).toString()
       });
     });

@@ -80,24 +80,13 @@ class ParametersBox extends React.Component {
   render() {
     return (
       <Row>
-        <Input s={6} type='number' label="Nº servidores" value={this.state.servers} onChange={this.serversChange} />
-        <Input s={6} type='number' label="Porcentagem de Erro" value={this.state.percentError} onChange={this.percentErrorChange} />
-        <Input s={6} type='number' label="Média de Atendimento" value={this.state.timeAvgAttendance} onChange={this.timeAvgAttendanceChange} />
-        <Input s={6} type='number' label="Tempo Extra" value={this.state.extraTime} onChange={this.extraTimeChange} />
+        <Input s={12} type='number' label="Nº servidores" value={this.state.servers} onChange={this.serversChange} />
         <Button onClick={this.onStart} disabled={this.state.running} >Iniciar</Button>
         <span> </span>
         <Button onClick={this.onStop} disabled={!this.state.running} >Parar</Button>
-        <span> </span>
-        <Button onClick={this.metricClick} >Resultado da Métricas</Button>
       </Row>
     );
   }
-  /*
-  <Input s={12} type='select' label="Tempo da solicitação" value={this.state.time} onChange={this.timeChange} >
-    <option value='1'>Segundos</option>
-    <option value='2'>Minutos</option>
-  </Input>
-  */
 }
 
 export default ParametersBox;

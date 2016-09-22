@@ -40841,7 +40841,7 @@
 	    _this.state = {
 	      status: 'Parado',
 	      collor: 'red-text',
-	      showProgress: true,
+	      showProgress: false,
 	      progress: 0
 	    };
 	    _this.interval;
@@ -40912,8 +40912,8 @@
 	        _this2.setState({
 	          status: item.name + ' processada',
 	          collor: 'green-text',
-	          showProgress: true,
-	          progress: 100
+	          showProgress: false,
+	          progress: 0
 	        });
 	        clearInterval(_this2.interval);
 	      });
@@ -41066,13 +41066,13 @@
 	          let intervalTime = 100
 	             , initDate = new Date(data.item.startDate)
 	             , delay = data.item.delay * 1000;
-	            this.setState({
+	           this.setState({
 	            status: `Processando ${data.item.name}`,
 	            collor: 'green-text',
 	            showProgress: true,
 	            progress: ((new Date() - initDate) / delay) * 100
 	          });
-	            this.interval = setInterval(() => {
+	           this.interval = setInterval(() => {
 	            let completed = new Date() - initDate;
 	            this.setState({ progress: (completed / delay) * 100 });
 	          }, intervalTime);
@@ -42876,10 +42876,7 @@
 	      return _react2.default.createElement(
 	        _reactMaterialize.Row,
 	        null,
-	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, type: 'number', label: 'Nº servidores', value: this.state.servers, onChange: this.serversChange }),
-	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, type: 'number', label: 'Porcentagem de Erro', value: this.state.percentError, onChange: this.percentErrorChange }),
-	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, type: 'number', label: 'Média de Atendimento', value: this.state.timeAvgAttendance, onChange: this.timeAvgAttendanceChange }),
-	        _react2.default.createElement(_reactMaterialize.Input, { s: 6, type: 'number', label: 'Tempo Extra', value: this.state.extraTime, onChange: this.extraTimeChange }),
+	        _react2.default.createElement(_reactMaterialize.Input, { s: 12, type: 'number', label: 'Nº servidores', value: this.state.servers, onChange: this.serversChange }),
 	        _react2.default.createElement(
 	          _reactMaterialize.Button,
 	          { onClick: this.onStart, disabled: this.state.running },
@@ -42894,26 +42891,9 @@
 	          _reactMaterialize.Button,
 	          { onClick: this.onStop, disabled: !this.state.running },
 	          'Parar'
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          null,
-	          ' '
-	        ),
-	        _react2.default.createElement(
-	          _reactMaterialize.Button,
-	          { onClick: this.metricClick },
-	          'Resultado da Métricas'
 	        )
 	      );
 	    }
-	    /*
-	    <Input s={12} type='select' label="Tempo da solicitação" value={this.state.time} onChange={this.timeChange} >
-	      <option value='1'>Segundos</option>
-	      <option value='2'>Minutos</option>
-	    </Input>
-	    */
-
 	  }]);
 
 	  return ParametersBox;
@@ -43411,7 +43391,7 @@
 
 	      this.props.socket.on('updatedAverages', function (metrics) {
 	        _this2.setState({
-	          avgToConclude: (0, _countdown2.default)(0, metrics.toComplete).toString(),
+	          avgToConclude: (0, _countdown2.default)(0, metrics.toConclude).toString(),
 	          avgInQueue: (0, _countdown2.default)(0, metrics.inQueue).toString()
 	        });
 	      });

@@ -8,7 +8,7 @@ class Server extends React.Component {
     this.state = {
       status: 'Parado',
       collor: 'red-text',
-      showProgress: true,
+      showProgress: false,
       progress: 0
     }
     this.interval;
@@ -76,8 +76,8 @@ class Server extends React.Component {
       this.setState({
         status: `${item.name} processada`,
         collor: 'green-text',
-        showProgress: true,
-        progress: 100
+        showProgress: false,
+        progress: 0
       });
       clearInterval(this.interval);
     });
