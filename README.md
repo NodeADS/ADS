@@ -7,13 +7,17 @@ Last version of [NodeJS](https://nodejs.org/en/)
 
 # Installing
 
-Clone this repository then, open the Terminal (on Windows the Cmd) and enter on the directory en run the comand
+Clone this repository then, open the Terminal (on Windows the Cmd) and enter on the directory and run the comand
 
 `npm install`
 
 # Running 
 
-Execute the comand
+To build the projetc:
+
+`npm run build`
+
+To start :
 
 `npm start`
 
