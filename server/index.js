@@ -39,6 +39,14 @@ app.use((req, res, next) => {
 
 socket.start();
 
-app.listen(app.get('port'), function() {
+let Server = app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
 });
+
+exports.listen = () => {
+  Server = app.listen(app.get('port'));
+};
+
+exports.close = (callback) => {
+  Server.close(callback);
+};
