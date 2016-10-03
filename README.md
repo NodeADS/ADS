@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/NodeADS/ADS.svg?branch=master)](https://travis-ci.org/NodeADS/ADS)
+
 # ADS
 Work from colege
 
